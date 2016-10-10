@@ -20,8 +20,6 @@ public class GameScreen implements Screen{
 	
 	public GameScreen(final GameOfPlan gam){
 		this.game = gam;
-		//camera = new OrthographicCamera();
-		//camera.setToOrtho(false,Settings.SCREEN_X,Settings.SCREEN_Y);
 		
 		world = new World(game);
 		worldrenderer = new WorldRenderer(game,world);
@@ -36,16 +34,12 @@ public class GameScreen implements Screen{
 	
 	public void draw()
 	{
-		//camera.update();
-	    //game.batch.setProjectionMatrix(camera.combined);
-	    
 	    world.update();
 	    
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	    
 	    worldrenderer.render();
-	    
 	}
 	
 	@Override

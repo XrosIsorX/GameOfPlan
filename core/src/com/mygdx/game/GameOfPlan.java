@@ -11,7 +11,8 @@ public class GameOfPlan extends Game{
 	public void create() { 
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		this.setScreen(new MenuScreen(this));
+		Assets.load();
+		this.setScreen(new GameScreen(this));
 	}
 	
 	public void render() {

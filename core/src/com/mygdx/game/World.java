@@ -1,17 +1,24 @@
 package com.mygdx.game;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class World {
+	private GameOfPlan game;
+	private Board board;
 	
+	public World(GameOfPlan game)
+	{
+		this.game = game;
+		board = new Board();
+		
+	}
 	
-	public World()
+	public void update()
 	{
 		
 	}
-	public void createBoard(int countrandomgrass,int[]whererandomgrass)
+	
+	public Board getBoard()
 	{
-	     
+		return board;
 	}
+	
 }

@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.MathUtils;
 public class GameScreen implements Screen{
 	final GameOfPlan game;
 	 
-	OrthographicCamera camera;
+	//OrthographicCamera camera;
 	
 	World world;
-	WorldRenderer renderer;
+	WorldRenderer worldrenderer;
 	
 	int[]whererandomgrass = new int[10];
 	int countrandomgrass =0;
@@ -23,35 +23,29 @@ public class GameScreen implements Screen{
 		//camera = new OrthographicCamera();
 		//camera.setToOrtho(false,Settings.SCREEN_X,Settings.SCREEN_Y);
 		
-		world = new World();
-		renderer = new WorldRenderer(game);
+		world = new World(game);
+		worldrenderer = new WorldRenderer(game,world);
 		
-		setrandomgrass();
 	}
 	
-	public void setrandomgrass()
-	{
-		for(int i=0;i<Settings.NUMBER_GRASS;i++)
-		{
-			whererandomgrass[i]=MathUtils.random(0,Settings.BOARD_X*Settings.BOARD_Y);
-		}
-	}
 	
 	public void update()
 	{
-		countrandomgrass=0;
-		world.createBoard(countrandomgrass,whererandomgrass);
+		
 	}
 	
 	public void draw()
 	{
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-	    //camera.update();
+		//camera.update();
 	    //game.batch.setProjectionMatrix(camera.combined);
 	    
-	    renderer.grassrender(countrandomgrass,whererandomgrass);
+	    world.update();
+	    
+		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	    
+	    worldrenderer.render();
+	    
 	}
 	
 	@Override

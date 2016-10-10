@@ -2,31 +2,19 @@ package com.mygdx.game;
 
 public class WorldRenderer {
 	GameOfPlan game;
+	BoardRenderer boardrenderer;
+	World world;
 	
-	public WorldRenderer(GameOfPlan gam){
+	public WorldRenderer(GameOfPlan gam, World world){
 		this.game = gam;
+		boardrenderer = new BoardRenderer(game,world.getBoard());
+		this.world = world;
+		
 		Assets.load();
 	}
 	
-	public void grassrender(int countrandomgrass,int[]randomgrass)
+	public void render()
 	{
-		 game.batch.begin();
-	     for(int i=0;i<Settings.BOARD_X;i++)
-	     {
-	    	 for(int j=0;j<Settings.BOARD_Y;j++)
-	    	 {
-	    		 game.batch.draw(Assets.fground,i*100,j*100);
-	    		 for(int k=0;k<10;k++)
-	    		 {
-	    			 if(randomgrass[k]==countrandomgrass)
-	    			 {
-	    				 game.batch.draw(Assets.fgrass,i*100,j*100);
-	    			 }
-	    		 }
-	    		 countrandomgrass++;
-	    	 }
-	    	 countrandomgrass++;
-	     }
-	     game.batch.end();
+		boardrenderer.render();
 	}
 }

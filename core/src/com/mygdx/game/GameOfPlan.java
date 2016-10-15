@@ -12,7 +12,7 @@ public class GameOfPlan extends Game{
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		Assets.load();
-		this.setScreen(new GameScreen(this));
+		this.setScreen(new PickItemScreen(this));
 	}
 	
 	public void render() {

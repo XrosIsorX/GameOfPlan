@@ -17,13 +17,16 @@ public class WorldRenderer {
 	public void mousepickrender()
 	{
 		batch.begin();
+		batch.setColor(1, 1, 1, 0.5f);
 		batch.draw(Assets.pickboard,world.getMouse().getCol()*Settings.BLOCK_SIZE,world.getMouse().getRow()*Settings.BLOCK_SIZE);
 		batch.end();
+		batch.setColor(1,1,1,1);
 	}
 	
 	public void render()
 	{
 		boardrenderer.render();
 		mousepickrender();
+		
 	}
 }

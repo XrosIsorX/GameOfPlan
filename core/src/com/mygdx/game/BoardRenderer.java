@@ -29,7 +29,7 @@ public class BoardRenderer {
 				else
 				{
 					batch.draw(Assets.fground,j*Settings.BLOCK_SIZE,i*Settings.BLOCK_SIZE);
-					if(board.map[i][j]== Board.GRASS)
+					if(board.map[i][j]== Settings.F_GRASS)
 					{
 						batch.draw(Assets.fgrass,j*Settings.BLOCK_SIZE,i*Settings.BLOCK_SIZE);
 					}

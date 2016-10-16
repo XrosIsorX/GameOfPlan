@@ -9,16 +9,7 @@ public class GameObject {
 
 	public GameObject (float x, float y, float width, float height) {
 		this.position = new Vector2(x, y);
-		this.bounds = new Rectangle(x - width / 2, y - height / 2, width, height);
+		this.bounds = new Rectangle(x, y, width, height);
 	}
 	
-	public int getRow()
-	{
-		return (int)(position.y/Settings.BLOCK_SIZE);
-	}
-	
-	public int getCol()
-	{
-		return (int)(position.x/Settings.BLOCK_SIZE);
-	}
 }

@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.MathUtils;
 
 public class GameScreen implements Screen{
 	final GameOfPlan game;
+	public int[] selectedp1;
+	public int[] selectedp2;
 	 
 	//OrthographicCamera camera;
 	
@@ -18,12 +20,14 @@ public class GameScreen implements Screen{
 	int[]whererandomgrass = new int[10];
 	int countrandomgrass =0;
 	
-	public GameScreen(final GameOfPlan gam){
+	public GameScreen(final GameOfPlan gam , int[] selectedp1 , int[] selectedp2){
 		this.game = gam;
 		
 		world = new World(game);
 		worldrenderer = new WorldRenderer(game,world);
 		
+		this.selectedp1 = selectedp1;
+		this.selectedp2 = selectedp2;
 	}
 	
 	

@@ -18,6 +18,7 @@ public class PickItemScreen implements Screen{
 	public int[] selectedp1;
 	public int[] selectedp2;
 	private int turn =0;
+	Rectangle b_startgame;
 	
 	public PickItemScreen (GameOfPlan gam)
 	{
@@ -25,6 +26,7 @@ public class PickItemScreen implements Screen{
 		pickobjects = new LinkedList<PickObject>();
 		b_selectp1 = new Rectangle(Settings.B_SELECTP1_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
 		b_selectp2 = new Rectangle(Settings.B_SELECTP2_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
+		b_startgame = new Rectangle(Settings.B_STARTGAME_X, Settings.B_STARTGAME_Y , Settings.B_STARTGAME_WIDTH , Settings.B_STARTGAME_HEIGHT);
 		selectedp1 = new int[Settings.NUMBER_PICKITEM];
 		selectedp2 = new int[Settings.NUMBER_PICKITEM];
 		setPickObject();
@@ -62,22 +64,40 @@ public class PickItemScreen implements Screen{
 	
 	public void updateB_Select()
 	{
-		if(Gdx.input.justTouched())
+		if(turn < Settings.NUMBER_PICKITEM*2 )
 		{
-			if(turn % 2 ==0)
+			if(Gdx.input.justTouched())
 			{
-				if(b_selectp1.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
+				if(turn % 2 ==0)
 				{
-					selectedp1[turn/2]=pick.name;
-					turn++;
+					if(b_selectp1.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
+					{
+						selectedp1[turn/2]=pick.name;
+						turn++;
+					}
+				}
+				else
+				{
+					if(b_selectp2.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
+					{
+						selectedp2[turn/2]=pick.name;
+						turn++;
+					}
 				}
 			}
-			else
+		}
+	}
+	
+	public void updateB_StartGame()
+	{
+		if(turn == 6)
+		{
+			if(Gdx.input.justTouched())
 			{
-				if(b_selectp2.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
+				if(b_startgame.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
 				{
-					selectedp2[turn/2]=pick.name;
-					turn++;
+					game.setScreen(new GameScreen(game,selectedp1,selectedp2));
+		        	dispose();
 				}
 			}
 		}
@@ -87,6 +107,7 @@ public class PickItemScreen implements Screen{
 	{
 		updateClick();
 		updateB_Select();
+		updateB_StartGame();
 	}
 
 	@Override
@@ -144,6 +165,10 @@ public class PickItemScreen implements Screen{
 	{
 		game.batch.draw(Assets.selectbutton, Settings.B_SELECTP1_X , Settings.B_SELECT_Y);
 		game.batch.draw(Assets.selectbutton, Settings.B_SELECTP2_X , Settings.B_SELECT_Y);
+		if(turn == 6)
+		{
+			game.batch.draw(Assets.startgamebutton, Settings.B_STARTGAME_X , Settings.B_STARTGAME_Y);
+		}
 	}
 	
 	public void slotblockrender()

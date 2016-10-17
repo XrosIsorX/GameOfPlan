@@ -11,6 +11,7 @@ public class Assets {
 	static Texture pickitemscreen;
 	static Texture slotblock;
 	static Texture selectbutton;
+	static Texture startgamebutton;
 	
 	public static void load()
 	{
@@ -24,5 +25,6 @@ public class Assets {
 		pickitemscreen = new Texture(Gdx.files.internal("PickitemScreen.png"));
 		slotblock = new Texture(Gdx.files.internal("SlotBlock.png"));
 		selectbutton = new Texture(Gdx.files.internal("SelectButton.png"));
+		startgamebutton = new Texture(Gdx.files.internal("StartGameButton.png"));
 	}
 }

@@ -18,6 +18,10 @@ public abstract class Settings {
 	static final float B_SELECT_Y = 50;
 	static final float B_SELECT_WIDTH = 100;
 	static final float B_SELECT_HEIGHT = 50;
+	static final float B_STARTGAME_X = 375;
+	static final float B_STARTGAME_Y = 50;
+	static final float B_STARTGAME_WIDTH = 300;
+	static final float B_STARTGAME_HEIGHT = 100;
 	
 	static final int NUMBER_GRASS= 10;
 	static final int NUMBER_PICKITEM = 3;

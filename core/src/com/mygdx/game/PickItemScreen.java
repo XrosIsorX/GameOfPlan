@@ -40,12 +40,18 @@ public class PickItemScreen implements Screen{
 	
 	public void setPickObject()
 	{
-		PickObject p1 = new PickObject(500 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , 1);
-		pickobjects.add(p1);
-		PickObject p2 = new PickObject(500 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , 2);
-		pickobjects.add(p2);
-		PickObject p3 = new PickObject(500 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , 3);
-		pickobjects.add(p3);
+		PickObject cswordman = new PickObject(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN);
+		pickobjects.add(cswordman);
+		PickObject cwizard = new PickObject(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD);
+		pickobjects.add(cwizard);
+		PickObject cmon1 = new PickObject(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1);
+		pickobjects.add(cmon1);
+		PickObject cmon2 = new PickObject(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2);
+		pickobjects.add(cmon2);
+		PickObject shealth = new PickObject(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH);
+		pickobjects.add(shealth);
+		PickObject smana = new PickObject(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA);
+		pickobjects.add(smana);
 	}
 	
 	public void updateClick()
@@ -141,17 +147,29 @@ public class PickItemScreen implements Screen{
 	{
 		for(PickObject n : pickobjects)
 		{
-			if(n.name == 1)
+			if(n.name == Settings.C_SWORDMAN)
 			{
-				game.batch.draw(Assets.friver , n.position.x , n.position.y);
+				game.batch.draw(Assets.cswordman , n.position.x , n.position.y);
 			}
-			else if(n.name ==2 )
+			else if(n.name == Settings.C_WIZARD )
 			{
-				game.batch.draw(Assets.fgrass , n.position.x , n.position.y);
+				game.batch.draw(Assets.cwizard, n.position.x , n.position.y);
 			}
-			else if(n.name == 3)
+			else if(n.name == Settings.C_MON1)
 			{
-				game.batch.draw(Assets.fground , n.position.x , n.position.y);
+				game.batch.draw(Assets.cmon1, n.position.x , n.position.y);
+			}
+			else if(n.name == Settings.C_MON2)
+			{
+				game.batch.draw(Assets.cmon2, n.position.x , n.position.y);
+			}
+			else if(n.name == Settings.S_MANA)
+			{
+				game.batch.draw(Assets.smana, n.position.x , n.position.y);
+			}
+			else if(n.name == Settings.S_HEALTH)
+			{
+				game.batch.draw(Assets.shealth, n.position.x , n.position.y);
 			}
 		}
 	}
@@ -175,40 +193,64 @@ public class PickItemScreen implements Screen{
 	{
 		for(int i=0;i<Settings.NUMBER_PICKITEM;i++)
 		{
-			if(selectedp1[i] == 1)
+			if(selectedp1[i] == Settings.C_SWORDMAN)
 			{
-				game.batch.draw(Assets.friver , 100 , 560 - (i * 100));
+				game.batch.draw(Assets.cswordman , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == 2)
+			else if(selectedp1[i] == Settings.C_WIZARD)
 			{
-				game.batch.draw(Assets.fgrass , 100 , 560 - (i * 100));
+				game.batch.draw(Assets.cwizard , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == 3)
+			else if(selectedp1[i] == Settings.C_MON1)
 			{
-				game.batch.draw(Assets.fground , 100 , 560 - (i * 100));
+				game.batch.draw(Assets.cmon1 , 100 , 560 - (i * 100));
+			}
+			else if(selectedp1[i] == Settings.C_MON2)
+			{
+				game.batch.draw(Assets.cmon2, 100 , 560 - (i * 100));
+			}
+			else if(selectedp1[i] == Settings.S_HEALTH)
+			{
+				game.batch.draw(Assets.shealth, 100 , 560 - (i * 100));
+			}
+			else if(selectedp1[i] == Settings.S_MANA)
+			{
+				game.batch.draw(Assets.smana, 100 , 560 - (i * 100));
 			}
 			else
 			{
-				game.batch.draw(Assets.slotblock, 100 , 560 - (i * 100));
+				game.batch.draw(Assets.slotblock, 100, 560 - (i * 100));
 			}
 		}
 		for(int i=0;i<Settings.NUMBER_PICKITEM;i++)
 		{
-			if(selectedp2[i] == 1)
+			if(selectedp2[i] == Settings.C_SWORDMAN)
 			{
-				game.batch.draw(Assets.friver , 986 , 560 - (i * 100));
+				game.batch.draw(Assets.cswordman , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == 2)
+			else if(selectedp2[i] == Settings.C_WIZARD)
 			{
-				game.batch.draw(Assets.fgrass , 986 , 560 - (i * 100));
+				game.batch.draw(Assets.cwizard , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == 3)
+			else if(selectedp2[i] == Settings.C_MON1)
 			{
-				game.batch.draw(Assets.fground , 986 , 560 - (i * 100));
+				game.batch.draw(Assets.cmon1 , 986 , 560 - (i * 100));
+			}
+			else if(selectedp2[i] == Settings.C_MON2)
+			{
+				game.batch.draw(Assets.cmon2, 986 , 560 - (i * 100));
+			}
+			else if(selectedp2[i] == Settings.S_HEALTH)
+			{
+				game.batch.draw(Assets.shealth, 986 , 560 - (i * 100));
+			}
+			else if(selectedp2[i] == Settings.S_MANA)
+			{
+				game.batch.draw(Assets.smana, 986 , 560 - (i * 100));
 			}
 			else
 			{
-				game.batch.draw(Assets.slotblock, 986 , 560 - (i * 100));
+				game.batch.draw(Assets.slotblock, 986, 560 - (i * 100));
 			}
 		}
 

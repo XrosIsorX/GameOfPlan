@@ -25,6 +25,14 @@ public abstract class Settings {
 	
 	static final int NUMBER_GRASS= 10;
 	static final int NUMBER_PICKITEM = 3;
+	
+	static final int C_WIZARD = 100;
+	static final int C_SWORDMAN = 101;
+	static final int C_MON1 = 200;
+	static final int C_MON2 = 201;
+	
+	static final int S_HEALTH = 300;
+	static final int S_MANA = 301;
 	//camera
 	//static final float SCREEN_X = 880;
 	//static final float SCREEN_Y = 880;

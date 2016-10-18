@@ -15,8 +15,8 @@ public class PickItemScreen implements Screen{
 	PickObject pick;
 	Rectangle b_selectp1;
 	Rectangle b_selectp2;
-	public int[] selectedp1;
-	public int[] selectedp2;
+	public PickObject[] selectedp1;
+	public PickObject[] selectedp2;
 	private int turn =0;
 	Rectangle b_startgame;
 	
@@ -27,8 +27,8 @@ public class PickItemScreen implements Screen{
 		b_selectp1 = new Rectangle(Settings.B_SELECTP1_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
 		b_selectp2 = new Rectangle(Settings.B_SELECTP2_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
 		b_startgame = new Rectangle(Settings.B_STARTGAME_X, Settings.B_STARTGAME_Y , Settings.B_STARTGAME_WIDTH , Settings.B_STARTGAME_HEIGHT);
-		selectedp1 = new int[Settings.NUMBER_PICKITEM];
-		selectedp2 = new int[Settings.NUMBER_PICKITEM];
+		selectedp1 = new PickObject[Settings.NUMBER_PICKITEM];
+		selectedp2 = new PickObject[Settings.NUMBER_PICKITEM];
 		setPickObject();
 	}
 
@@ -78,7 +78,7 @@ public class PickItemScreen implements Screen{
 				{
 					if(b_selectp1.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
 					{
-						selectedp1[turn/2]=pick.name;
+						selectedp1[turn/2]=pick;
 						turn++;
 					}
 				}
@@ -86,7 +86,7 @@ public class PickItemScreen implements Screen{
 				{
 					if(b_selectp2.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
 					{
-						selectedp2[turn/2]=pick.name;
+						selectedp2[turn/2]=pick;
 						turn++;
 					}
 				}
@@ -193,64 +193,64 @@ public class PickItemScreen implements Screen{
 	{
 		for(int i=0;i<Settings.NUMBER_PICKITEM;i++)
 		{
-			if(selectedp1[i] == Settings.C_SWORDMAN)
+			if(selectedp1[i] == null)
+			{
+				game.batch.draw(Assets.slotblock, 100, 560 - (i * 100));
+			}
+			else if(selectedp1[i].name == Settings.C_SWORDMAN)
 			{
 				game.batch.draw(Assets.cswordman , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == Settings.C_WIZARD)
+			else if(selectedp1[i].name == Settings.C_WIZARD)
 			{
 				game.batch.draw(Assets.cwizard , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == Settings.C_MON1)
+			else if(selectedp1[i].name == Settings.C_MON1)
 			{
 				game.batch.draw(Assets.cmon1 , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == Settings.C_MON2)
+			else if(selectedp1[i].name == Settings.C_MON2)
 			{
 				game.batch.draw(Assets.cmon2, 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == Settings.S_HEALTH)
+			else if(selectedp1[i].name == Settings.S_HEALTH)
 			{
 				game.batch.draw(Assets.shealth, 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i] == Settings.S_MANA)
+			else if(selectedp1[i].name == Settings.S_MANA)
 			{
 				game.batch.draw(Assets.smana, 100 , 560 - (i * 100));
-			}
-			else
-			{
-				game.batch.draw(Assets.slotblock, 100, 560 - (i * 100));
 			}
 		}
 		for(int i=0;i<Settings.NUMBER_PICKITEM;i++)
 		{
-			if(selectedp2[i] == Settings.C_SWORDMAN)
+			if(selectedp2[i] == null)
+			{
+				game.batch.draw(Assets.slotblock, 986, 560 - (i * 100));
+			}
+			else if(selectedp2[i].name == Settings.C_SWORDMAN)
 			{
 				game.batch.draw(Assets.cswordman , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == Settings.C_WIZARD)
+			else if(selectedp2[i].name == Settings.C_WIZARD)
 			{
 				game.batch.draw(Assets.cwizard , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == Settings.C_MON1)
+			else if(selectedp2[i].name == Settings.C_MON1)
 			{
 				game.batch.draw(Assets.cmon1 , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == Settings.C_MON2)
+			else if(selectedp2[i].name == Settings.C_MON2)
 			{
 				game.batch.draw(Assets.cmon2, 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == Settings.S_HEALTH)
+			else if(selectedp2[i].name == Settings.S_HEALTH)
 			{
 				game.batch.draw(Assets.shealth, 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i] == Settings.S_MANA)
+			else if(selectedp2[i].name == Settings.S_MANA)
 			{
 				game.batch.draw(Assets.smana, 986 , 560 - (i * 100));
-			}
-			else
-			{
-				game.batch.draw(Assets.slotblock, 986, 560 - (i * 100));
 			}
 		}
 

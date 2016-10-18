@@ -4,8 +4,8 @@ public abstract class Settings {
 	//board and object on board
 	static final int BOARD_X = 11;
 	static final int BOARD_Y = 11;
-	static final float BOARD_WIDTH = 1088;
-	static final float BOARD_HEIGHT = 704;
+	static final int BOARD_WIDTH = 1088;
+	static final int BOARD_HEIGHT = 704;
 
 	static final int BLOCK_SIZE= 64;
 	

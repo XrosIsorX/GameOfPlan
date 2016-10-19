@@ -31,8 +31,32 @@ public abstract class Settings {
 	static final int C_MON1 = 200;
 	static final int C_MON2 = 201;
 	
+	static final int SWORDMAN_HP = 10;
+	static final int SWORDMAN_ATK = 3;
+	static final int SWORDMAN_ATKRANK = 1;
+	static final int SWORDMAN_WALK = 2;
+	
+	static final int WIZARD_HP = 5;
+	static final int WIZARD_ATK = 1;
+	static final int WIZARD_ATKRANK = 2;
+	static final int WIZARD_WALK = 3;
+	
+	static final int MON1_HP = 2;
+	static final int MON1_ATK = 2;
+	static final int MON1_ATKRANK = 1;
+	static final int MON1_WALK = 1;
+	
+	static final int MON2_HP = 3;
+	static final int MON2_ATK = 1;
+	static final int MON2_ATKRANK = 1;
+	static final int MON2_WALK = 2;
+	
 	static final int S_HEALTH = 300;
 	static final int S_MANA = 301;
+	
+	static final int STATE_STILL = 0;
+	static final int STATE_SPAWN = 1;
+	
 	//camera
 	//static final float SCREEN_X = 880;
 	//static final float SCREEN_Y = 880;

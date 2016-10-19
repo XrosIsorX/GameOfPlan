@@ -17,7 +17,6 @@ public class BoardRenderer {
 	
 	public void render()
 	{
-		batch.begin();
 		for(int i=0;i<Settings.BOARD_Y;i++)
 		{
 			for(int j=3;j<Settings.BOARD_X+3;j++)
@@ -36,6 +35,5 @@ public class BoardRenderer {
 				}
 			}
 		}
-		batch.end();
 	}
 }

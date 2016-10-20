@@ -79,13 +79,28 @@ public class World {
 			}
 			else if(state == Settings.STATE_SPAWN)
 			{
-				if(Gdx.input.getX() >= Settings.BLOCK_SIZE * 3 && Gdx.input.getX() <= Settings.BOARD_WIDTH - (3 * Settings.BLOCK_SIZE))
+				if(Gdx.input.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER && Gdx.input.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE))
 				{
-					checkItemupdate(pick , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
-					state = Settings.STATE_STILL;
+					if(!hasCharacter())
+					{
+						checkItemupdate(pick , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
+						state = Settings.STATE_STILL;
+					}
 				}
 			}
 		}
+	}
+	
+	public boolean hasCharacter()
+	{
+		for(Character n : characters)
+		{
+			if(n.bounds.contains(mouse.getX(), mouse.getY()))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void checkItemupdate(int name , float x ,float y)
@@ -110,25 +125,25 @@ public class World {
 	
 	public void spawnswordman(float x , float y)
 	{
-		Character swordman = new Character(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_SWORDMAN, turn , Settings.SWORDMAN_HP , Settings.SWORDMAN_ATK ,Settings.SWORDMAN_ATKRANK, Settings.SWORDMAN_WALK);
+		CSwordman swordman = new CSwordman(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_SWORDMAN, turn);
 		characters.add(swordman);
 	}
 	
 	public void spawnwizard(float x , float y)
 	{
-		Character wizard = new Character(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_WIZARD, turn , Settings.WIZARD_HP , Settings.WIZARD_ATK ,Settings.WIZARD_ATKRANK, Settings.WIZARD_WALK);
+		CWizard wizard = new CWizard(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_WIZARD, turn);
 		characters.add(wizard);
 	}
 	
 	public void spawnmon1(float x , float y)
 	{
-		Character mon1 = new Character(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON1, turn , Settings.MON1_HP , Settings.MON1_ATK ,Settings.MON1_ATKRANK, Settings.MON1_WALK);
+		CMon1 mon1 = new CMon1(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON1, turn);
 		characters.add(mon1);
 	}
 	
 	public void spawnmon2(float x , float y)
 	{
-		Character mon2 = new Character(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON2, turn , Settings.MON2_HP , Settings.MON2_ATK ,Settings.MON2_ATKRANK, Settings.MON2_WALK);
+		CMon2 mon2 = new CMon2(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON2, turn);
 		characters.add(mon2);
 	}
 	

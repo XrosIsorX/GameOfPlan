@@ -11,6 +11,16 @@ public class Mouse {
 		pos = new Vector2(Gdx.input.getX(),Gdx.input.getY());
 	}
 	
+	public int getX()
+	{
+		return Gdx.input.getX();
+	}
+	
+	public int getY()
+	{
+		return Settings.BOARD_HEIGHT - Gdx.input.getY();
+	}
+	
 	public int getRow()
 	{
 		return Settings.BOARD_Y-(int)(Gdx.input.getY()/Settings.BLOCK_SIZE)-1;

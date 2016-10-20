@@ -7,6 +7,11 @@ public class Character extends PickObject{
 	int atkrank =0;
 	int walk =0;
 	
+	public Character(float x , float y , float width , float height , int name , int team )
+	{
+		super(x , y , width, height , name);
+		this.team = team;
+	}
 
 	public Character(float x, float y, float width, float height, int name , int team ,int hp ,int atk , int atkrank , int walk) {
 		super(x, y, width, height, name);

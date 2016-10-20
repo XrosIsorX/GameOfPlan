@@ -90,8 +90,8 @@ public class WorldRenderer {
 		boardrenderer.render();
 		mousepickrender();
 		itemrender();
-		spawnMouserender();
 		allCharacterrender();
+		spawnMouserender();
 		batch.end();
 	}
 }

@@ -9,6 +9,7 @@ public class CSwordman extends Character{
 		atk = Settings.SWORDMAN_ATK;
 		atkrank = Settings.SWORDMAN_ATKRANK;
 		walk = Settings.SWORDMAN_WALK;
+		cost = Settings.SWORDMAN_COST;
 	}
 	
 

@@ -2,10 +2,11 @@ package com.mygdx.game;
 
 public class Character extends PickObject{
 	int team =0;
-	int hp =0;
-	int atk =0;
-	int atkrank =0;
-	int walk =0;
+	int hp = 0;
+	int atk = 0;
+	int atkrank = 0;
+	int walk = 0;
+	int cost = 0;
 	
 	public Character(float x , float y , float width , float height , int name , int team )
 	{

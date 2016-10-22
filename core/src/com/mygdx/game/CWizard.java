@@ -9,6 +9,7 @@ public class CWizard extends Character{
 		atk = Settings.WIZARD_ATK;
 		atkrank = Settings.WIZARD_ATKRANK;
 		walk = Settings.WIZARD_WALK;
+		cost = Settings.WIZARD_COST;
 	}
 
 }

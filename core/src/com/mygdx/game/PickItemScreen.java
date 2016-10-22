@@ -110,7 +110,7 @@ public class PickItemScreen implements Screen{
 	}
 	
 	public void update()
-	{
+	{		if(Gdx.input.justTouched()) System.out.println("Hello");
 		updateClick();
 		updateB_Select();
 		updateB_StartGame();

@@ -31,6 +31,7 @@ public class GameOfPlan extends Game{
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		Assets.load();
+		//this.setScreen(new PickItemScreen(this));
 		this.setScreen(new GameScreen(this , selectedp1 , selectedp2));
 	}
 	

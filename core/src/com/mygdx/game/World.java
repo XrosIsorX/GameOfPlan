@@ -1,21 +1,27 @@
 package com.mygdx.game;
 
+import java.awt.Font;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.math.Rectangle;
 
 public class World {
 	private GameOfPlan game;
 	private Board board;
 	private Mouse mouse;
-	public PickObject[] selectedp1;
-	public PickObject[] selectedp2;
 	public int state = 0;
 	public int pick = 0;
-	public int turn = 0;
+	public int turn = Settings.TURN_P1;
+	public Rectangle B_Endturnp1;
+	public Rectangle B_Endturnp2;
 	public List<Character> characters;
 	
+	public PickObject[] selectedp1;
+	public PickObject[] selectedp2;
+	public int[] resource;
 	
 	public World(GameOfPlan game,PickObject[] selectedp1 , PickObject[] selectedp2)
 	{
@@ -24,19 +30,27 @@ public class World {
 		mouse = new Mouse();
 		this.selectedp1 = selectedp1;
 		this.selectedp2 = selectedp2;
-		
+		resource = new int[3];
+		setButton();
 		characters = new LinkedList<Character>();
+	}
+	
+	public void setButton()
+	{
+		B_Endturnp1 = new Rectangle(Settings.B_ENDTURNP1_X ,Settings.B_ENDTURN_Y , Settings.B_ENDTURN_WIDTH , Settings.B_ENDTURN_HEIGHT);
+		B_Endturnp2 = new Rectangle(Settings.B_ENDTURNP2_X ,Settings.B_ENDTURN_Y , Settings.B_ENDTURN_WIDTH , Settings.B_ENDTURN_HEIGHT);
 	}
 	
 	public void update()
 	{
-		itemupdate();
+		Screenupdate();
+		Mouseupdate();
+		updateB_Endturn();
 	}
 	
-	public void itemupdate()
+	public void Screenupdate()
 	{
 		setItem();
-		Mouseupdate();
 	}
 	
 	public void setItem()
@@ -57,6 +71,27 @@ public class World {
 		}
 	}
 	
+	public void updateB_Endturn()
+	{
+		if(Gdx.input.justTouched())
+		{
+			if(turn == Settings.TURN_P1)
+			{
+				if(B_Endturnp1.contains(mouse.getX() , mouse.getY()))
+				{
+					turn = Settings.TURN_P2;
+				}
+			}
+			else if(turn == Settings.TURN_P2)
+			{
+				if(B_Endturnp2.contains(mouse.getX() , mouse.getY()))
+				{
+					turn = Settings.TURN_P1;
+				}
+			}
+		}
+	}
+	
 	public void Mouseupdate()
 	{
 		if(Gdx.input.justTouched())
@@ -65,27 +100,38 @@ public class World {
 			{
 				for(int i=0 ; i < Settings.NUMBER_PICKITEM ; i++)
 				{
-					if(selectedp1[i].bounds.contains(Gdx.input.getX() , Settings.BOARD_HEIGHT - Gdx.input.getY()))
+					if(turn == Settings.TURN_P1)
 					{
-						pick = selectedp1[i].name;
-						state = Settings.STATE_SPAWN;
+						if(selectedp1[i].bounds.contains(mouse.getX() , mouse.getY()))
+						{
+							pick = selectedp1[i].name;
+							state = Settings.STATE_SPAWN;
+						}
 					}
-					else if(selectedp2[i].bounds.contains(Gdx.input.getX() , Settings.BOARD_HEIGHT - Gdx.input.getY()))
+					else if( turn == Settings.TURN_P2)
 					{
-						pick = selectedp2[i].name;
-						state = Settings.STATE_SPAWN;
+						if(selectedp2[i].bounds.contains(mouse.getX() , mouse.getY()))
+						{
+							pick = selectedp2[i].name;
+							state = Settings.STATE_SPAWN;
+						}
 					}
+
 				}
 			}
 			else if(state == Settings.STATE_SPAWN)
 			{
-				if(Gdx.input.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER && Gdx.input.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE))
+				if(mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER && mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE))
 				{
 					if(!hasCharacter())
 					{
 						checkItemupdate(pick , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
 						state = Settings.STATE_STILL;
 					}
+				}
+				else
+				{
+					state = Settings.STATE_STILL;
 				}
 			}
 		}

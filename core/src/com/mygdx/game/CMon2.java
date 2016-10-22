@@ -9,6 +9,7 @@ public class CMon2 extends Character{
 		atk = Settings.MON2_ATK;
 		atkrank = Settings.MON2_ATKRANK;
 		walk = Settings.MON2_WALK;
+		cost = Settings.MON2_COST;
 	}
 
 

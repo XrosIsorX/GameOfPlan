@@ -10,8 +10,10 @@ public class Assets {
 	static Texture pickboard;
 	static Texture pickitemscreen;
 	static Texture slotblock;
+	
 	static Texture selectbutton;
 	static Texture startgamebutton;
+	static Texture endturnbutton;
 	
 	static Texture smana;
 	static Texture shealth;
@@ -33,6 +35,7 @@ public class Assets {
 		slotblock = new Texture(Gdx.files.internal("SlotBlock.png"));
 		selectbutton = new Texture(Gdx.files.internal("SelectButton.png"));
 		startgamebutton = new Texture(Gdx.files.internal("StartGameButton.png"));
+		endturnbutton = new Texture(Gdx.files.internal("EndturnButton.png"));
 		
 		smana = new Texture(Gdx.files.internal("Smana.png"));
 		shealth = new Texture(Gdx.files.internal("Shealth.png"));

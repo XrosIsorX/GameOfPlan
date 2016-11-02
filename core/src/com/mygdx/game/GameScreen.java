@@ -18,7 +18,7 @@ public class GameScreen implements Screen{
 	int[]whererandomgrass = new int[10];
 	int countrandomgrass =0;
 	
-	public GameScreen(final GameOfPlan gam , PickObject[] selectedp1 , PickObject[] selectedp2){
+	public GameScreen(final GameOfPlan gam , Character[] selectedp1 , Character[] selectedp2){
 		this.game = gam;
 		
 		world = new World(game , selectedp1 , selectedp2);

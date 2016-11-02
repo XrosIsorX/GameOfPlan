@@ -11,25 +11,25 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class PickItemScreen implements Screen{
 	GameOfPlan game;
-	List<PickObject> pickobjects;
-	PickObject pick;
+	List<Character> characters;
+	Character pick;
 	Rectangle b_selectp1;
 	Rectangle b_selectp2;
-	public PickObject[] selectedp1;
-	public PickObject[] selectedp2;
+	public Character[] selectedp1;
+	public Character[] selectedp2;
 	private int turn =0;
 	Rectangle b_startgame;
 	
 	public PickItemScreen (GameOfPlan gam)
 	{
 		this.game = gam;
-		pickobjects = new LinkedList<PickObject>();
+		characters = new LinkedList<Character>();
 		b_selectp1 = new Rectangle(Settings.B_SELECTP1_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
 		b_selectp2 = new Rectangle(Settings.B_SELECTP2_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
 		b_startgame = new Rectangle(Settings.B_STARTGAME_X, Settings.B_STARTGAME_Y , Settings.B_STARTGAME_WIDTH , Settings.B_STARTGAME_HEIGHT);
-		selectedp1 = new PickObject[Settings.NUMBER_PICKITEM];
-		selectedp2 = new PickObject[Settings.NUMBER_PICKITEM];
-		setPickObject();
+		selectedp1 = new Character[Settings.NUMBER_PICKITEM];
+		selectedp2 = new Character[Settings.NUMBER_PICKITEM];
+		setCharacter();
 	}
 
 	@Override
@@ -38,27 +38,27 @@ public class PickItemScreen implements Screen{
 		
 	}
 	
-	public void setPickObject()
+	public void setCharacter()
 	{
-		PickObject cswordman = new PickObject(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN);
-		pickobjects.add(cswordman);
-		PickObject cwizard = new PickObject(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD);
-		pickobjects.add(cwizard);
-		PickObject cmon1 = new PickObject(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1);
-		pickobjects.add(cmon1);
-		PickObject cmon2 = new PickObject(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2);
-		pickobjects.add(cmon2);
-		PickObject shealth = new PickObject(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH);
-		pickobjects.add(shealth);
-		PickObject smana = new PickObject(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA);
-		pickobjects.add(smana);
+		Character cswordman = new Character(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN);
+		characters.add(cswordman);
+		Character cwizard = new Character(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD);
+		characters.add(cwizard);
+		Character cmon1 = new Character(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1);
+		characters.add(cmon1);
+		Character cmon2 = new Character(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2);
+		characters.add(cmon2);
+		Character shealth = new Character(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH);
+		characters.add(shealth);
+		Character smana = new Character(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA);
+		characters.add(smana);
 	}
 	
 	public void updateClick()
 	{
 		if(Gdx.input.justTouched())
 		{
-			for(PickObject n : pickobjects)
+			for(Character n : characters)
 			{
 				if(n.bounds.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT - Gdx.input.getY()))
 				{
@@ -110,7 +110,7 @@ public class PickItemScreen implements Screen{
 	}
 	
 	public void update()
-	{		if(Gdx.input.justTouched()) System.out.println("Hello");
+	{
 		updateClick();
 		updateB_Select();
 		updateB_StartGame();
@@ -128,7 +128,7 @@ public class PickItemScreen implements Screen{
         slotblockrender();
         wordrender();
         buttonrender();
-        pickObjectrender();
+        Characterrender();
         pickrender();
         game.batch.end();
 	}
@@ -143,31 +143,31 @@ public class PickItemScreen implements Screen{
 		}
 	}
 	
-	public void pickObjectrender()
+	public void Characterrender()
 	{
-		for(PickObject n : pickobjects)
+		for(Character n : characters)
 		{
-			if(n.name == Settings.C_SWORDMAN)
+			if(n.number == Settings.C_SWORDMAN)
 			{
 				game.batch.draw(Assets.cswordman , n.position.x , n.position.y);
 			}
-			else if(n.name == Settings.C_WIZARD )
+			else if(n.number == Settings.C_WIZARD )
 			{
 				game.batch.draw(Assets.cwizard, n.position.x , n.position.y);
 			}
-			else if(n.name == Settings.C_MON1)
+			else if(n.number == Settings.C_MON1)
 			{
 				game.batch.draw(Assets.cmon1, n.position.x , n.position.y);
 			}
-			else if(n.name == Settings.C_MON2)
+			else if(n.number == Settings.C_MON2)
 			{
 				game.batch.draw(Assets.cmon2, n.position.x , n.position.y);
 			}
-			else if(n.name == Settings.S_MANA)
+			else if(n.number == Settings.S_MANA)
 			{
 				game.batch.draw(Assets.smana, n.position.x , n.position.y);
 			}
-			else if(n.name == Settings.S_HEALTH)
+			else if(n.number == Settings.S_HEALTH)
 			{
 				game.batch.draw(Assets.shealth, n.position.x , n.position.y);
 			}
@@ -197,27 +197,27 @@ public class PickItemScreen implements Screen{
 			{
 				game.batch.draw(Assets.slotblock, 100, 560 - (i * 100));
 			}
-			else if(selectedp1[i].name == Settings.C_SWORDMAN)
+			else if(selectedp1[i].number == Settings.C_SWORDMAN)
 			{
 				game.batch.draw(Assets.cswordman , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i].name == Settings.C_WIZARD)
+			else if(selectedp1[i].number == Settings.C_WIZARD)
 			{
 				game.batch.draw(Assets.cwizard , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i].name == Settings.C_MON1)
+			else if(selectedp1[i].number == Settings.C_MON1)
 			{
 				game.batch.draw(Assets.cmon1 , 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i].name == Settings.C_MON2)
+			else if(selectedp1[i].number == Settings.C_MON2)
 			{
 				game.batch.draw(Assets.cmon2, 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i].name == Settings.S_HEALTH)
+			else if(selectedp1[i].number == Settings.S_HEALTH)
 			{
 				game.batch.draw(Assets.shealth, 100 , 560 - (i * 100));
 			}
-			else if(selectedp1[i].name == Settings.S_MANA)
+			else if(selectedp1[i].number == Settings.S_MANA)
 			{
 				game.batch.draw(Assets.smana, 100 , 560 - (i * 100));
 			}
@@ -228,27 +228,27 @@ public class PickItemScreen implements Screen{
 			{
 				game.batch.draw(Assets.slotblock, 986, 560 - (i * 100));
 			}
-			else if(selectedp2[i].name == Settings.C_SWORDMAN)
+			else if(selectedp2[i].number == Settings.C_SWORDMAN)
 			{
 				game.batch.draw(Assets.cswordman , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i].name == Settings.C_WIZARD)
+			else if(selectedp2[i].number == Settings.C_WIZARD)
 			{
 				game.batch.draw(Assets.cwizard , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i].name == Settings.C_MON1)
+			else if(selectedp2[i].number == Settings.C_MON1)
 			{
 				game.batch.draw(Assets.cmon1 , 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i].name == Settings.C_MON2)
+			else if(selectedp2[i].number == Settings.C_MON2)
 			{
 				game.batch.draw(Assets.cmon2, 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i].name == Settings.S_HEALTH)
+			else if(selectedp2[i].number == Settings.S_HEALTH)
 			{
 				game.batch.draw(Assets.shealth, 986 , 560 - (i * 100));
 			}
-			else if(selectedp2[i].name == Settings.S_MANA)
+			else if(selectedp2[i].number == Settings.S_MANA)
 			{
 				game.batch.draw(Assets.smana, 986 , 560 - (i * 100));
 			}

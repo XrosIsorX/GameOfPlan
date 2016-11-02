@@ -28,44 +28,51 @@ public class WorldRenderer {
 	
 	public void backgroundrender()
 	{
-		batch.draw(Assets.pickitemscreen,0,0);
+		if(world.turn == Settings.TURN_P1)
+		{
+			batch.draw(Assets.turnp1screen , 0 , 0);
+		}
+		if(world.turn == Settings.TURN_P2)
+		{
+			batch.draw(Assets.turnp2screen , 0 , 0);
+		}
 	}
 	
 	public void itemrender()
 	{
 		for(int i=0 ;i <Settings.NUMBER_PICKITEM ;i++)
 		{
-			checkItemrender(world.selectedp1[i].name , world.selectedp1[i].position.x , world.selectedp1[i].position.y);
+			checkItemrender(world.selectedp1[i].number , world.selectedp1[i].position.x , world.selectedp1[i].position.y);
 		}
 		for(int i=0 ;i <Settings.NUMBER_PICKITEM ;i++)
 		{
-			checkItemrender(world.selectedp2[i].name , world.selectedp2[i].position.x , world.selectedp2[i].position.y);
+			checkItemrender(world.selectedp2[i].number , world.selectedp2[i].position.x , world.selectedp2[i].position.y);
 		}
 	}
 
-	public void checkItemrender(int name , float x ,float y)
+	public void checkItemrender(int number , float x ,float y)
 	{
-		if(name == Settings.C_SWORDMAN)
+		if(number == Settings.C_SWORDMAN)
 		{
 			batch.draw(Assets.cswordman , x , y);
 		}
-		else if(name == Settings.C_WIZARD)
+		else if(number == Settings.C_WIZARD)
 		{
 			batch.draw(Assets.cwizard , x , y );
 		}
-		else if(name == Settings.C_MON1)
+		else if(number == Settings.C_MON1)
 		{
 			batch.draw(Assets.cmon1 , x , y );
 		}
-		else if(name == Settings.C_MON2)
+		else if(number == Settings.C_MON2)
 		{
 			batch.draw(Assets.cmon2, x , y );
 		}
-		else if(name == Settings.S_HEALTH)
+		else if(number == Settings.S_HEALTH)
 		{
 			batch.draw(Assets.shealth, x , y );
 		}
-		else if(name == Settings.S_MANA)
+		else if(number == Settings.S_MANA)
 		{
 			batch.draw(Assets.smana, x , y );
 		}
@@ -75,15 +82,19 @@ public class WorldRenderer {
 	{
 		if(world.state == Settings.STATE_SPAWN)
 		{
-			checkItemrender(world.pick , Gdx.input.getX() - (Settings.BLOCK_SIZE / 2) , Settings.BOARD_HEIGHT - Gdx.input.getY() - (Settings.BLOCK_SIZE / 2));
+			checkItemrender(world.pick.number , Gdx.input.getX() - (Settings.BLOCK_SIZE / 2) , Settings.BOARD_HEIGHT - Gdx.input.getY() - (Settings.BLOCK_SIZE / 2));
 		}
 	}
 	
 	public void allCharacterrender()
 	{
-		for(Character n : world.characters)
+		for(Character n : world.charactersp1)
 		{
-			checkItemrender(n.name , n.position.x , n.position.y);
+			checkItemrender(n.number , n.position.x , n.position.y);
+		}
+		for(Character n : world.charactersp2)
+		{
+			checkItemrender(n.number , n.position.x , n.position.y);
 		}
 	}
 	
@@ -91,9 +102,11 @@ public class WorldRenderer {
 	{
 		batch.draw(Assets.endturnbutton , Settings.B_ENDTURNP1_X , Settings.B_ENDTURN_Y);
 		batch.draw(Assets.endturnbutton , Settings.B_ENDTURNP2_X , Settings.B_ENDTURN_Y);
+		batch.draw(Assets.skillbutton , Settings.B_SKILLBUTTONP1_X , Settings.B_SKILLBUTTON_Y);
+		batch.draw(Assets.skillbutton , Settings.B_SKILLBUTTONP2_X , Settings.B_SKILLBUTTON_Y);
 	}
 
-	public void checkFontrender(int name)
+	public void checkFontrender(Character pick)
 	{
 		int x=0;
 		if(world.turn == Settings.TURN_P1)
@@ -104,25 +117,10 @@ public class WorldRenderer {
 		{
 			x = 916;
 		}
-		if(name == Settings.C_SWORDMAN)
-		{
-			fontrender("Swordman" , Settings.SWORDMAN_COST ,Settings.SWORDMAN_HP , Settings.SWORDMAN_ATK , Settings.SWORDMAN_ATKRANK , Settings.SWORDMAN_WALK , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
-		}
-		else if(name == Settings.C_WIZARD)
-		{
-			fontrender("Wizard" , Settings.WIZARD_COST , Settings.WIZARD_HP , Settings.WIZARD_ATK , Settings.WIZARD_ATKRANK , Settings.WIZARD_WALK , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
-		}
-		else if(name == Settings.C_MON1)
-		{
-			fontrender("Mon1" , Settings.MON1_COST ,Settings.SWORDMAN_HP , Settings.MON1_ATK , Settings.MON1_ATKRANK , Settings.MON1_WALK , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
-		}
-		else if(name == Settings.C_MON2)
-		{
-			fontrender("Mon2" , Settings.MON2_COST ,Settings.SWORDMAN_HP , Settings.MON2_ATK , Settings.MON2_ATKRANK , Settings.MON2_WALK , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
-		}
+		fontrender(pick.name , pick.cost , pick.hp , pick.atk , pick.atkrank , pick.walk , pick.skill , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
 	}
 	
-	public void fontrender(String name , int cost , int hp , int atk , int atkrank , int walk , float x , float y)
+	public void fontrender(String name , int cost , int hp , int atk , int atkrank , int walk , String skill , float x , float y)
 	{
 		font.draw(batch , "Name : " + name, x , y);
 		font.draw(batch , "Cost : " + cost , x , y - (0.5f * Settings.BLOCK_SIZE));
@@ -130,14 +128,20 @@ public class WorldRenderer {
 		font.draw(batch , "Atk : " + atk , x , y - (1.5f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Atk rank : " + atkrank, x , y - (2f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Walk : " + walk , x , y - (2.5f * Settings.BLOCK_SIZE));
+		font.draw(batch , skill , x , y - (3.8f * Settings.BLOCK_SIZE));
 	}
 	
 	public void resourcerender()
 	{
-		batch.draw(Assets.fgrass , 20 , Settings.BOARD_HEIGHT - (6f * Settings.BLOCK_SIZE) , 30 ,30);
-		font.draw(batch , "X     " + world.resource[Settings.TURN_P1], 60 , Settings.BOARD_HEIGHT - (5.8f * Settings.BLOCK_SIZE));
-		batch.draw(Assets.fgrass , 916 , Settings.BOARD_HEIGHT - (6f * Settings.BLOCK_SIZE) , 30 ,30);
-		font.draw(batch , "X     " + world.resource[Settings.TURN_P1], 956 , Settings.BOARD_HEIGHT - (5.8f * Settings.BLOCK_SIZE));
+		batch.draw(Assets.fgrass , 20 , 100 , 30 ,30);
+		font.draw(batch , "  X     " + world.resource[Settings.TURN_P1], 60 , 115);
+		batch.draw(Assets.fgrass , 916 , 100 , 30 ,30);
+		font.draw(batch , "  X     " + world.resource[Settings.TURN_P1], 956 , 115);
+	}
+	
+	public void actionrender()
+	{
+		
 	}
 	
 	public void render()
@@ -149,8 +153,11 @@ public class WorldRenderer {
 		mousepickrender();
 		itemrender();
 		allCharacterrender();
-		checkFontrender(world.pick);  
-		spawnMouserender();
+		if(world.pick != null)
+		{
+			checkFontrender(world.pick);
+			spawnMouserender();
+		}
 		resourcerender();
 		batch.end();
 	}

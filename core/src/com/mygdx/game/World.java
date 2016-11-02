@@ -9,22 +9,26 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Rectangle;
 
 public class World {
+	private static World world;
+	
 	private GameOfPlan game;
 	private Board board;
 	private Mouse mouse;
 	public int state = 0;
-	public int pick = 0;
 	public int turn = Settings.TURN_P1;
 	public Rectangle B_Endturnp1;
 	public Rectangle B_Endturnp2;
-	public List<Character> characters;
+	public List<Character> charactersp1;
+	public List<Character> charactersp2;
 	
-	public PickObject[] selectedp1;
-	public PickObject[] selectedp2;
+	public Character pick;
+	public Character[] selectedp1;
+	public Character[] selectedp2;
 	public int[] resource;
 	
-	public World(GameOfPlan game,PickObject[] selectedp1 , PickObject[] selectedp2)
+	public World(GameOfPlan game,Character[] selectedp1 , Character[] selectedp2)
 	{
+		world = this;
 		this.game = game;
 		board = new Board();
 		mouse = new Mouse();
@@ -32,7 +36,13 @@ public class World {
 		this.selectedp2 = selectedp2;
 		resource = new int[3];
 		setButton();
-		characters = new LinkedList<Character>();
+		charactersp1 = new LinkedList<Character>();
+		charactersp2 = new LinkedList<Character>();
+	}
+
+	public static World getInstance()
+	{
+		return world;
 	}
 	
 	public void setButton()
@@ -98,13 +108,25 @@ public class World {
 		{
 			if(state == Settings.STATE_STILL)
 			{
+				if(turn == Settings.TURN_P1)
+				{
+					pick = getCharacterOnTarget(charactersp1 , mouse.getX(),mouse.getY());			
+				}
+				else if(turn == Settings.TURN_P2)
+				{
+					pick = getCharacterOnTarget(charactersp2 , mouse.getX(),mouse.getY());
+				}
+				if(pick != null)
+				{
+					state = Settings.STATE_ACTION;
+				}
 				for(int i=0 ; i < Settings.NUMBER_PICKITEM ; i++)
 				{
 					if(turn == Settings.TURN_P1)
 					{
 						if(selectedp1[i].bounds.contains(mouse.getX() , mouse.getY()))
 						{
-							pick = selectedp1[i].name;
+							pick = selectedp1[i];
 							state = Settings.STATE_SPAWN;
 						}
 					}
@@ -112,11 +134,10 @@ public class World {
 					{
 						if(selectedp2[i].bounds.contains(mouse.getX() , mouse.getY()))
 						{
-							pick = selectedp2[i].name;
+							pick = selectedp2[i];
 							state = Settings.STATE_SPAWN;
 						}
 					}
-
 				}
 			}
 			else if(state == Settings.STATE_SPAWN)
@@ -125,7 +146,41 @@ public class World {
 				{
 					if(!hasCharacter())
 					{
-						checkItemupdate(pick , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
+						checkItemupdate(pick.number , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
+						state = Settings.STATE_STILL;
+					}
+				}
+				else
+				{
+					state = Settings.STATE_STILL;
+				}
+			}
+			else if(state == Settings.STATE_ACTION)
+			{
+				if(mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER && mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE))
+				{
+					if(isInRange(pick.atkrank))
+					{
+						if(turn == Settings.TURN_P1)
+						{
+							for(Character n : charactersp2)
+							{
+								if(n.bounds.contains(mouse.getX(), mouse.getY()))
+								{
+									attack(n,pick.atk);
+								}
+							}
+						}
+						else if(turn == Settings.TURN_P2)
+						{
+							for(Character n : charactersp1)
+							{
+								if(n.bounds.contains(mouse.getX(), mouse.getY()))
+								{
+									attack(n,pick.atk);
+								}
+							}
+						}
 						state = Settings.STATE_STILL;
 					}
 				}
@@ -137,9 +192,37 @@ public class World {
 		}
 	}
 	
+	public Character getCharacterOnTarget(List<Character> character , float x , float y)
+	{
+		for(Character n : character)
+		{
+			if(n.bounds.contains(mouse.getX() , mouse.getY()))
+			{
+				return n;
+			}					
+		}
+		return null;
+	}
+	
+	public boolean isInRange(int range)
+	{
+		if(Math.abs(mouse.getCol() - pick.getCol()) + Math.abs(mouse.getRow() - pick.getRow()) <= range)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	public boolean hasCharacter()
 	{
-		for(Character n : characters)
+		for(Character n : charactersp1)
+		{
+			if(n.bounds.contains(mouse.getX(), mouse.getY()))
+			{
+				return true;
+			}
+		}
+		for(Character n : charactersp2)
 		{
 			if(n.bounds.contains(mouse.getX(), mouse.getY()))
 			{
@@ -149,21 +232,21 @@ public class World {
 		return false;
 	}
 	
-	public void checkItemupdate(int name , float x ,float y)
+	public void checkItemupdate(int number , float x ,float y)
 	{
-		if(name == Settings.C_SWORDMAN)
+		if(number == Settings.C_SWORDMAN)
 		{
 			spawnswordman(x,y);
 		}
-		else if(name == Settings.C_WIZARD)
+		else if(number == Settings.C_WIZARD)
 		{
 			spawnwizard(x,y);
 		}
-		else if(name == Settings.C_MON1)
+		else if(number == Settings.C_MON1)
 		{
 			spawnmon1(x,y);
 		}
-		else if(name == Settings.C_MON2)
+		else if(number == Settings.C_MON2)
 		{
 			spawnmon2(x,y);
 		}
@@ -171,26 +254,54 @@ public class World {
 	
 	public void spawnswordman(float x , float y)
 	{
-		CSwordman swordman = new CSwordman(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_SWORDMAN, turn);
-		characters.add(swordman);
+		CSwordman swordman = new CSwordman(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_SWORDMAN);
+		addToPlayer(swordman);
 	}
 	
 	public void spawnwizard(float x , float y)
 	{
-		CWizard wizard = new CWizard(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_WIZARD, turn);
-		characters.add(wizard);
+		CWizard wizard = new CWizard(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_WIZARD);
+		addToPlayer(wizard);
 	}
 	
 	public void spawnmon1(float x , float y)
 	{
-		CMon1 mon1 = new CMon1(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON1, turn);
-		characters.add(mon1);
+		CMon1 mon1 = new CMon1(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON1);
+		addToPlayer(mon1);
 	}
 	
 	public void spawnmon2(float x , float y)
 	{
-		CMon2 mon2 = new CMon2(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON2, turn);
-		characters.add(mon2);
+		CMon2 mon2 = new CMon2(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON2);
+		addToPlayer(mon2);
+	}
+	
+	
+	public void addToPlayer(Character character)
+	{
+		if(turn == Settings.TURN_P1)
+		{
+			charactersp1.add(character);
+		}
+		else if(turn == Settings.TURN_P2)
+		{
+			charactersp2.add(character);
+		}
+	}
+	
+	public void attack(Character character , int damage)
+	{
+		character.hp -= damage;
+	}
+	
+	public void heal(Character character , int restore)
+	{
+		character.hp += restore;
+	}
+	
+	public void spawn()
+	{
+		
 	}
 	
 	public Board getBoard()

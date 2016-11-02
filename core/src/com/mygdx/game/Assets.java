@@ -9,11 +9,14 @@ public class Assets {
 	static Texture friver;
 	static Texture pickboard;
 	static Texture pickitemscreen;
+	static Texture turnp1screen;
+	static Texture turnp2screen;
 	static Texture slotblock;
 	
 	static Texture selectbutton;
 	static Texture startgamebutton;
 	static Texture endturnbutton;
+	static Texture skillbutton;
 	
 	static Texture smana;
 	static Texture shealth;
@@ -32,10 +35,14 @@ public class Assets {
 		pickboard = new Texture(Gdx.files.internal("Pickboard.png"));
 
 		pickitemscreen = new Texture(Gdx.files.internal("PickitemScreen.png"));
+		turnp1screen = new Texture(Gdx.files.internal("TurnP1Screen.png"));
+		turnp2screen = new Texture(Gdx.files.internal("TurnP2Screen.png"));
 		slotblock = new Texture(Gdx.files.internal("SlotBlock.png"));
+		
 		selectbutton = new Texture(Gdx.files.internal("SelectButton.png"));
 		startgamebutton = new Texture(Gdx.files.internal("StartGameButton.png"));
 		endturnbutton = new Texture(Gdx.files.internal("EndturnButton.png"));
+		skillbutton = new Texture(Gdx.files.internal("SkillButton.png"));
 		
 		smana = new Texture(Gdx.files.internal("Smana.png"));
 		shealth = new Texture(Gdx.files.internal("Shealth.png"));

@@ -28,6 +28,9 @@ public abstract class Settings {
 	static final float B_ENDTURN_Y = 20;
 	static final float B_ENDTURN_WIDTH = 150;
 	static final float B_ENDTURN_HEIGHT = 64;
+	static final float B_SKILLBUTTONP1_X = 20;
+	static final float B_SKILLBUTTONP2_X = 917;
+	static final float B_SKILLBUTTON_Y = 325;
 	
 	static final int NUMBER_GRASS= 10;
 	static final int NUMBER_PICKITEM = 3;
@@ -42,30 +45,35 @@ public abstract class Settings {
 	static final int SWORDMAN_ATKRANK = 1;
 	static final int SWORDMAN_WALK = 2;
 	static final int SWORDMAN_COST = 0;
+	static final String SWORDMAN_SKILL = "Deal 3 damage around \nitself 2 blocks.";
 	
 	static final int WIZARD_HP = 5;
 	static final int WIZARD_ATK = 1;
 	static final int WIZARD_ATKRANK = 2;
 	static final int WIZARD_WALK = 3;
 	static final int WIZARD_COST = 0;
+	static final String WIZARD_SKILL = "Spawn 1 SKULL on the \ntarget block.";
 	
 	static final int MON1_HP = 2;
 	static final int MON1_ATK = 2;
 	static final int MON1_ATKRANK = 1;
 	static final int MON1_WALK = 1;
 	static final int MON1_COST = 2;
+	static final String MON1_SKILL = "-";
 	
 	static final int MON2_HP = 3;
 	static final int MON2_ATK = 1;
 	static final int MON2_ATKRANK = 1;
 	static final int MON2_WALK = 2;
 	static final int MON2_COST = 2;
+	static final String MON2_SKILL = "-";
 	
 	static final int S_HEALTH = 300;
 	static final int S_MANA = 301;
 	
 	static final int STATE_STILL = 0;
 	static final int STATE_SPAWN = 1;
+	static final int STATE_ACTION = 2;
 	
 	static final int TURN_P1 = 1;
 	static final int TURN_P2 = 2 ;

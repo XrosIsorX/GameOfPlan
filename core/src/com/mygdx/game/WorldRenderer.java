@@ -26,7 +26,7 @@ public class WorldRenderer {
 		batch.setColor(1,1,1,1);
 	}
 	
-	public void pickcharacterrender()
+	public void pickCharacterrender()
 	{
 		if(world.state == Settings.STATE_ACTION)
 		{
@@ -86,13 +86,21 @@ public class WorldRenderer {
 		{
 			batch.draw(Assets.smana, x , y );
 		}
+		else if(number == Settings.C_NEXUSP1)
+		{
+			batch.draw(Assets.nexusP1, x , y );
+		}
+		else if(number == Settings.C_NEXUSP2)
+		{
+			batch.draw(Assets.nexusP2, x , y );
+		}
 	}
 	
 	public void spawnMouserender()
 	{
 		if(world.state == Settings.STATE_SPAWN)
 		{
-			checkItemrender(world.pick.number , Gdx.input.getX() - (Settings.BLOCK_SIZE / 2) , Settings.BOARD_HEIGHT - Gdx.input.getY() - (Settings.BLOCK_SIZE / 2));
+			checkItemrender(world.pick.number , world.mouse.getX() - (Settings.BLOCK_SIZE / 2) , world.mouse.getY() - (Settings.BLOCK_SIZE / 2));
 		}
 	}
 	
@@ -149,6 +157,26 @@ public class WorldRenderer {
 		font.draw(batch , "  X     " + world.resource[Settings.TURN_P1], 956 , 115);
 	}
 	
+	public void towerrender()
+	{
+		for(Character n : world.towersP1)
+		{
+			checkItemrender(n.number , n.position.x , n.position.y);
+		}
+		for(Character n : world.towersP2)
+		{
+			checkItemrender(n.number , n.position.x , n.position.y);
+		}
+	}
+	
+	public void skillSpawnrender()
+	{
+		if(world.state == Settings.STATE_SKILLSPAWN)
+		{
+			checkItemrender(world.skillSpawn , world.mouse.getX() - (Settings.BLOCK_SIZE / 2) , world.mouse.getY() - (Settings.BLOCK_SIZE / 2));
+		}
+	}
+	
 	public void actionrender()
 	{
 		
@@ -161,7 +189,8 @@ public class WorldRenderer {
 		boardrenderer.render();
 		buttonrender();
 		mousepickrender();
-		pickcharacterrender();
+		pickCharacterrender();
+		skillSpawnrender();
 		itemrender();
 		allCharacterrender();
 		if(world.pick != null)
@@ -169,6 +198,7 @@ public class WorldRenderer {
 			checkFontrender(world.pick);
 			spawnMouserender();
 		}
+		towerrender();
 		resourcerender();
 		batch.end();
 	}

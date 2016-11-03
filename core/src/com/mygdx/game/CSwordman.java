@@ -1,5 +1,8 @@
 package com.mygdx.game;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class CSwordman extends Character{
 
 	public CSwordman(float x, float y, float width, float height, int number , int turn) 
@@ -19,17 +22,19 @@ public class CSwordman extends Character{
 	{
 		if(World.turn == Settings.TURN_P1)
 		{
-			for(Character n : World.charactersp2)
+			List<Character> substitute = new LinkedList<Character>(World.charactersp2);
+			for(Character n : substitute)
 			{
 				if(n.getCol() <= this.getCol() + 2 && n.getCol() >= this.getCol() - 2 && n.getRow() <= this.getRow() + 2 && n.getCol() >= this.getRow() - 2)
-				{System.out.println(World.turn);
+				{
 					n.reduceHP(5);
 				}
 			}
 		}
 		if(World.turn == Settings.TURN_P2)
 		{
-			for(Character n : World.charactersp1)
+			List<Character> substitute = new LinkedList<Character>(World.charactersp1);
+			for(Character n : substitute)
 			{
 				if(n.position.x <= this.position.x + (2 * Settings.BLOCK_SIZE) && n.position.x >= this.position.x - (2 * Settings.BLOCK_SIZE) && n.position.y >= this.position.y + (2 * Settings.BLOCK_SIZE) && n.position.y <= this.position.y + (2 * Settings.BLOCK_SIZE))
 				{

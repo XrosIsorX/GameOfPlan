@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 
 public class Character extends GameObject{
+	int skillRange = 0;
 	int number = 0;
 	int team = 0;
 	int hp = 0;
@@ -22,7 +23,6 @@ public class Character extends GameObject{
 	public void reduceHP(int reduce)
 	{
 		hp -= reduce;
-		System.out.println(team);
 		if(hp <= 0)
 		{
 			if(team == Settings.TURN_P1)

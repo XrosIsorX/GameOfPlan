@@ -14,7 +14,7 @@ public class World {
 	private GameOfPlan game;
 	private Board board;
 	public Mouse mouse;
-	public int state = 0;
+	public static int state = 0;
 	public static int turn = Settings.TURN_P1;
 	
 	public Rectangle B_Endturnp1;
@@ -22,10 +22,14 @@ public class World {
 	public Rectangle b_SkillP1;
 	public Rectangle b_SkillP2;
 	
+	public static List<Character> towersP1;
+	public static List<Character> towersP2;
+	
 	public static List<Character> charactersp1;
 	public static List<Character> charactersp2;
 	
 	public Character pick;
+	public static int skillSpawn;
 	public Character[] selectedp1;
 	public Character[] selectedp2;
 	public int[] resource;
@@ -42,6 +46,9 @@ public class World {
 		setButton();
 		charactersp1 = new LinkedList<Character>();
 		charactersp2 = new LinkedList<Character>();
+		towersP1 = new LinkedList<Character>();
+		towersP2 = new LinkedList<Character>();
+		setTower();
 	}
 
 	public static World getInstance()
@@ -76,6 +83,14 @@ public class World {
 		n.position.y = y;
 		n.bounds.x = x;
 		n.bounds.y = y;
+	}
+	
+	public void setTower()
+	{
+		Nexus nexusP1 = new Nexus(8 * Settings.BLOCK_SIZE , Settings.BOARD_HEIGHT - Settings.BLOCK_SIZE , Settings.BLOCK_SIZE , Settings.BLOCK_SIZE , Settings.C_NEXUSP1 , Settings.TURN_P1);
+		towersP1.add(nexusP1);
+		Nexus nexusP2 = new Nexus(8 * Settings.BLOCK_SIZE , 0 , Settings.BLOCK_SIZE , Settings.BLOCK_SIZE , Settings.C_NEXUSP2 , Settings.TURN_P1);
+		towersP2.add(nexusP2);
 	}
 	
 	public void setItem()
@@ -119,23 +134,26 @@ public class World {
 	
 	public void updateB_Skill()
 	{
-		if(Gdx.input.justTouched())
+		if(state == Settings.STATE_ACTION)
 		{
-			if(turn == Settings.TURN_P1)
+			if(Gdx.input.justTouched())
 			{
-				if(b_SkillP1.contains(mouse.getX() , mouse.getY()))
+				if(turn == Settings.TURN_P1)
 				{
-					pick.skill();
+					if(b_SkillP1.contains(mouse.getX() , mouse.getY()))
+					{
+						pick.skill();
+					}
 				}
-			}
-			else if(turn == Settings.TURN_P2)
-			{
-				if(b_SkillP2.contains(mouse.getX() , mouse.getY()))
+				else if(turn == Settings.TURN_P2)
 				{
-					pick.skill();
+					if(b_SkillP2.contains(mouse.getX() , mouse.getY()))
+					{
+						pick.skill();
+					}
 				}
-			}
 
+			}
 		}
 	}
 	
@@ -248,6 +266,24 @@ public class World {
 				else
 				{
 					state = Settings.STATE_STILL;
+				}
+			}
+			else if(state == Settings.STATE_SKILLSPAWN)
+			{
+				if(isInRange(pick.skillRange))
+				{
+					if(mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER && mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE))
+					{
+						if(!hasCharacter())
+						{
+							checkItemupdate(skillSpawn , mouse.getColX(), mouse.getRowY());
+							state = Settings.STATE_STILL;
+						}
+					}
+					else
+					{
+						state = Settings.STATE_ACTION;
+					}
 				}
 			}
 		}

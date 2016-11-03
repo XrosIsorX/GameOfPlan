@@ -41,6 +41,8 @@ public abstract class Settings {
 	static final int C_SWORDMAN = 101;
 	static final int C_MON1 = 200;
 	static final int C_MON2 = 201;
+	static final int C_NEXUSP1 = 1000;
+	static final int C_NEXUSP2 = 1001;
 	
 	static final int SWORDMAN_HP = 10;
 	static final int SWORDMAN_ATK = 3;
@@ -76,6 +78,7 @@ public abstract class Settings {
 	static final int STATE_STILL = 0;
 	static final int STATE_SPAWN = 1;
 	static final int STATE_ACTION = 2;
+	static final int STATE_SKILLSPAWN = 3;
 	
 	static final int TURN_P1 = 1;
 	static final int TURN_P2 = 2 ;

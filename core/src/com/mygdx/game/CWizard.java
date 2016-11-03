@@ -11,6 +11,14 @@ public class CWizard extends Character{
 		walk = Settings.WIZARD_WALK;
 		cost = Settings.WIZARD_COST;
 		skill = "Spawn a SKULL on the target area.";
+		skillRange = 1;
 		name = "Wizard";
+	}
+	
+	@Override
+	public void skill()
+	{
+		World.state = Settings.STATE_SKILLSPAWN;
+		World.skillSpawn = Settings.C_MON2;
 	}
 }

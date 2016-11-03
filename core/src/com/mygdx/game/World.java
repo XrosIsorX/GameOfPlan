@@ -120,6 +120,10 @@ public class World {
 				if(B_Endturnp1.contains(mouse.getX() , mouse.getY()))
 				{
 					turn = Settings.TURN_P2;
+					for(Character n : charactersp1)
+					{
+						n.isUsed = false;
+					}
 				}
 			}
 			else if(turn == Settings.TURN_P2)
@@ -127,6 +131,10 @@ public class World {
 				if(B_Endturnp2.contains(mouse.getX() , mouse.getY()))
 				{
 					turn = Settings.TURN_P1;
+					for(Character n : charactersp2)
+					{
+						n.isUsed = false;
+					}
 				}
 			}
 		}
@@ -143,6 +151,7 @@ public class World {
 					if(b_SkillP1.contains(mouse.getX() , mouse.getY()))
 					{
 						pick.skill();
+						pick.isUsed = true;
 					}
 				}
 				else if(turn == Settings.TURN_P2)
@@ -150,6 +159,7 @@ public class World {
 					if(b_SkillP2.contains(mouse.getX() , mouse.getY()))
 					{
 						pick.skill();
+						pick.isUsed = true;
 					}
 				}
 
@@ -170,7 +180,10 @@ public class World {
 						if(n.bounds.contains(mouse.getX() , mouse.getY()))
 						{
 							pick = n;
-							state = Settings.STATE_ACTION;
+							if(n.isUsed == false)
+							{
+								state = Settings.STATE_ACTION;
+							}
 						}					
 					}
 					//getCharacterOnTarget(charactersp1 , mouse.getX() , mouse.getY());		
@@ -183,7 +196,10 @@ public class World {
 						if(n.bounds.contains(mouse.getX() , mouse.getY()))
 						{
 							pick = n;
-							state = Settings.STATE_ACTION;
+							if(n.isUsed == false)
+							{
+								state = Settings.STATE_ACTION;
+							}
 						}					
 					}
 					//getCharacterOnTarget(charactersp2 , mouse.getX() , mouse.getY());
@@ -239,6 +255,7 @@ public class World {
 									if(n.bounds.contains(mouse.getX(), mouse.getY()))
 									{
 										n.reduceHP(pick.atk);
+										pick.isUsed = true;
 									}
 								}
 							}
@@ -249,6 +266,7 @@ public class World {
 									if(n.bounds.contains(mouse.getX(), mouse.getY()))
 									{
 										n.reduceHP(pick.atk);
+										pick.isUsed = true;
 									}
 								}
 							}
@@ -259,6 +277,7 @@ public class World {
 						if(isInRange(pick.walk))
 						{
 							setPosition(pick , mouse.getColX() , mouse.getRowY());
+							pick.isUsed =true;
 						}
 					}
 					state = Settings.STATE_STILL;

@@ -154,7 +154,7 @@ public class WorldRenderer {
 		batch.draw(Assets.fgrass , 20 , 100 , 30 ,30);
 		font.draw(batch , "  X     " + world.resource[Settings.TURN_P1], 60 , 115);
 		batch.draw(Assets.fgrass , 916 , 100 , 30 ,30);
-		font.draw(batch , "  X     " + world.resource[Settings.TURN_P1], 956 , 115);
+		font.draw(batch , "  X     " + world.resource[Settings.TURN_P2], 956 , 115);
 	}
 	
 	public void towerrender()

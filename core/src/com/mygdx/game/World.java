@@ -119,23 +119,38 @@ public class World {
 			{
 				if(B_Endturnp1.contains(mouse.getX() , mouse.getY()))
 				{
-					turn = Settings.TURN_P2;
+					collectGrass(charactersp1);
 					for(Character n : charactersp1)
 					{
 						n.isUsed = false;
 					}
+					turn = Settings.TURN_P2;
 				}
 			}
 			else if(turn == Settings.TURN_P2)
 			{
 				if(B_Endturnp2.contains(mouse.getX() , mouse.getY()))
 				{
-					turn = Settings.TURN_P1;
+					collectGrass(charactersp2);
 					for(Character n : charactersp2)
 					{
 						n.isUsed = false;
 					}
+					turn = Settings.TURN_P1;
 				}
+			}
+		}
+	}
+	
+	public void collectGrass(List<Character> characters)
+	{
+		for(Character n : characters)
+		{
+			int col = n.getCol() - Settings.BOARD_PLAYER;
+			int row = n.getRow();
+			if(board.map[row][col] == Settings.F_GRASS)
+			{
+				resource[turn]++;
 			}
 		}
 	}

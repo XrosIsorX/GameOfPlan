@@ -14,6 +14,11 @@ public class Board {
 		setGrass();
 	}
 	
+	private void setGrass1()
+	{
+		map[0][0] = Settings.F_GRASS;
+	}
+	
 	private void setGrass()
 	{
 		for(int i=0;i<Settings.NUMBER_GRASS/2;i++)

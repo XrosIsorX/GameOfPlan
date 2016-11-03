@@ -19,7 +19,7 @@ public class BoardRenderer {
 	{
 		for(int i=0;i<Settings.BOARD_Y;i++)
 		{
-			for(int j=3;j<Settings.BOARD_X+3;j++)
+			for(int j= Settings.BOARD_PLAYER;j<Settings.BOARD_X + Settings.BOARD_PLAYER;j++)
 			{
 				if(i==Settings.BOARD_Y/2)
 				{
@@ -28,7 +28,7 @@ public class BoardRenderer {
 				else
 				{
 					batch.draw(Assets.fground,j*Settings.BLOCK_SIZE,i*Settings.BLOCK_SIZE);
-					if(board.map[i][j-3]== Settings.F_GRASS)
+					if(board.map[i][j - Settings.BOARD_PLAYER]== Settings.F_GRASS)
 					{
 						batch.draw(Assets.fgrass,j*Settings.BLOCK_SIZE,i*Settings.BLOCK_SIZE);
 					}

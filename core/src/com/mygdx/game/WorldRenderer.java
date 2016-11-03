@@ -177,6 +177,26 @@ public class WorldRenderer {
 		}
 	}
 	
+	public void hprender()
+	{
+		for(Character n : world.towersP1)
+		{
+			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
+		}
+		for(Character n : world.towersP2)
+		{
+			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
+		}
+		for(Character n : world.charactersp1)
+		{
+			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
+		}
+		for(Character n : world.charactersp2)
+		{
+			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
+		}
+	}
+	
 	public void actionrender()
 	{
 		
@@ -199,6 +219,7 @@ public class WorldRenderer {
 			spawnMouserender();
 		}
 		towerrender();
+		hprender();
 		resourcerender();
 		batch.end();
 	}

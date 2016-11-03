@@ -50,7 +50,7 @@ public class Character extends GameObject{
 		this.team = team;
 	}
 
-	public Character(float x, float y, float width, float height, int number , int team ,int hp ,int atk , int atkrange , int walk) {
+	public Character(float x , float y , float width , float height , int number , int team ,int hp ,int atk , int atkrange , int walk) {
 		super(x, y, width, height);
 		this.hp = hp;
 		this.atk = atk;

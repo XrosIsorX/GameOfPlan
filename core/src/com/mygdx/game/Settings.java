@@ -44,6 +44,13 @@ public abstract class Settings {
 	static final int C_NEXUSP1 = 1000;
 	static final int C_NEXUSP2 = 1001;
 	
+	static final int NEXUS_HP = 20;
+	static final int NEXUS_ATK = 0;
+	static final int NEXUS_ATKRANGE = 0;
+	static final int NEXUS_WALK = 0;
+	static final int NEXUS_COST = 0;
+	static final String NEXUS_SKILL = "-";
+	
 	static final int SWORDMAN_HP = 10;
 	static final int SWORDMAN_ATK = 3;
 	static final int SWORDMAN_ATKRANGE = 1;

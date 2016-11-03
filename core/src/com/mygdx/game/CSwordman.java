@@ -13,7 +13,7 @@ public class CSwordman extends Character{
 		atkRange = Settings.SWORDMAN_ATKRANGE;
 		walk = Settings.SWORDMAN_WALK;
 		cost = Settings.SWORDMAN_COST;
-		skill = "deal 5 damage around\n itself for 2 blocks";
+		skill = Settings.SWORDMAN_SKILL;
 		name = "Swordman";
 	}
 	
@@ -27,7 +27,7 @@ public class CSwordman extends Character{
 			{
 				if(n.getCol() <= this.getCol() + 2 && n.getCol() >= this.getCol() - 2 && n.getRow() <= this.getRow() + 2 && n.getCol() >= this.getRow() - 2)
 				{
-					n.reduceHP(5);
+					n.reduceHP(3);
 				}
 			}
 		}
@@ -38,7 +38,7 @@ public class CSwordman extends Character{
 			{
 				if(n.position.x <= this.position.x + (2 * Settings.BLOCK_SIZE) && n.position.x >= this.position.x - (2 * Settings.BLOCK_SIZE) && n.position.y >= this.position.y + (2 * Settings.BLOCK_SIZE) && n.position.y <= this.position.y + (2 * Settings.BLOCK_SIZE))
 				{
-					n.reduceHP(5);
+					n.reduceHP(3);
 				}
 			}
 		}

@@ -9,7 +9,6 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.math.Rectangle;
 
 public class World {
-	private static World world;
 	
 	private GameOfPlan game;
 	private Board board;
@@ -36,7 +35,6 @@ public class World {
 	
 	public World(GameOfPlan game,Character[] selectedp1 , Character[] selectedp2)
 	{
-		world = this;
 		this.game = game;
 		board = new Board();
 		mouse = new Mouse();
@@ -51,11 +49,6 @@ public class World {
 		setTower();
 	}
 
-	public static World getInstance()
-	{
-		return world;
-	}
-	
 	public void setButton()
 	{
 		B_Endturnp1 = new Rectangle(Settings.B_ENDTURNP1_X ,Settings.B_ENDTURN_Y , Settings.B_ENDTURN_WIDTH , Settings.B_ENDTURN_HEIGHT);
@@ -227,7 +220,10 @@ public class World {
 						if(selectedp1[i].bounds.contains(mouse.getX() , mouse.getY()))
 						{
 							pick = selectedp1[i];
-							state = Settings.STATE_SPAWN;
+							if(pick.isUsed == false && pick.cost <= resource[turn])
+							{
+								state = Settings.STATE_SPAWN;
+							}
 						}
 					}
 					else if( turn == Settings.TURN_P2)
@@ -235,7 +231,10 @@ public class World {
 						if(selectedp2[i].bounds.contains(mouse.getX() , mouse.getY()))
 						{
 							pick = selectedp2[i];
-							state = Settings.STATE_SPAWN;
+							if(pick.isUsed == false && pick.cost <= resource[turn])
+							{
+								state = Settings.STATE_SPAWN;
+							}
 						}
 					}
 				}
@@ -247,6 +246,8 @@ public class World {
 					if(!hasCharacter())
 					{
 						checkItemupdate(pick.number , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
+						disableSpawnChampion(pick);
+						resource[turn] -= pick.cost;
 						state = Settings.STATE_STILL;
 					}
 				}
@@ -360,6 +361,14 @@ public class World {
 			}
 		}
 		return false;
+	}
+	
+	public void disableSpawnChampion(Character character)
+	{
+		if(character.number >= Settings.C_WIZARD && character.number <Settings.C_MON1)
+		{
+			character.isUsed = true;
+		}
 	}
 	
 	public void checkItemupdate(int number , float x ,float y)

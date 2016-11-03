@@ -2,12 +2,12 @@ package com.mygdx.game;
 
 public class CWizard extends Character{
 
-	public CWizard(float x, float y, float width, float height, int number) 
+	public CWizard(float x, float y, float width, float height, int number , int turn) 
 	{
-		super(x, y, width, height, number);
+		super(x, y, width, height, number , turn);
 		hp= Settings.WIZARD_HP;
 		atk = Settings.WIZARD_ATK;
-		atkrank = Settings.WIZARD_ATKRANK;
+		atkRange = Settings.WIZARD_ATKRANGE;
 		walk = Settings.WIZARD_WALK;
 		cost = Settings.WIZARD_COST;
 		skill = "Spawn a SKULL on the target area.";

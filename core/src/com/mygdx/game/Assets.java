@@ -7,7 +7,10 @@ public class Assets {
 	static Texture fground;
 	static Texture fgrass;
 	static Texture friver;
+	
 	static Texture pickboard;
+	static Texture pickcharacter;
+	
 	static Texture pickitemscreen;
 	static Texture turnp1screen;
 	static Texture turnp2screen;
@@ -33,6 +36,7 @@ public class Assets {
 		friver = new Texture(Gdx.files.internal("Friver.png"));
 		
 		pickboard = new Texture(Gdx.files.internal("Pickboard.png"));
+		pickcharacter = new Texture(Gdx.files.internal("PickCharacter.png"));
 
 		pickitemscreen = new Texture(Gdx.files.internal("PickitemScreen.png"));
 		turnp1screen = new Texture(Gdx.files.internal("TurnP1Screen.png"));

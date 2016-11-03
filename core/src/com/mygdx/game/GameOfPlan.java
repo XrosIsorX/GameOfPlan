@@ -15,17 +15,17 @@ public class GameOfPlan extends Game{
 		selectedp1 = new Character[Settings.NUMBER_PICKITEM];
 		selectedp2 = new Character[Settings.NUMBER_PICKITEM];
 		
-		CSwordman cswordman = new CSwordman(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN);
+		CSwordman cswordman = new CSwordman(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN , Settings.TURN_P1);
 		selectedp1[0] = cswordman;
-		CWizard cwizard = new CWizard(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD);
+		CWizard cwizard = new CWizard(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD , Settings.TURN_P2);
 		selectedp2[0] = cwizard;
-		CMon1 cmon1 = new CMon1(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1);
+		CMon1 cmon1 = new CMon1(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1 , Settings.TURN_P1);
 		selectedp1[1] = cmon1;
-		CMon2 cmon2 = new CMon2(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2);
+		CMon2 cmon2 = new CMon2(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2 , Settings.TURN_P2);
 		selectedp2[1] = cmon2;
-		Character shealth = new Character(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH);
+		Character shealth = new Character(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH , Settings.TURN_P1);
 		selectedp1[2] = shealth;
-		Character smana = new Character(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA);
+		Character smana = new Character(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA , Settings.TURN_P2);
 		selectedp2[2] = smana;
 		//----------------------------------
 		batch = new SpriteBatch();

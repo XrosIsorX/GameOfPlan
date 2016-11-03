@@ -7,10 +7,10 @@ public class Character extends GameObject{
 	int team = 0;
 	int hp = 0;
 	int atk = 0;
-	int atkrank = 0;
+	int atkRange = 0;
 	int walk = 0;
 	int cost = 0;
-	boolean isused = false;
+	boolean isUsed = false;
 	String skill;
 	String name;
 	
@@ -19,18 +19,44 @@ public class Character extends GameObject{
 		
 	}
 	
+	public void reduceHP(int reduce)
+	{
+		hp -= reduce;
+		System.out.println(team);
+		if(hp <= 0)
+		{
+			if(team == Settings.TURN_P1)
+			{
+				World.charactersp1.remove(this);
+			}
+			else if(team == Settings.TURN_P2)
+			{
+				World.charactersp2.remove(this);
+			}
+		}
+	}
+	
+	
 	public Character(float x , float y , float width , float height , int number)
 	{
 		super(x , y , width, height);
 		this.number = number;
 	}
+	
+	public Character(float x , float y , float width , float height , int number , int team)
+	{
+		super(x , y , width, height);
+		this.number = number;
+		this.team = team;
+	}
 
-	public Character(float x, float y, float width, float height, int number ,int hp ,int atk , int atkrank , int walk) {
+	public Character(float x, float y, float width, float height, int number , int team ,int hp ,int atk , int atkrange , int walk) {
 		super(x, y, width, height);
 		this.hp = hp;
 		this.atk = atk;
-		this.atkrank = atk;
+		this.atkRange = atkrange;
 		this.walk = walk;
+		this.team = team;
 	}
 	
 	public int getRow()

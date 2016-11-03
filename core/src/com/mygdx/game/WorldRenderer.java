@@ -22,8 +22,18 @@ public class WorldRenderer {
 	public void mousepickrender()
 	{
 		batch.setColor(1, 1, 1, 0.5f);
-		batch.draw(Assets.pickboard,world.getMouse().getCol()*Settings.BLOCK_SIZE,world.getMouse().getRow()*Settings.BLOCK_SIZE);
+		batch.draw(Assets.pickboard,world.mouse.getColX() , world.mouse.getRowY());
 		batch.setColor(1,1,1,1);
+	}
+	
+	public void pickcharacterrender()
+	{
+		if(world.state == Settings.STATE_ACTION)
+		{
+			batch.setColor(1, 1, 1, 0.5f);
+			batch.draw(Assets.pickcharacter,world.pick.position.x,world.pick.position.y);
+			batch.setColor(1,1,1,1);
+		}
 	}
 	
 	public void backgroundrender()
@@ -117,16 +127,16 @@ public class WorldRenderer {
 		{
 			x = 916;
 		}
-		fontrender(pick.name , pick.cost , pick.hp , pick.atk , pick.atkrank , pick.walk , pick.skill , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
+		fontrender(pick.name , pick.cost , pick.hp , pick.atk , pick.atkRange , pick.walk , pick.skill , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
 	}
 	
-	public void fontrender(String name , int cost , int hp , int atk , int atkrank , int walk , String skill , float x , float y)
+	public void fontrender(String name , int cost , int hp , int atk , int atkRange , int walk , String skill , float x , float y)
 	{
 		font.draw(batch , "Name : " + name, x , y);
 		font.draw(batch , "Cost : " + cost , x , y - (0.5f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Hp : " + hp , x , y - (1f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Atk : " + atk , x , y - (1.5f * Settings.BLOCK_SIZE));
-		font.draw(batch , "Atk rank : " + atkrank, x , y - (2f * Settings.BLOCK_SIZE));
+		font.draw(batch , "Atk range : " + atkRange, x , y - (2f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Walk : " + walk , x , y - (2.5f * Settings.BLOCK_SIZE));
 		font.draw(batch , skill , x , y - (3.8f * Settings.BLOCK_SIZE));
 	}
@@ -151,6 +161,7 @@ public class WorldRenderer {
 		boardrenderer.render();
 		buttonrender();
 		mousepickrender();
+		pickcharacterrender();
 		itemrender();
 		allCharacterrender();
 		if(world.pick != null)

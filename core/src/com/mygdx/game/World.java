@@ -13,13 +13,17 @@ public class World {
 	
 	private GameOfPlan game;
 	private Board board;
-	private Mouse mouse;
+	public Mouse mouse;
 	public int state = 0;
-	public int turn = Settings.TURN_P1;
+	public static int turn = Settings.TURN_P1;
+	
 	public Rectangle B_Endturnp1;
 	public Rectangle B_Endturnp2;
-	public List<Character> charactersp1;
-	public List<Character> charactersp2;
+	public Rectangle b_SkillP1;
+	public Rectangle b_SkillP2;
+	
+	public static List<Character> charactersp1;
+	public static List<Character> charactersp2;
 	
 	public Character pick;
 	public Character[] selectedp1;
@@ -49,10 +53,13 @@ public class World {
 	{
 		B_Endturnp1 = new Rectangle(Settings.B_ENDTURNP1_X ,Settings.B_ENDTURN_Y , Settings.B_ENDTURN_WIDTH , Settings.B_ENDTURN_HEIGHT);
 		B_Endturnp2 = new Rectangle(Settings.B_ENDTURNP2_X ,Settings.B_ENDTURN_Y , Settings.B_ENDTURN_WIDTH , Settings.B_ENDTURN_HEIGHT);
+		b_SkillP1 = new Rectangle(Settings.B_SKILLBUTTONP1_X , Settings.B_SKILLBUTTON_Y , Settings.B_SKILL_WIDTH , Settings.B_SKILL_HEIGHT);
+		b_SkillP2 = new Rectangle(Settings.B_SKILLBUTTONP2_X , Settings.B_SKILLBUTTON_Y , Settings.B_SKILL_WIDTH , Settings.B_SKILL_HEIGHT);
 	}
 	
 	public void update()
 	{
+		updateB_Skill();
 		Screenupdate();
 		Mouseupdate();
 		updateB_Endturn();
@@ -61,6 +68,14 @@ public class World {
 	public void Screenupdate()
 	{
 		setItem();
+	}
+	
+	public void setPosition(Character n , float x , float y)
+	{
+		n.position.x = x;
+		n.position.y = y;
+		n.bounds.x = x;
+		n.bounds.y = y;
 	}
 	
 	public void setItem()
@@ -102,23 +117,59 @@ public class World {
 		}
 	}
 	
-	public void Mouseupdate()
+	public void updateB_Skill()
 	{
+		if(Gdx.input.justTouched())
+		{
+			if(turn == Settings.TURN_P1)
+			{
+				if(b_SkillP1.contains(mouse.getX() , mouse.getY()))
+				{
+					pick.skill();
+				}
+			}
+			else if(turn == Settings.TURN_P2)
+			{
+				if(b_SkillP2.contains(mouse.getX() , mouse.getY()))
+				{
+					pick.skill();
+				}
+			}
+
+		}
+	}
+	
+	public void Mouseupdate()
+	{	//System.out.println(state);
 		if(Gdx.input.justTouched())
 		{
 			if(state == Settings.STATE_STILL)
 			{
 				if(turn == Settings.TURN_P1)
 				{
-					pick = getCharacterOnTarget(charactersp1 , mouse.getX(),mouse.getY());			
+					for(Character n : charactersp1)
+					{
+						if(n.bounds.contains(mouse.getX() , mouse.getY()))
+						{
+							pick = n;
+							state = Settings.STATE_ACTION;
+						}					
+					}
+					//getCharacterOnTarget(charactersp1 , mouse.getX() , mouse.getY());		
+
 				}
 				else if(turn == Settings.TURN_P2)
 				{
-					pick = getCharacterOnTarget(charactersp2 , mouse.getX(),mouse.getY());
-				}
-				if(pick != null)
-				{
-					state = Settings.STATE_ACTION;
+					for(Character n : charactersp2)
+					{
+						if(n.bounds.contains(mouse.getX() , mouse.getY()))
+						{
+							pick = n;
+							state = Settings.STATE_ACTION;
+						}					
+					}
+					//getCharacterOnTarget(charactersp2 , mouse.getX() , mouse.getY());
+					
 				}
 				for(int i=0 ; i < Settings.NUMBER_PICKITEM ; i++)
 				{
@@ -159,30 +210,40 @@ public class World {
 			{
 				if(mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER && mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE))
 				{
-					if(isInRange(pick.atkrank))
+					if(hasCharacter())
 					{
-						if(turn == Settings.TURN_P1)
+						if(isInRange(pick.atkRange))
 						{
-							for(Character n : charactersp2)
+							if(turn == Settings.TURN_P1)
 							{
-								if(n.bounds.contains(mouse.getX(), mouse.getY()))
+								for(Character n : charactersp2)
 								{
-									attack(n,pick.atk);
+									if(n.bounds.contains(mouse.getX(), mouse.getY()))
+									{
+										n.reduceHP(pick.atk);
+									}
+								}
+							}
+							else if(turn == Settings.TURN_P2)
+							{
+								for(Character n : charactersp1)
+								{
+									if(n.bounds.contains(mouse.getX(), mouse.getY()))
+									{
+										n.reduceHP(pick.atk);
+									}
 								}
 							}
 						}
-						else if(turn == Settings.TURN_P2)
-						{
-							for(Character n : charactersp1)
-							{
-								if(n.bounds.contains(mouse.getX(), mouse.getY()))
-								{
-									attack(n,pick.atk);
-								}
-							}
-						}
-						state = Settings.STATE_STILL;
 					}
+					else
+					{
+						if(isInRange(pick.walk))
+						{
+							setPosition(pick , mouse.getColX() , mouse.getRowY());
+						}
+					}
+					state = Settings.STATE_STILL;
 				}
 				else
 				{
@@ -192,16 +253,15 @@ public class World {
 		}
 	}
 	
-	public Character getCharacterOnTarget(List<Character> character , float x , float y)
+	public void getCharacterOnTarget(List<Character> characters , float x , float y)
 	{
-		for(Character n : character)
+		for(Character n : characters)
 		{
-			if(n.bounds.contains(mouse.getX() , mouse.getY()))
+			if(n.bounds.contains(x , y))
 			{
-				return n;
+				pick = n;
 			}					
 		}
-		return null;
 	}
 	
 	public boolean isInRange(int range)
@@ -254,25 +314,25 @@ public class World {
 	
 	public void spawnswordman(float x , float y)
 	{
-		CSwordman swordman = new CSwordman(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_SWORDMAN);
+		CSwordman swordman = new CSwordman(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_SWORDMAN , turn);
 		addToPlayer(swordman);
 	}
 	
 	public void spawnwizard(float x , float y)
 	{
-		CWizard wizard = new CWizard(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_WIZARD);
+		CWizard wizard = new CWizard(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_WIZARD , turn);
 		addToPlayer(wizard);
 	}
 	
 	public void spawnmon1(float x , float y)
 	{
-		CMon1 mon1 = new CMon1(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON1);
+		CMon1 mon1 = new CMon1(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON1, turn);
 		addToPlayer(mon1);
 	}
 	
 	public void spawnmon2(float x , float y)
 	{
-		CMon2 mon2 = new CMon2(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON2);
+		CMon2 mon2 = new CMon2(x,y,Settings.BLOCK_SIZE,Settings.BLOCK_SIZE,Settings.C_MON2 , turn);
 		addToPlayer(mon2);
 	}
 	
@@ -289,28 +349,9 @@ public class World {
 		}
 	}
 	
-	public void attack(Character character , int damage)
-	{
-		character.hp -= damage;
-	}
-	
-	public void heal(Character character , int restore)
-	{
-		character.hp += restore;
-	}
-	
-	public void spawn()
-	{
-		
-	}
-	
 	public Board getBoard()
 	{
 		return board;
 	}
 	
-	public Mouse getMouse()
-	{
-		return mouse;
-	}
 }

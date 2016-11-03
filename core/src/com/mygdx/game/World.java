@@ -245,10 +245,26 @@ public class World {
 				{
 					if(!hasCharacter())
 					{
-						checkItemupdate(pick.number , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
-						disableSpawnChampion(pick);
-						resource[turn] -= pick.cost;
-						state = Settings.STATE_STILL;
+						if(turn == Settings.TURN_P1)
+						{
+							if(mouse.getY() > Settings.BLOCK_SIZE * 6)
+							{
+								checkItemupdate(pick.number , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
+								disableSpawnChampion(pick);
+								resource[turn] -= pick.cost;
+								state = Settings.STATE_STILL;
+							}
+						}
+						else if(turn == Settings.TURN_P2)
+						{
+							if(mouse.getY() < Settings.BLOCK_SIZE * 5)
+							{
+								checkItemupdate(pick.number , mouse.getCol() * Settings.BLOCK_SIZE , mouse.getRow() * Settings.BLOCK_SIZE);
+								disableSpawnChampion(pick);
+								resource[turn] -= pick.cost;
+								state = Settings.STATE_STILL;
+							}
+						}
 					}
 				}
 				else
@@ -274,10 +290,26 @@ public class World {
 										pick.isUsed = true;
 									}
 								}
+								for(Character n : towersP2)
+								{
+									if(n.bounds.contains(mouse.getX(), mouse.getY()))
+									{
+										n.reduceHP(pick.atk);
+										pick.isUsed = true;
+									}
+								}
 							}
 							else if(turn == Settings.TURN_P2)
 							{
 								for(Character n : charactersp1)
+								{
+									if(n.bounds.contains(mouse.getX(), mouse.getY()))
+									{
+										n.reduceHP(pick.atk);
+										pick.isUsed = true;
+									}
+								}
+								for(Character n : towersP1)
 								{
 									if(n.bounds.contains(mouse.getX(), mouse.getY()))
 									{
@@ -354,6 +386,20 @@ public class World {
 			}
 		}
 		for(Character n : charactersp2)
+		{
+			if(n.bounds.contains(mouse.getX(), mouse.getY()))
+			{
+				return true;
+			}
+		}
+		for(Character n : towersP1)
+		{
+			if(n.bounds.contains(mouse.getX(), mouse.getY()))
+			{
+				return true;
+			}
+		}
+		for(Character n : towersP2)
 		{
 			if(n.bounds.contains(mouse.getX(), mouse.getY()))
 			{

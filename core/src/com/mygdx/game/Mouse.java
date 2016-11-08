@@ -6,38 +6,31 @@ import com.badlogic.gdx.math.Vector2;
 public class Mouse {
 	Vector2 pos;
 	
-	public Mouse()
-	{
-		pos = new Vector2(Gdx.input.getX(),Gdx.input.getY());
+	public Mouse() {
+		pos = new Vector2(Gdx.input.getX(), Gdx.input.getY());
 	}
 	
-	public float getX()
-	{
+	public float getX() {
 		return Gdx.input.getX();
 	}
 	
-	public float getY()
-	{
+	public float getY() {
 		return Settings.BOARD_HEIGHT - Gdx.input.getY();
 	}
 	
-	public int getRow()
-	{
-		return Settings.BOARD_Y-(int)(Gdx.input.getY()/Settings.BLOCK_SIZE)-1;
+	public int getRow() {
+		return Settings.BOARD_Y - (int)(Gdx.input.getY() / Settings.BLOCK_SIZE) - 1;
 	}
 	
-	public int getCol()
-	{
-		return (int)(Gdx.input.getX()/Settings.BLOCK_SIZE);
+	public int getCol() {
+		return (int)(Gdx.input.getX() / Settings.BLOCK_SIZE);
 	}
 	
-	public float getColX()
-	{
+	public float getColX() {
 		return getCol() * Settings.BLOCK_SIZE;
 	}
 	
-	public float getRowY()
-	{
+	public float getRowY() {
 		return getRow() * Settings.BLOCK_SIZE;
 	}
 }

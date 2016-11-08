@@ -11,24 +11,30 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class PickItemScreen implements Screen{
 	GameOfPlan game;
-	List<Character> characters;
-	Character pick;
-	Rectangle b_selectp1;
-	Rectangle b_selectp2;
-	public Character[] selectedp1;
-	public Character[] selectedp2;
-	private int turn =0;
-	Rectangle b_startgame;
 	
-	public PickItemScreen (GameOfPlan gam)
-	{
+	List<Character> characters;
+	public List<Character> characterSelectedP1;
+	public List<Character> characterSelectedP2;
+	
+	Character pick;
+
+	Rectangle buttonSelectP1;
+	Rectangle buttonSelectP2;
+	Rectangle buttonStartGame;
+	
+	public int turn =0;
+	
+	public PickItemScreen(GameOfPlan gam) {
 		this.game = gam;
+		
 		characters = new LinkedList<Character>();
-		b_selectp1 = new Rectangle(Settings.B_SELECTP1_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
-		b_selectp2 = new Rectangle(Settings.B_SELECTP2_X,Settings.B_SELECT_Y,Settings.B_SELECT_WIDTH,Settings.B_SELECT_HEIGHT);
-		b_startgame = new Rectangle(Settings.B_STARTGAME_X, Settings.B_STARTGAME_Y , Settings.B_STARTGAME_WIDTH , Settings.B_STARTGAME_HEIGHT);
-		selectedp1 = new Character[Settings.NUMBER_PICKITEM];
-		selectedp2 = new Character[Settings.NUMBER_PICKITEM];
+		characterSelectedP1 = new LinkedList<Character>();
+		characterSelectedP2 = new LinkedList<Character>();
+		
+		buttonSelectP1 = new Rectangle(Settings.BUTTON_SELECTP1_X ,Settings.BUTTON_SELECT_Y, Settings.BUTTON_SELECT_WIDTH, Settings.BUTTON_SELECT_HEIGHT);
+		buttonSelectP2 = new Rectangle(Settings.BUTTON_SELECTP2_X ,Settings.BUTTON_SELECT_Y, Settings.BUTTON_SELECT_WIDTH, Settings.BUTTON_SELECT_HEIGHT);
+		buttonStartGame = new Rectangle(Settings.BUTTON_STARTGAME_X, Settings.BUTTON_STARTGAME_Y, Settings.BUTTON_STARTGAME_WIDTH, Settings.BUTTON_STARTGAME_HEIGHT);
+
 		setCharacter();
 	}
 
@@ -38,55 +44,42 @@ public class PickItemScreen implements Screen{
 		
 	}
 	
-	public void setCharacter()
-	{
-		Character cswordman = new Character(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN);
-		characters.add(cswordman);
-		Character cwizard = new Character(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD);
-		characters.add(cwizard);
-		Character cmon1 = new Character(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1);
-		characters.add(cmon1);
-		Character cmon2 = new Character(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2);
-		characters.add(cmon2);
-		Character shealth = new Character(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH);
-		characters.add(shealth);
-		Character smana = new Character(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA);
-		characters.add(smana);
+	public void setCharacter() {
+		Swordman swordman = new Swordman(400, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SWORDMAN_NUMBER ,0);
+		characters.add(swordman);
+		Wizard wizard = new Wizard(600, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.WIZARD_NUMBER, 0);
+		characters.add(wizard);
+		Meep meep = new Meep(400, 350, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.MEEP_NUMBER, 0);
+		characters.add(meep);
+		Skull skull = new Skull(600, 350, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SKULL_NUMBER, 0);
+		characters.add(skull);
+		Character healPassive = new Character(400, 200, Settings.BLOCK_SIZE , Settings.BLOCK_SIZE, Settings.HPRESTORE_NUMBER);
+		characters.add(healPassive);
+		Character manaPassive = new Character(600, 200, Settings.BLOCK_SIZE , Settings.BLOCK_SIZE, Settings.MANARESTORE_NUMBER);
+		characters.add(manaPassive);
 	}
 	
-	public void updateClick()
-	{
-		if(Gdx.input.justTouched())
-		{
-			for(Character n : characters)
-			{
-				if(n.bounds.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT - Gdx.input.getY()))
-				{
+	public void updateClick() {
+		if (Gdx.input.justTouched()) {
+			for (Character n : characters) {
+				if (n.bounds.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT - Gdx.input.getY())) {
 					pick = n;
 				}
 			}
 		}
 	}
 	
-	public void updateB_Select()
-	{
-		if(turn < Settings.NUMBER_PICKITEM*2 )
-		{
-			if(Gdx.input.justTouched())
-			{
-				if(turn % 2 ==0)
-				{
-					if(b_selectp1.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
-					{
-						selectedp1[turn/2]=pick;
+	public void updateButtonSelect() {
+		if (turn < Settings.NUMBER_PICKITEM * 2) {
+			if (Gdx.input.justTouched()) {
+				if (turn % 2 ==0) {
+					if (buttonSelectP1.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
+						characterSelectedP1.add(pick);
 						turn++;
 					}
-				}
-				else
-				{
-					if(b_selectp2.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
-					{
-						selectedp2[turn/2]=pick;
+				} else {
+					if (buttonSelectP2.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
+						characterSelectedP2.add(pick);
 						turn++;
 					}
 				}
@@ -94,15 +87,11 @@ public class PickItemScreen implements Screen{
 		}
 	}
 	
-	public void updateB_StartGame()
-	{
-		if(turn == 6)
-		{
-			if(Gdx.input.justTouched())
-			{
-				if(b_startgame.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT-Gdx.input.getY()))
-				{
-					game.setScreen(new GameScreen(game,selectedp1,selectedp2));
+	public void updateButtonStartGame() {
+		if (turn == 6) {
+			if (Gdx.input.justTouched()) {
+				if (buttonStartGame.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
+					game.setScreen(new GameScreen(game, characterSelectedP1, characterSelectedP2));
 		        	dispose();
 				}
 			}
@@ -112,8 +101,8 @@ public class PickItemScreen implements Screen{
 	public void update()
 	{
 		updateClick();
-		updateB_Select();
-		updateB_StartGame();
+		updateButtonSelect();
+		updateButtonStartGame();
 	}
 
 	@Override
@@ -122,154 +111,104 @@ public class PickItemScreen implements Screen{
 		
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                
+        
+        draw();
+	}
+	
+	public void draw() {
         game.batch.begin();
-        backgroundrender();
-        slotblockrender();
-        wordrender();
-        buttonrender();
-        Characterrender();
-        pickrender();
+        renderBackGround();
+        renderSlotBlock();
+        renderWord();
+        renderButton();
+        renderCharacter();
+        renderPick();
         game.batch.end();
 	}
 	
-	public void pickrender()
-	{
-		if(pick != null)
-		{
+	public void renderPick() {
+		if (pick != null) {
 			game.batch.setColor(1, 1, 1, 0.5f);
-			game.batch.draw(Assets.pickboard , pick.position.x , pick.position.y);
+			game.batch.draw(Assets.pickBoard, pick.position.x, pick.position.y);
 			game.batch.setColor(1, 1, 1, 1);
 		}
 	}
 	
-	public void Characterrender()
-	{
-		for(Character n : characters)
-		{
-			if(n.number == Settings.C_SWORDMAN)
-			{
-				game.batch.draw(Assets.cswordman , n.position.x , n.position.y);
-			}
-			else if(n.number == Settings.C_WIZARD )
-			{
-				game.batch.draw(Assets.cwizard, n.position.x , n.position.y);
-			}
-			else if(n.number == Settings.C_MON1)
-			{
-				game.batch.draw(Assets.cmon1, n.position.x , n.position.y);
-			}
-			else if(n.number == Settings.C_MON2)
-			{
-				game.batch.draw(Assets.cmon2, n.position.x , n.position.y);
-			}
-			else if(n.number == Settings.S_MANA)
-			{
-				game.batch.draw(Assets.smana, n.position.x , n.position.y);
-			}
-			else if(n.number == Settings.S_HEALTH)
-			{
-				game.batch.draw(Assets.shealth, n.position.x , n.position.y);
+	public void renderCharacter() {
+		for(Character n : characters) {
+			if (n.number == Settings.SWORDMAN_NUMBER) {
+				game.batch.draw(Assets.swordman, n.position.x, n.position.y);
+			} else if (n.number == Settings.WIZARD_NUMBER) {
+				game.batch.draw(Assets.wizard, n.position.x, n.position.y);
+			} else if (n.number == Settings.MEEP_NUMBER) {
+				game.batch.draw(Assets.meep, n.position.x, n.position.y);
+			} else if (n.number == Settings.SKULL_NUMBER) {
+				game.batch.draw(Assets.skull, n.position.x, n.position.y);
+			} else if (n.number == Settings.MANARESTORE_NUMBER) {
+				game.batch.draw(Assets.manaRestore, n.position.x, n.position.y);
+			} else if (n.number == Settings.HPRESTORE_NUMBER) {
+				game.batch.draw(Assets.hpRestore, n.position.x, n.position.y);
 			}
 		}
 	}
 	
-	public void backgroundrender()
-	{
-		game.batch.draw(Assets.pickitemscreen,0,0);
+	public void renderBackGround() {
+		game.batch.draw(Assets.pickitemscreen,0 , 0);
 	}
 	
-	public void buttonrender()
-	{
-		game.batch.draw(Assets.selectbutton, Settings.B_SELECTP1_X , Settings.B_SELECT_Y);
-		game.batch.draw(Assets.selectbutton, Settings.B_SELECTP2_X , Settings.B_SELECT_Y);
-		if(turn == 6)
-		{
-			game.batch.draw(Assets.startgamebutton, Settings.B_STARTGAME_X , Settings.B_STARTGAME_Y);
+	public void renderButton() {
+		game.batch.draw(Assets.buttonSelect, Settings.BUTTON_SELECTP1_X, Settings.BUTTON_SELECT_Y);
+		game.batch.draw(Assets.buttonSelect, Settings.BUTTON_SELECTP2_X, Settings.BUTTON_SELECT_Y);
+		if (turn == 6) {
+			game.batch.draw(Assets.buttonStartGame, Settings.BUTTON_STARTGAME_X, Settings.BUTTON_STARTGAME_Y);
 		}
 	}
 	
-	public void slotblockrender()
-	{
-		for(int i=0;i<Settings.NUMBER_PICKITEM;i++)
-		{
-			if(selectedp1[i] == null)
-			{
-				game.batch.draw(Assets.slotblock, 100, 560 - (i * 100));
-			}
-			else if(selectedp1[i].number == Settings.C_SWORDMAN)
-			{
-				game.batch.draw(Assets.cswordman , 100 , 560 - (i * 100));
-			}
-			else if(selectedp1[i].number == Settings.C_WIZARD)
-			{
-				game.batch.draw(Assets.cwizard , 100 , 560 - (i * 100));
-			}
-			else if(selectedp1[i].number == Settings.C_MON1)
-			{
-				game.batch.draw(Assets.cmon1 , 100 , 560 - (i * 100));
-			}
-			else if(selectedp1[i].number == Settings.C_MON2)
-			{
-				game.batch.draw(Assets.cmon2, 100 , 560 - (i * 100));
-			}
-			else if(selectedp1[i].number == Settings.S_HEALTH)
-			{
-				game.batch.draw(Assets.shealth, 100 , 560 - (i * 100));
-			}
-			else if(selectedp1[i].number == Settings.S_MANA)
-			{
-				game.batch.draw(Assets.smana, 100 , 560 - (i * 100));
-			}
+	public void renderSlotBlock() {
+		for (Character n : characterSelectedP1) {
+			int i = 0;
+			checkItemRender(n, 100,  560 - (i * 100));
+			i++;
 		}
-		for(int i=0;i<Settings.NUMBER_PICKITEM;i++)
-		{
-			if(selectedp2[i] == null)
-			{
-				game.batch.draw(Assets.slotblock, 986, 560 - (i * 100));
-			}
-			else if(selectedp2[i].number == Settings.C_SWORDMAN)
-			{
-				game.batch.draw(Assets.cswordman , 986 , 560 - (i * 100));
-			}
-			else if(selectedp2[i].number == Settings.C_WIZARD)
-			{
-				game.batch.draw(Assets.cwizard , 986 , 560 - (i * 100));
-			}
-			else if(selectedp2[i].number == Settings.C_MON1)
-			{
-				game.batch.draw(Assets.cmon1 , 986 , 560 - (i * 100));
-			}
-			else if(selectedp2[i].number == Settings.C_MON2)
-			{
-				game.batch.draw(Assets.cmon2, 986 , 560 - (i * 100));
-			}
-			else if(selectedp2[i].number == Settings.S_HEALTH)
-			{
-				game.batch.draw(Assets.shealth, 986 , 560 - (i * 100));
-			}
-			else if(selectedp2[i].number == Settings.S_MANA)
-			{
-				game.batch.draw(Assets.smana, 986 , 560 - (i * 100));
-			}
+		for (Character n : characterSelectedP2) {
+			int i = 0;
+			checkItemRender(n, 986,  560 - (i * 100));
+			i++;
 		}
-
 	}
 	
-	public void wordrender()
+	public void checkItemRender(Character item, float x, float y) {
+		if (item == null) {
+			game.batch.draw(Assets.slotBlock, x, y);
+		} else if (item.number == Settings.SWORDMAN_NUMBER) {
+			game.batch.draw(Assets.swordman, x, y);
+		} else if (item.number == Settings.WIZARD_NUMBER) {
+			game.batch.draw(Assets.wizard, x, y);
+		} else if (item.number == Settings.MEEP_NUMBER) {
+			game.batch.draw(Assets.meep, x, y);
+		} else if (item.number == Settings.SKULL_NUMBER) {
+			game.batch.draw(Assets.skull, x, y);
+		} else if (item.number == Settings.HPRESTORE_NUMBER) {
+			game.batch.draw(Assets.hpRestore, x, y);
+		} else if (item.number == Settings.MANARESTORE_NUMBER) {
+			game.batch.draw(Assets.manaRestore, x, y);
+		}
+	}
+	
+	public void renderWord()
 	{
 		game.font.draw(game.batch,"Select your items or champion", 450,675);
 		
-		game.font.draw(game.batch,"Slot 1",20 , 600);
-		game.font.draw(game.batch,"Slot 1",916 , 600);
-		game.font.draw(game.batch,"Slot 2",20 , 500);
-		game.font.draw(game.batch,"Slot 2",916 , 500);
-		game.font.draw(game.batch,"Slot 3",20 , 400);
-		game.font.draw(game.batch,"Slot 3",916 , 400);
+		game.font.draw(game.batch,"Slot 1",20, 600);
+		game.font.draw(game.batch,"Slot 1",916, 600);
+		game.font.draw(game.batch,"Slot 2",20, 500);
+		game.font.draw(game.batch,"Slot 2",916, 500);
+		game.font.draw(game.batch,"Slot 3",20, 400);
+		game.font.draw(game.batch,"Slot 3",916, 400);
 		
-		game.font.draw(game.batch,"Champions",500 , 600);
-		game.font.draw(game.batch,"Minions",510 , 450);
-		game.font.draw(game.batch,"Skills",515 , 300);
+		game.font.draw(game.batch,"Champions",500, 600);
+		game.font.draw(game.batch,"Minions",510, 450);
+		game.font.draw(game.batch,"Skills",515, 300);
 	}
 	
 	@Override

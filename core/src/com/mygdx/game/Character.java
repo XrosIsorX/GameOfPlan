@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 
-public class Character extends GameObject{
+public class Character extends GameObject {
 	int skillRange = 0;
 	int number = 0;
 	int team = 0;
@@ -15,42 +15,18 @@ public class Character extends GameObject{
 	String skill;
 	String name;
 	
-	public void skill()
-	{
-		
-	}
-	
-	public void reduceHP(int reduce)
-	{
-		hp -= reduce;
-		if(hp <= 0)
-		{
-			if(team == Settings.TURN_P1)
-			{
-				World.charactersp1.remove(this);
-			}
-			else if(team == Settings.TURN_P2)
-			{
-				World.charactersp2.remove(this);
-			}
-		}
-	}
-	
-	
-	public Character(float x , float y , float width , float height , int number)
-	{
-		super(x , y , width, height);
+	public Character(float x, float y, float width, float height, int number) {
+		super(x, y, width, height);
 		this.number = number;
 	}
 	
-	public Character(float x , float y , float width , float height , int number , int team)
-	{
-		super(x , y , width, height);
+	public Character(float x, float y, float width, float height, int number, int team) {
+		super(x, y, width, height);
 		this.number = number;
 		this.team = team;
 	}
 
-	public Character(float x , float y , float width , float height , int number , int team ,int hp ,int atk , int atkrange , int walk) {
+	public Character(float x, float y, float width, float height, int number, int team ,int hp ,int atk, int atkrange, int walk) {
 		super(x, y, width, height);
 		this.hp = hp;
 		this.atk = atk;
@@ -59,13 +35,27 @@ public class Character extends GameObject{
 		this.team = team;
 	}
 	
-	public int getRow()
-	{
-		return (int)(position.y/Settings.BLOCK_SIZE);
+	public void skill() {
+		
 	}
 	
-	public int getCol()
-	{
-		return (int)(position.x/Settings.BLOCK_SIZE);
+	public void reduceHP(int reduce) {
+		hp -= reduce;
+		if (hp <= 0) {
+			if (team == Settings.TURN_P1) {
+				World.charactersP1.remove(this);
+			} else if (team == Settings.TURN_P2)
+			{
+				World.charactersP2.remove(this);
+			}
+		}
+	}
+	
+	public int getRow() {
+		return (int)(position.y / Settings.BLOCK_SIZE);
+	}
+	
+	public int getCol() {
+		return (int)(position.x / Settings.BLOCK_SIZE);
 	}
 }

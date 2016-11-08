@@ -12,37 +12,42 @@ public abstract class Settings {
 	
 	static final int FONT_COST_X =20;
 	
-	static final int F_GRASS = 1;
+	static final int GROUND = 0;
+	static final int GRASS = 1;
+	static final int RIVER = 2;
 	
-	static final float B_SELECTP1_X = 50;
-	static final float B_SELECTP2_X = 946;
-	static final float B_SELECT_Y = 50;
-	static final float B_SELECT_WIDTH = 100;
-	static final float B_SELECT_HEIGHT = 50;
-	static final float B_STARTGAME_X = 375;
-	static final float B_STARTGAME_Y = 50;
-	static final float B_STARTGAME_WIDTH = 300;
-	static final float B_STARTGAME_HEIGHT = 100;
-	static final float B_ENDTURNP1_X = 21;
-	static final float B_ENDTURNP2_X = 917;
-	static final float B_ENDTURN_Y = 20;
-	static final float B_ENDTURN_WIDTH = 150;
-	static final float B_ENDTURN_HEIGHT = 64;
-	static final float B_SKILLBUTTONP1_X = 20;
-	static final float B_SKILLBUTTONP2_X = 917;
-	static final float B_SKILLBUTTON_Y = 325;
-	static final float B_SKILL_WIDTH = 50;
-	static final float B_SKILL_HEIGHT = 30;
+	static final float BUTTON_SELECTP1_X = 50;
+	static final float BUTTON_SELECTP2_X = 946;
+	static final float BUTTON_SELECT_Y = 50;
+	static final float BUTTON_SELECT_WIDTH = 100;
+	static final float BUTTON_SELECT_HEIGHT = 50;
+	static final float BUTTON_STARTGAME_X = 375;
+	static final float BUTTON_STARTGAME_Y = 50;
+	static final float BUTTON_STARTGAME_WIDTH = 300;
+	static final float BUTTON_STARTGAME_HEIGHT = 100;
+	static final float BUTTON_ENDTURNP1_X = 21;
+	static final float BUTTON_ENDTURNP2_X = 917;
+	static final float BUTTON_ENDTURN_Y = 20;
+	static final float BUTTON_ENDTURN_WIDTH = 150;
+	static final float BUTTON_ENDTURN_HEIGHT = 64;
+	static final float BUTTON_SKILLBUTTONP1_X = 20;
+	static final float BUTTON_SKILLBUTTONP2_X = 917;
+	static final float BUTTON_SKILLBUTTON_Y = 325;
+	static final float BUTTON_SKILL_WIDTH = 50;
+	static final float BUTTON_SKILL_HEIGHT = 30;
 	
-	static final int NUMBER_GRASS= 10;
+	static final int NUMBER_GRASS = 10;
 	static final int NUMBER_PICKITEM = 3;
 	
-	static final int C_WIZARD = 100;
-	static final int C_SWORDMAN = 101;
-	static final int C_MON1 = 200;
-	static final int C_MON2 = 201;
-	static final int C_NEXUSP1 = 1000;
-	static final int C_NEXUSP2 = 1001;
+	static final int WIZARD_NUMBER = 100;
+	static final int SWORDMAN_NUMBER = 101;
+	static final int MEEP_NUMBER = 200;
+	static final int SKULL_NUMBER = 201;
+	static final int NEXUSP1_NUMBER = 1000;
+	static final int NEXUSP2_NUMBER = 1001;
+	static final int MANARESTORE_NUMBER = 2000;
+	static final int HPRESTORE_NUMBER = 2001;
+	
 	
 	static final int NEXUS_HP = 20;
 	static final int NEXUS_ATK = 0;
@@ -65,22 +70,19 @@ public abstract class Settings {
 	static final int WIZARD_COST = 0;
 	static final String WIZARD_SKILL = "Spawn 1 SKULL on the \ntarget block.";
 	
-	static final int MON1_HP = 2;
-	static final int MON1_ATK = 2;
-	static final int MON1_ATKRANGE = 1;
-	static final int MON1_WALK = 1;
-	static final int MON1_COST = 2;
-	static final String MON1_SKILL = "-";
+	static final int MEEP_HP = 2;
+	static final int MEEP_ATK = 2;
+	static final int MEEP_ATKRANGE = 1;
+	static final int MEEP_WALK = 1;
+	static final int MEEP_COST = 2;
+	static final String MEEP_SKILL = "-";
 	
-	static final int MON2_HP = 3;
-	static final int MON2_ATK = 1;
-	static final int MON2_ATKRANGE = 1;
-	static final int MON2_WALK = 2;
-	static final int MON2_COST = 2;
-	static final String MON2_SKILL = "-";
-	
-	static final int S_HEALTH = 300;
-	static final int S_MANA = 301;
+	static final int SKULL_HP = 3;
+	static final int SKULL_ATK = 1;
+	static final int SKULL_ATKRANGE = 1;
+	static final int SKULL_WALK = 2;
+	static final int SKULL_COST = 2;
+	static final String SKULL_SKILL = "-";
 	
 	static final int STATE_STILL = 0;
 	static final int STATE_SPAWN = 1;

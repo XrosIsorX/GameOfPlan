@@ -1,38 +1,41 @@
 package com.mygdx.game;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GameOfPlan extends Game{
+public class GameOfPlan extends Game {
 	public SpriteBatch batch;
 	public BitmapFont font;
-	public Character[] selectedp1;
-	public Character[] selectedp2;
+	public List<Character> selectedP1;
+	public List<Character> selectedP2;
 	
 	public void create() { 
 		//----------------------------------
-		selectedp1 = new Character[Settings.NUMBER_PICKITEM];
-		selectedp2 = new Character[Settings.NUMBER_PICKITEM];
+		selectedP1 = new LinkedList<Character>();
+		selectedP2 = new LinkedList<Character>();
 		
-		CSwordman cswordman = new CSwordman(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_SWORDMAN , Settings.TURN_P1);
-		selectedp1[0] = cswordman;
-		CWizard cwizard = new CWizard(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_WIZARD , Settings.TURN_P2);
-		selectedp2[0] = cwizard;
-		CMon1 cmon1 = new CMon1(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON1 , Settings.TURN_P1);
-		selectedp1[1] = cmon1;
-		CMon2 cmon2 = new CMon2(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.C_MON2 , Settings.TURN_P2);
-		selectedp2[1] = cmon2;
-		Character shealth = new Character(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_HEALTH , Settings.TURN_P1);
-		selectedp1[2] = shealth;
-		Character smana = new Character(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.S_MANA , Settings.TURN_P2);
-		selectedp2[2] = smana;
+		Swordman swordman = new Swordman(400 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.SWORDMAN_NUMBER , Settings.TURN_P1);
+		selectedP1.add(swordman);
+		Wizard wizard = new Wizard(600 , 500 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.WIZARD_NUMBER , Settings.TURN_P2);
+		selectedP2.add(wizard);
+		Meep meep = new Meep(400 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.MEEP_NUMBER , Settings.TURN_P1);
+		selectedP1.add(meep);
+		Skull skull = new Skull(600 , 350 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.SKULL_NUMBER , Settings.TURN_P2);
+		selectedP2.add(skull);
+		Character healPassive = new Character(400 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.HPRESTORE_NUMBER, Settings.TURN_P1);
+		selectedP1.add(healPassive);
+		Character manaPassive = new Character(600 , 200 , Settings.BLOCK_SIZE  , Settings.BLOCK_SIZE , Settings.MANARESTORE_NUMBER , Settings.TURN_P2);
+		selectedP2.add(manaPassive);
 		//----------------------------------
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		Assets.load();
 		//this.setScreen(new PickItemScreen(this));
-		this.setScreen(new GameScreen(this , selectedp1 , selectedp2));
+		this.setScreen(new GameScreen(this, selectedP1, selectedP2));
 	}
 	
 	public void render() {

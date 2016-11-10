@@ -51,6 +51,17 @@ public class Character extends GameObject {
 		}
 	}
 	
+	public void setPosition(float x, float y) {
+		position.x = x;
+		position.y = y;
+		bounds.x = x;
+		bounds.y = y;
+	}
+	
+	public boolean isUsed() {
+		return isUsed;
+	}
+	
 	public int getRow() {
 		return (int)(position.y / Settings.BLOCK_SIZE);
 	}

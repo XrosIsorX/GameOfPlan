@@ -63,16 +63,7 @@ public class World {
 	}
 	
 	public void update() {
-		updateButtonSkill();
-		updateMouse();
-		updateButtonEndTurn();
-	}
-	
-	public void setPosition(Character n, float x, float y) {
-		n.position.x = x;
-		n.position.y = y;
-		n.bounds.x = x;
-		n.bounds.y = y;
+		updateClickMouse();
 	}
 	
 	public void setTower() {
@@ -85,42 +76,35 @@ public class World {
 	public void setItem() {
 		int i = 0;
 		for ( Character n : characterSelectedP1) {
-			System.out.println(i);
-			n.position.x = i * Settings.BLOCK_SIZE;
-			n.position.y = Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE);
-			n.bounds.x = n.position.x;
-			n.bounds.y = n.position.y;
+			n.setPosition(i * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
 			i++;
 		}
 		i = 0;
 		for (Character n : characterSelectedP2) {
-			n.position.x = (Settings.BOARD_PLAYER + Settings.BOARD_X + i) * Settings.BLOCK_SIZE;
-			n.position.y = Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE);
-			n.bounds.x = n.position.x;
-			n.bounds.y = n.position.y;
+			n.setPosition((i + Settings.BOARD_PLAYER + Settings.BOARD_X) * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
 			i++;
 		}
 	}
 	
 	public void updateButtonEndTurn() {
-		if (Gdx.input.justTouched()) {
-			if (turn == Settings.TURN_P1) {
-				if (buttonEndTurnP1.contains(mouse.getX(), mouse.getY())) {
-					collectGrass(charactersP1);
-					for (Character n : charactersP1) {
-						n.isUsed = false;
-					}
-					turn = Settings.TURN_P2;
-				}
-			} else if (turn == Settings.TURN_P2) {
-				if (buttonEndTurnP2.contains(mouse.getX(), mouse.getY())) {
-					collectGrass(charactersP2);
-					for (Character n : charactersP2) {
-						n.isUsed = false;
-					}
-					turn = Settings.TURN_P1;
-				}
+		if (turn == Settings.TURN_P1) {
+			if (buttonEndTurnP1.contains(mouse.getX(), mouse.getY())) {
+				collectGrass(charactersP1);
+				resetUsedCharacter(charactersP1);
+				turn = Settings.TURN_P2;
 			}
+		} else if (turn == Settings.TURN_P2) {
+			if (buttonEndTurnP2.contains(mouse.getX(), mouse.getY())) {
+				collectGrass(charactersP2);
+				resetUsedCharacter(charactersP2);
+				turn = Settings.TURN_P1;
+			}
+		}
+	}
+	
+	public void resetUsedCharacter(List<Character> characters) {
+		for (Character n : characters) {
+			n.isUsed = false;
 		}
 	}
 	
@@ -137,155 +121,188 @@ public class World {
 	
 	public void updateButtonSkill() {
 		if (state == Settings.STATE_ACTION) {
-			if (Gdx.input.justTouched()) {
-				if (turn == Settings.TURN_P1) {
-					if (buttonSkillP1.contains(mouse.getX(), mouse.getY())) {
-						pick.skill();
-						pick.isUsed = true;
+			if (turn == Settings.TURN_P1) {
+				if (buttonSkillP1.contains(mouse.getX(), mouse.getY())) {
+					pick.skill();
+					pick.isUsed = true;
+				}
+			} else if (turn == Settings.TURN_P2) {
+				if (buttonSkillP2.contains(mouse.getX(), mouse.getY())) {
+					pick.skill();
+					pick.isUsed = true;
+				}
+			}
+		}
+	}
+	
+	public void updateClickMouse() {
+		if (Gdx.input.justTouched()) {
+			if (state == Settings.STATE_STILL) {
+				updateStateStill();
+			} else if (state == Settings.STATE_SPAWN) {
+				updateStateSpawn();
+			} else if (state == Settings.STATE_ACTION) {
+				updateStateAction();
+			} else if (state == Settings.STATE_SKILLSPAWN) {
+				updateSkillSpawn();
+			}
+			
+			updateButtonEndTurn();
+			updateButtonSkill();
+		}
+	}
+	
+	public void updateStateStill() {
+		if (turn == Settings.TURN_P1) {
+			for (Character n : charactersP1) {
+				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+					pick = n;
+					if (!n.isUsed()) {
+						state = Settings.STATE_ACTION;
 					}
-				} else if (turn == Settings.TURN_P2) {
-					if (buttonSkillP2.contains(mouse.getX(), mouse.getY())) {
-						pick.skill();
-						pick.isUsed = true;
+				}					
+			}
+			//getCharacterOnTarget(charactersP1, mouse.getX(), mouse.getY());		
+		} else if (turn == Settings.TURN_P2) {
+			for (Character n : charactersP2) {
+				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+					pick = n;
+					if (n.isUsed()) {
+						state = Settings.STATE_ACTION;
+					}
+				}					
+			}
+			//getCharacterOnTarget(charactersP2, mouse.getX(), mouse.getY());
+		}
+		for (Character n : characterSelectedP1) {
+			if (turn == Settings.TURN_P1) {
+				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+					pick = n;
+					if (pick.isUsed == false && pick.cost <= resource[turn]) {
+						state = Settings.STATE_SPAWN;
+					}
+				}
+			} else if (turn == Settings.TURN_P2) {
+				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+					pick = n;
+					if (pick.isUsed == false && pick.cost <= resource[turn]) {
+						state = Settings.STATE_SPAWN;
+					}
+				}
+			}
+		}
+		for (Character n : characterSelectedP2) {
+			if (turn == Settings.TURN_P1) {
+				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+					pick = n;
+					if (pick.isUsed == false && pick.cost <= resource[turn]) {
+						state = Settings.STATE_SPAWN;
+					}
+				}
+			} else if (turn == Settings.TURN_P2) {
+				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+					pick = n;
+					if (pick.isUsed == false && pick.cost <= resource[turn]) {
+						state = Settings.STATE_SPAWN;
 					}
 				}
 			}
 		}
 	}
 	
-	public void updateMouse()
-	{	//System.out.println(state);
-		if (Gdx.input.justTouched()) {
-			if (state == Settings.STATE_STILL) {
+	public void updateStateSpawn() {
+		if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
+				&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+			if (!hasCharacter()) {
 				if (turn == Settings.TURN_P1) {
-					for (Character n : charactersP1) {
-						if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-							pick = n;
-							if (n.isUsed == false) {
-								state = Settings.STATE_ACTION;
-							}
-						}					
+					if (mouse.getY() > Settings.BLOCK_SIZE * 6) {
+						checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
+						disableSpawnChampion(pick);
+						resource[turn] -= pick.cost;
+						state = Settings.STATE_STILL;
 					}
-					//getCharacterOnTarget(charactersp1, mouse.getX(), mouse.getY());		
 				} else if (turn == Settings.TURN_P2) {
-					for (Character n : charactersP2) {
-						if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-							pick = n;
-							if (n.isUsed == false) {
-								state = Settings.STATE_ACTION;
-							}
-						}					
-					}
-					//getCharacterOnTarget(charactersp2, mouse.getX(), mouse.getY());
-				}
-				for (Character n : characterSelectedP1) {
-					if (turn == Settings.TURN_P1) {
-						if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-							pick = n;
-							if (pick.isUsed == false && pick.cost <= resource[turn]) {
-								state = Settings.STATE_SPAWN;
-							}
-						}
-					} else if (turn == Settings.TURN_P2) {
-						if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-							pick = n;
-							if (pick.isUsed == false && pick.cost <= resource[turn]) {
-								state = Settings.STATE_SPAWN;
-							}
-						}
+					if (mouse.getY() < Settings.BLOCK_SIZE * 5) {
+						checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
+						disableSpawnChampion(pick);
+						resource[turn] -= pick.cost;
+						state = Settings.STATE_STILL;
 					}
 				}
-			} else if (state == Settings.STATE_SPAWN) {
-				if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
-						&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
-					if (!hasCharacter()) {
+			}
+		} else {
+			state = Settings.STATE_STILL;
+		}
+	}
+	
+	public void updateStateAction() {
+		if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
+				&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+				if (hasCharacter()) {
+					if (isInRange(pick.atkRange)) {
 						if (turn == Settings.TURN_P1) {
-							if (mouse.getY() > Settings.BLOCK_SIZE * 6) {
-								checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
-								disableSpawnChampion(pick);
-								resource[turn] -= pick.cost;
-								state = Settings.STATE_STILL;
+							for (Character n : charactersP2) {
+								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+									n.reduceHP(pick.atk);
+									pick.isUsed = true;
+								}
+							}
+							for (Character n : towersP2) {
+								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+									n.reduceHP(pick.atk);
+									pick.isUsed = true;
+								}
 							}
 						} else if (turn == Settings.TURN_P2) {
-							if (mouse.getY() < Settings.BLOCK_SIZE * 5) {
-								checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
-								disableSpawnChampion(pick);
-								resource[turn] -= pick.cost;
-								state = Settings.STATE_STILL;
+							for (Character n : charactersP1) {
+								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+									n.reduceHP(pick.atk);
+									pick.isUsed = true;
+								}
+							}
+							for (Character n : towersP1) {
+								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+									n.reduceHP(pick.atk);
+									pick.isUsed = true;
+								}
 							}
 						}
 					}
 				} else {
-					state = Settings.STATE_STILL;
-				}
-			} else if (state == Settings.STATE_ACTION) {
-				if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
-					&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
-					if (hasCharacter()) {
-						if (isInRange(pick.atkRange)) {
-							if (turn == Settings.TURN_P1) {
-								for (Character n : charactersP2) {
-									if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-										n.reduceHP(pick.atk);
-										pick.isUsed = true;
-									}
-								}
-								for (Character n : towersP2) {
-									if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-										n.reduceHP(pick.atk);
-										pick.isUsed = true;
-									}
-								}
-							} else if (turn == Settings.TURN_P2) {
-								for (Character n : charactersP1) {
-									if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-										n.reduceHP(pick.atk);
-										pick.isUsed = true;
-									}
-								}
-								for (Character n : towersP1) {
-									if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-										n.reduceHP(pick.atk);
-										pick.isUsed = true;
-									}
-								}
-							}
-						}
-					} else {
-						if (isInRange(pick.walk)) {
-							setPosition(pick, mouse.getColX(), mouse.getRowY());
-							pick.isUsed =true;
-						}
+					if (isInRange(pick.walk)) {
+						pick.setPosition(mouse.getColX(), mouse.getRowY());
+						pick.isUsed =true;
 					}
-					state = Settings.STATE_STILL;
 				}
-				else
-				{
-					state = Settings.STATE_STILL;
-				}
+				state = Settings.STATE_STILL;
 			}
-			else if (state == Settings.STATE_SKILLSPAWN) {
-				if (isInRange(pick.skillRange)) {
-					if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
-						&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
-						if (!hasCharacter()) {
-							checkItemupdate(skillSpawn, mouse.getColX(), mouse.getRowY());
-							state = Settings.STATE_STILL;
-						}
-					} else {
-						state = Settings.STATE_ACTION;
-					}
+			else
+			{
+				state = Settings.STATE_STILL;
+			}
+	}
+	
+	public void updateSkillSpawn() {
+		if (isInRange(pick.skillRange)) {
+			if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
+				&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+				if (!hasCharacter()) {
+					checkItemupdate(skillSpawn, mouse.getColX(), mouse.getRowY());
+					state = Settings.STATE_STILL;
 				}
+			} else {
+				state = Settings.STATE_ACTION;
 			}
 		}
 	}
 	
-	public void getCharacterOnTarget(List<Character> characters, float x, float y) {
+	public Character getCharacterOnTarget(List<Character> characters, float x, float y) {
 		for (Character n : characters) {
 			if (n.bounds.contains(x, y)) {
-				pick = n;
+				return n;
 			}					
 		}
+		return null;
 	}
 	
 	public boolean isInRange(int range) {
@@ -327,34 +344,34 @@ public class World {
 	
 	public void checkItemupdate(int number, float x ,float y) {
 		if (number == Settings.SWORDMAN_NUMBER) {
-			spawnswordman(x,y);
+			spawnSwordman(x,y);
 		} else if (number == Settings.WIZARD_NUMBER) {
-			spawnwizard(x,y);
+			spawnWizard(x,y);
 		} else if (number == Settings.MEEP_NUMBER) {
-			spawnmon1(x,y);
+			spawnMeep(x,y);
 		} else if (number == Settings.SKULL_NUMBER) {
-			spawnmon2(x,y);
+			spawnSkull(x,y);
 		}
 	}
 	
-	public void spawnswordman(float x, float y) {
+	public void spawnSwordman(float x, float y) {
 		Swordman swordman = new Swordman(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE,Settings.SWORDMAN_NUMBER, turn);
 		addToPlayer(swordman);
 	}
 	
-	public void spawnwizard(float x, float y) {
+	public void spawnWizard(float x, float y) {
 		Wizard wizard = new Wizard(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.WIZARD_NUMBER, turn);
 		addToPlayer(wizard);
 	}
 	
-	public void spawnmon1(float x, float y) {
+	public void spawnMeep(float x, float y) {
 		Meep meep = new Meep(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.MEEP_NUMBER, turn);
 		addToPlayer(meep);
 	}
 	
-	public void spawnmon2(float x, float y) {
-		Skull mon2 = new Skull(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SKULL_NUMBER, turn);
-		addToPlayer(mon2);
+	public void spawnSkull(float x, float y) {
+		Skull skull = new Skull(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SKULL_NUMBER, turn);
+		addToPlayer(skull);
 	}
 	
 	

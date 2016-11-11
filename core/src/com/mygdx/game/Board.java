@@ -40,10 +40,26 @@ public class Board {
 	}
 	
 	public boolean isInBoard(float x, float y) {
-		if(x >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
+		if (x >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
 				&& y <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
 			return true;
 		}
 		return false;
 	}
+	
+	public boolean isInBoardP1(float y) {
+		if (y > Settings.BLOCK_SIZE * Settings.BOARD_BLOCK_UPPER) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isInBoardP2(float y) {
+		if (y < Settings.BLOCK_SIZE * Settings.BOARD_BLOCK_UPPER) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }

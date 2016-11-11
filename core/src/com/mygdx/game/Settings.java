@@ -7,6 +7,8 @@ public abstract class Settings {
 	static final int BOARD_WIDTH = 1088;
 	static final int BOARD_HEIGHT = 704;
 	static final int BOARD_PLAYER = 3;
+	static final int BOARD_BLOCK_UPPER = 6;
+	static final int BOARD_BLOCK_LOWER = 5;
 
 	static final int BLOCK_SIZE= 64;
 	

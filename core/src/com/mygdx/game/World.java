@@ -88,17 +88,17 @@ public class World {
 	
 	public void updateButtonEndTurn() {
 		if (turn == Settings.TURN_P1) {
-			if (buttonEndTurnP1.contains(mouse.getX(), mouse.getY())) {
-				collectGrass(charactersP1);
-				resetUsedCharacter(charactersP1);
-				turn = Settings.TURN_P2;
-			}
+			clickButtonEndTurn(buttonEndTurnP1 , charactersP1, Settings.TURN_P2);
 		} else if (turn == Settings.TURN_P2) {
-			if (buttonEndTurnP2.contains(mouse.getX(), mouse.getY())) {
-				collectGrass(charactersP2);
-				resetUsedCharacter(charactersP2);
-				turn = Settings.TURN_P1;
-			}
+			clickButtonEndTurn(buttonEndTurnP2 , charactersP2, Settings.TURN_P1);
+		}
+	}
+	
+	public void clickButtonEndTurn(Rectangle buttonEndTurn, List<Character> characters,int turn) {
+		if (buttonEndTurn.contains(mouse.getX(), mouse.getY())) {
+			collectGrass(characters);
+			resetUsedCharacter(characters);
+			this.turn = turn;
 		}
 	}
 	
@@ -122,16 +122,17 @@ public class World {
 	public void updateButtonSkill() {
 		if (state == Settings.STATE_ACTION) {
 			if (turn == Settings.TURN_P1) {
-				if (buttonSkillP1.contains(mouse.getX(), mouse.getY())) {
-					pick.skill();
-					pick.isUsed = true;
-				}
+				clickButtonSkill(buttonSkillP1);
 			} else if (turn == Settings.TURN_P2) {
-				if (buttonSkillP2.contains(mouse.getX(), mouse.getY())) {
-					pick.skill();
-					pick.isUsed = true;
-				}
+				clickButtonSkill(buttonSkillP2);
 			}
+		}
+	}
+	
+	public void clickButtonSkill(Rectangle buttonSkill) {
+		if (buttonSkill.contains(mouse.getX(), mouse.getY())) {
+			pick.skill();
+			pick.isUsed = true;
 		}
 	}
 	
@@ -184,14 +185,12 @@ public class World {
 		if (board.isInBoard(mouse.getX(), mouse.getY())) {
 			if (!hasCharacter()) {
 				if (turn == Settings.TURN_P1) {
-					if (mouse.getY() > Settings.BLOCK_SIZE * 6) {
+					if (board.isInBoardP1(mouse.getY())) {
 						spawnCharacter();
-						state = Settings.STATE_STILL;
 					}
 				} else if (turn == Settings.TURN_P2) {
-					if (mouse.getY() < Settings.BLOCK_SIZE * 5) {
+					if (board.isInBoardP2(mouse.getY())) {
 						spawnCharacter();
-						state = Settings.STATE_STILL;
 					}
 				}
 			}
@@ -204,6 +203,7 @@ public class World {
 		checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
 		disableSpawnChampion(pick);
 		resource[turn] -= pick.cost;
+		state = Settings.STATE_STILL;
 	}
 	
 	public void updateStateAction() {

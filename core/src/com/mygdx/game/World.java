@@ -137,6 +137,9 @@ public class World {
 	
 	public void updateClickMouse() {
 		if (Gdx.input.justTouched()) {
+			updateButtonEndTurn();
+			updateButtonSkill();	
+			
 			if (state == Settings.STATE_STILL) {
 				updateStateStill();
 			} else if (state == Settings.STATE_SPAWN) {
@@ -146,86 +149,48 @@ public class World {
 			} else if (state == Settings.STATE_SKILLSPAWN) {
 				updateSkillSpawn();
 			}
-			
-			updateButtonEndTurn();
-			updateButtonSkill();
 		}
 	}
 	
 	public void updateStateStill() {
 		if (turn == Settings.TURN_P1) {
-			for (Character n : charactersP1) {
-				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-					pick = n;
-					if (!n.isUsed()) {
-						state = Settings.STATE_ACTION;
-					}
-				}					
-			}
-			//getCharacterOnTarget(charactersP1, mouse.getX(), mouse.getY());		
+			chooseCharacterToAction(charactersP1);
+			chooseCharacterToSpawn(characterSelectedP1);
 		} else if (turn == Settings.TURN_P2) {
-			for (Character n : charactersP2) {
-				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-					pick = n;
-					if (n.isUsed()) {
-						state = Settings.STATE_ACTION;
-					}
-				}					
-			}
-			//getCharacterOnTarget(charactersP2, mouse.getX(), mouse.getY());
+			chooseCharacterToAction(charactersP2);
+			chooseCharacterToSpawn(characterSelectedP2);
 		}
-		for (Character n : characterSelectedP1) {
-			if (turn == Settings.TURN_P1) {
-				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-					pick = n;
-					if (pick.isUsed == false && pick.cost <= resource[turn]) {
-						state = Settings.STATE_SPAWN;
-					}
-				}
-			} else if (turn == Settings.TURN_P2) {
-				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-					pick = n;
-					if (pick.isUsed == false && pick.cost <= resource[turn]) {
-						state = Settings.STATE_SPAWN;
-					}
-				}
-			}
-		}
-		for (Character n : characterSelectedP2) {
-			if (turn == Settings.TURN_P1) {
-				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-					pick = n;
-					if (pick.isUsed == false && pick.cost <= resource[turn]) {
-						state = Settings.STATE_SPAWN;
-					}
-				}
-			} else if (turn == Settings.TURN_P2) {
-				if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-					pick = n;
-					if (pick.isUsed == false && pick.cost <= resource[turn]) {
-						state = Settings.STATE_SPAWN;
-					}
-				}
+	}
+	
+	public void chooseCharacterToAction(List<Character> characters) {
+		if (canGetCharacterOnTarget(characters, mouse.getX(), mouse.getY())) {
+			pick = getCharacterOnTarget(characters, mouse.getX(), mouse.getY());
+			if (!pick.isUsed()) {
+				state = Settings.STATE_ACTION;
 			}
 		}
 	}
 	
+	public void chooseCharacterToSpawn(List<Character> characters) {
+		if (canGetCharacterOnTarget(characters, mouse.getX(), mouse.getY())) {
+			pick = getCharacterOnTarget(characters, mouse.getX(), mouse.getY());
+			if(!pick.isUsed() && pick.cost <= resource[turn]) {
+				state = Settings.STATE_SPAWN;
+			}
+		}
+	}
+		
 	public void updateStateSpawn() {
-		if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
-				&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+		if (board.isInBoard(mouse.getX(), mouse.getY())) {
 			if (!hasCharacter()) {
 				if (turn == Settings.TURN_P1) {
 					if (mouse.getY() > Settings.BLOCK_SIZE * 6) {
-						checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
-						disableSpawnChampion(pick);
-						resource[turn] -= pick.cost;
+						spawnCharacter();
 						state = Settings.STATE_STILL;
 					}
 				} else if (turn == Settings.TURN_P2) {
 					if (mouse.getY() < Settings.BLOCK_SIZE * 5) {
-						checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
-						disableSpawnChampion(pick);
-						resource[turn] -= pick.cost;
+						spawnCharacter();
 						state = Settings.STATE_STILL;
 					}
 				}
@@ -235,44 +200,18 @@ public class World {
 		}
 	}
 	
+	public void spawnCharacter() {
+		checkItemupdate(pick.number, mouse.getCol() * Settings.BLOCK_SIZE, mouse.getRow() * Settings.BLOCK_SIZE);
+		disableSpawnChampion(pick);
+		resource[turn] -= pick.cost;
+	}
+	
 	public void updateStateAction() {
-		if (mouse.getX() >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
-				&& mouse.getX() <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+		if (board.isInBoard(mouse.getX(), mouse.getY())) {
 				if (hasCharacter()) {
-					if (isInRange(pick.atkRange)) {
-						if (turn == Settings.TURN_P1) {
-							for (Character n : charactersP2) {
-								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-									n.reduceHP(pick.atk);
-									pick.isUsed = true;
-								}
-							}
-							for (Character n : towersP2) {
-								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-									n.reduceHP(pick.atk);
-									pick.isUsed = true;
-								}
-							}
-						} else if (turn == Settings.TURN_P2) {
-							for (Character n : charactersP1) {
-								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-									n.reduceHP(pick.atk);
-									pick.isUsed = true;
-								}
-							}
-							for (Character n : towersP1) {
-								if (n.bounds.contains(mouse.getX(), mouse.getY())) {
-									n.reduceHP(pick.atk);
-									pick.isUsed = true;
-								}
-							}
-						}
-					}
+					attack();
 				} else {
-					if (isInRange(pick.walk)) {
-						pick.setPosition(mouse.getColX(), mouse.getRowY());
-						pick.isUsed =true;
-					}
+					walk();
 				}
 				state = Settings.STATE_STILL;
 			}
@@ -280,6 +219,34 @@ public class World {
 			{
 				state = Settings.STATE_STILL;
 			}
+	}
+	
+	public void attack() {
+		if (isInRange(pick.atkRange)) {
+			if (turn == Settings.TURN_P1) {
+				attackOnEnemy(charactersP2);
+				attackOnEnemy(towersP2);
+			} else if (turn == Settings.TURN_P2) {
+				attackOnEnemy(charactersP1);
+				attackOnEnemy(towersP1);
+			}
+		}
+	}
+	
+	public void attackOnEnemy(List<Character> characters) {
+		for (Character n : characters) {
+			if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+				n.reduceHP(pick.atk);
+				pick.isUsed = true;
+			}
+		}
+	}
+	
+	public void walk() {
+		if (isInRange(pick.walk)) {
+			pick.setPosition(mouse.getColX(), mouse.getRowY());
+			pick.isUsed =true;
+		}
 	}
 	
 	public void updateSkillSpawn() {
@@ -294,6 +261,15 @@ public class World {
 				state = Settings.STATE_ACTION;
 			}
 		}
+	}
+	
+	public boolean canGetCharacterOnTarget(List<Character> characters, float x, float y) {
+		for (Character n : characters) {
+			if (n.bounds.contains(x, y)) {
+				return true;
+			}					
+		}
+		return false;
 	}
 	
 	public Character getCharacterOnTarget(List<Character> characters, float x, float y) {
@@ -337,7 +313,7 @@ public class World {
 	}
 	
 	public void disableSpawnChampion(Character character) {
-		if (character.number >= Settings.WIZARD_NUMBER && character.number <Settings.MEEP_NUMBER) {
+		if (character.number >= Settings.WIZARD_NUMBER && character.number < Settings.MEEP_NUMBER) {
 			character.isUsed = true;
 		}
 	}

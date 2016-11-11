@@ -33,7 +33,7 @@ public class Swordman extends Character{
 			List<Character> substitute = new LinkedList<Character>(World.charactersP2);
 			for (Character n : substitute) {
 				if (n.getCol() <= this.getCol() + 2 && n.getCol() >= this.getCol() - 2 && n.getRow() <= this.getRow() + 2 && n.getCol() >= this.getRow() - 2) {
-					n.reduceHP(3);
+					n.reduceHP(2);
 				}
 			}
 		}
@@ -41,7 +41,7 @@ public class Swordman extends Character{
 			List<Character> substitute = new LinkedList<Character>(World.charactersP1);
 			for (Character n : substitute) {
 				if(n.position.x <= this.position.x + (2 * Settings.BLOCK_SIZE) && n.position.x >= this.position.x - (2 * Settings.BLOCK_SIZE) && n.position.y >= this.position.y + (2 * Settings.BLOCK_SIZE) && n.position.y <= this.position.y + (2 * Settings.BLOCK_SIZE)) {
-					n.reduceHP(3);
+					n.reduceHP(2);
 				}
 			}
 		}

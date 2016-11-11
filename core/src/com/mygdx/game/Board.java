@@ -38,4 +38,12 @@ public class Board {
 			map[r][c] = Settings.GRASS;
 		}
 	}
+	
+	public boolean isInBoard(float x, float y) {
+		if(x >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
+				&& y <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+			return true;
+		}
+		return false;
+	}
 }

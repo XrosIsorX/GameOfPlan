@@ -42,12 +42,13 @@ public class Character extends GameObject {
 	public void reduceHP(int reduce) {
 		hp -= reduce;
 		if (hp <= 0) {
-			if (team == Settings.TURN_P1) {
-				World.charactersP1.remove(this);
+			World.players[this.team].characters.remove(this);
+			/*if (team == Settings.TURN_P1) {
+				World.player1.characters.remove(this);
 			} else if (team == Settings.TURN_P2)
 			{
-				World.charactersP2.remove(this);
-			}
+				World.player2.characters.remove(this);
+			}*/
 		}
 	}
 	

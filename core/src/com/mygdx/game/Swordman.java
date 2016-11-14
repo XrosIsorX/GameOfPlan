@@ -29,20 +29,10 @@ public class Swordman extends Character{
 	
 	@Override
 	public void skill() {
-		if(World.turn == Settings.TURN_P1) {
-			List<Character> substitute = new LinkedList<Character>(World.charactersP2);
-			for (Character n : substitute) {
-				if (n.getCol() <= this.getCol() + 2 && n.getCol() >= this.getCol() - 2 && n.getRow() <= this.getRow() + 2 && n.getCol() >= this.getRow() - 2) {
-					n.reduceHP(2);
-				}
-			}
-		}
-		if (World.turn == Settings.TURN_P2) {
-			List<Character> substitute = new LinkedList<Character>(World.charactersP1);
-			for (Character n : substitute) {
-				if(n.position.x <= this.position.x + (2 * Settings.BLOCK_SIZE) && n.position.x >= this.position.x - (2 * Settings.BLOCK_SIZE) && n.position.y >= this.position.y + (2 * Settings.BLOCK_SIZE) && n.position.y <= this.position.y + (2 * Settings.BLOCK_SIZE)) {
-					n.reduceHP(2);
-				}
+		List<Character> substitute = new LinkedList<Character>(World.enemy.characters);
+		for (Character n : substitute) {
+			if (n.getCol() <= this.getCol() + 2 && n.getCol() >= this.getCol() - 2 && n.getRow() <= this.getRow() + 2 && n.getCol() >= this.getRow() - 2) {
+				n.reduceHP(2);
 			}
 		}
 	}

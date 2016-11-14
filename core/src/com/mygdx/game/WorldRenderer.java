@@ -43,10 +43,10 @@ public class WorldRenderer {
 	}
 	
 	public void renderItem() {
-		for (Character n : world.characterSelectedP1) {
+		for (Character n : world.player1.selectedCharacters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
 		}
-		for (Character n : world.characterSelectedP2) {
+		for (Character n : world.player2.selectedCharacters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
 		}
 	}
@@ -78,9 +78,9 @@ public class WorldRenderer {
 	}
 	
 	public void renderAllCharacter() {
-		for (Character n : world.charactersP1) {
+		for (Character n : world.player1.characters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
-		} for (Character n : world.charactersP2) {
+		} for (Character n : world.player2.characters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
 		}
 	}
@@ -88,8 +88,8 @@ public class WorldRenderer {
 	public void renderButton() {
 		batch.draw(Assets.buttonEndTurn, Settings.BUTTON_ENDTURNP1_X, Settings.BUTTON_ENDTURN_Y);
 		batch.draw(Assets.buttonEndTurn, Settings.BUTTON_ENDTURNP2_X, Settings.BUTTON_ENDTURN_Y);
-		batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLBUTTONP1_X, Settings.BUTTON_SKILLBUTTON_Y);
-		batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLBUTTONP2_X, Settings.BUTTON_SKILLBUTTON_Y);
+		batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLP1_X, Settings.BUTTON_SKILL_Y);
+		batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLP2_X, Settings.BUTTON_SKILL_Y);
 	}
 
 	public void checkFontRender(Character pick) {
@@ -114,18 +114,9 @@ public class WorldRenderer {
 	
 	public void renderResource() {
 		batch.draw(Assets.grass , 20 , 100 , 30 ,30);
-		font.draw(batch , "  X     " + world.resource[Settings.TURN_P1], 60 , 115);
+		font.draw(batch , "  X     " + world.player1.resource, 60 , 115);
 		batch.draw(Assets.grass , 916 , 100 , 30 ,30);
-		font.draw(batch , "  X     " + world.resource[Settings.TURN_P2], 956 , 115);
-	}
-	
-	public void renderTower() {
-		for (Character n : world.towersP1) {
-			checkItemRender(n.number , n.position.x , n.position.y);
-		}
-		for (Character n : world.towersP2) {
-			checkItemRender(n.number , n.position.x , n.position.y);
-		}
+		font.draw(batch , "  X     " + world.player2.resource, 956 , 115);
 	}
 	
 	public void renderSkillSpawn() {
@@ -135,16 +126,10 @@ public class WorldRenderer {
 	}
 	
 	public void renderHp() {
-		for (Character n : world.towersP1) {
+		for (Character n : world.player1.characters) {
 			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
 		}
-		for (Character n : world.towersP2) {
-			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
-		}
-		for (Character n : world.charactersP1) {
-			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
-		}
-		for (Character n : world.charactersP2) {
+		for (Character n : world.player2.characters) {
 			font.draw(batch , "" + n.hp, n.position.x + (Settings.BLOCK_SIZE / 2) , n.position.y + (Settings.BLOCK_SIZE / 2));
 		}
 	}
@@ -168,7 +153,6 @@ public class WorldRenderer {
 			checkFontRender(world.pick);
 			renderSpawnMouse();
 		}
-		renderTower();
 		renderHp();
 		renderResource();
 		batch.end();

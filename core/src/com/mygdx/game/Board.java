@@ -47,14 +47,14 @@ public class Board {
 		return false;
 	}
 	
-	public boolean isInBoardP1(float y) {
+	public boolean isInBoardP1(float x, float y) {
 		if (y > Settings.BLOCK_SIZE * Settings.BOARD_BLOCK_UPPER) {
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean isInBoardP2(float y) {
+	public boolean isInBoardP2(float x, float y) {
 		if (y < Settings.BLOCK_SIZE * Settings.BOARD_BLOCK_UPPER) {
 			return true;
 		}

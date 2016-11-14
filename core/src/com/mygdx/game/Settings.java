@@ -32,9 +32,9 @@ public abstract class Settings {
 	static final float BUTTON_ENDTURN_Y = 20;
 	static final float BUTTON_ENDTURN_WIDTH = 150;
 	static final float BUTTON_ENDTURN_HEIGHT = 64;
-	static final float BUTTON_SKILLBUTTONP1_X = 20;
-	static final float BUTTON_SKILLBUTTONP2_X = 917;
-	static final float BUTTON_SKILLBUTTON_Y = 325;
+	static final float BUTTON_SKILLP1_X = 20;
+	static final float BUTTON_SKILLP2_X = 917;
+	static final float BUTTON_SKILL_Y = 325;
 	static final float BUTTON_SKILL_WIDTH = 50;
 	static final float BUTTON_SKILL_HEIGHT = 30;
 	

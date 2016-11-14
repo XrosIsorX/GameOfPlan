@@ -18,10 +18,10 @@ public class GameScreen implements Screen {
 	int[] whererandomgrass = new int[10];
 	int countrandomgrass = 0;
 	
-	public GameScreen(final GameOfPlan gam, List<Character> characterSelectedP1, List<Character> characterSelectedP2) {
+	public GameScreen(final GameOfPlan gam, List<Character> selectedCharactersP1, List<PassiveSkill> selectedPassiveSkillsP1, List<Character> selectedCharactersP2, List<PassiveSkill> selectedPassiveSkillsP2) {
 		this.game = gam;
 		
-		world = new World(game, characterSelectedP1, characterSelectedP2);
+		world = new World(game, selectedCharactersP1, selectedPassiveSkillsP1, selectedCharactersP2, selectedPassiveSkillsP2);
 		worldrenderer = new WorldRenderer(game,world);
 	}
 	

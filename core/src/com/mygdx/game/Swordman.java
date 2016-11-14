@@ -5,8 +5,9 @@ import java.util.List;
 
 public class Swordman extends Character{
 
-	public Swordman(float x, float y, float width, float height, int number , int team) {
-		super(x, y, width, height, number, team);
+	public Swordman(float x, float y, float width, float height, int team) {
+		super(x, y, width, height, team);
+		this.number = Settings.SWORDMAN_NUMBER;
 		this.hp = Settings.SWORDMAN_HP;
 		this.atk = Settings.SWORDMAN_ATK;
 		this.atkRange = Settings.SWORDMAN_ATKRANGE;
@@ -16,8 +17,9 @@ public class Swordman extends Character{
 		this.name = "Swordman";
 	}
 
-	public Swordman(float x, float y, float width, float height, int number, int team ,int hp ,int atk, int atkrange, int walk) {
-		super(x, y, width, height, number, team);
+	public Swordman(float x, float y, float width, float height, int team ,int hp ,int atk, int atkrange, int walk) {
+		super(x, y, width, height, team);
+		this.number = Settings.SWORDMAN_NUMBER;
 		this.hp = hp;
 		this.atk = atk;
 		this.atkRange = atkrange;

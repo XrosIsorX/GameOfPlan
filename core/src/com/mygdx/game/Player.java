@@ -11,6 +11,7 @@ public class Player {
 	//public List<Character> towers;
 	public List<Character> characters;
 	public List<Character> selectedCharacters;
+	public List<PassiveSkill> selectedPassiveSkills;
 	
 	public World world;
 	
@@ -18,8 +19,9 @@ public class Player {
 	
 	public int resource = 4;
 	
-	public Player(List<Character> selectedCharacters, World world, int boardArea) {
+	public Player(List<Character> selectedCharacters, List<PassiveSkill> selectedPassiveSkills, World world, int boardArea) {
 		this.selectedCharacters = selectedCharacters;
+		this.selectedPassiveSkills = selectedPassiveSkills;
 		this.characters = new LinkedList<Character>();
 		//this.towers = new LinkedList<Character>();
 		this.boardArea = boardArea;
@@ -95,27 +97,27 @@ public class Player {
 	}
 	
 	public void spawnSwordman(float x, float y) {
-		Swordman swordman = new Swordman(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE,Settings.SWORDMAN_NUMBER, world.turn);
+		Swordman swordman = new Swordman(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
 		characters.add(swordman);
 	}
 	
 	public void spawnWizard(float x, float y) {
-		Wizard wizard = new Wizard(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.WIZARD_NUMBER, world.turn);
+		Wizard wizard = new Wizard(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
 		characters.add(wizard);
 	}
 	
 	public void spawnMeep(float x, float y) {
-		Meep meep = new Meep(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.MEEP_NUMBER, world.turn);
+		Meep meep = new Meep(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
 		characters.add(meep);
 	}
 	
 	public void spawnSkull(float x, float y) {
-		Skull skull = new Skull(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SKULL_NUMBER, world.turn);
+		Skull skull = new Skull(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
 		characters.add(skull);
 	}
 	
-	public void createNexus(float x, float y, int team) {
-		Nexus nexus = new Nexus(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.NEXUSP1_NUMBER, team);
+	public void createNexus(float x, float y, int team, int number) {
+		Nexus nexus = new Nexus(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, team, number);
 		characters.add(nexus);
 	}
 	

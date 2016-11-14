@@ -46,7 +46,14 @@ public class WorldRenderer {
 		for (Character n : world.player1.selectedCharacters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
 		}
+		for (PassiveSkill n : world.player1.selectedPassiveSkills) {
+			checkItemRender(n.number, n.position.x, n.position.y);
+		}
+		
 		for (Character n : world.player2.selectedCharacters) {
+			checkItemRender(n.number, n.position.x, n.position.y);
+		}
+		for (PassiveSkill n : world.player2.selectedPassiveSkills) {
 			checkItemRender(n.number, n.position.x, n.position.y);
 		}
 	}
@@ -80,7 +87,8 @@ public class WorldRenderer {
 	public void renderAllCharacter() {
 		for (Character n : world.player1.characters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
-		} for (Character n : world.player2.characters) {
+		} 
+		for (Character n : world.player2.characters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
 		}
 	}

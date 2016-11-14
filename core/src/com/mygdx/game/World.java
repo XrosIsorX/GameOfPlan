@@ -28,13 +28,13 @@ public class World {
 
 	public int[] resource;
 	
-	public World(GameOfPlan game, List<Character> selectedCharactersP1, List<Character> selectedCharactersP2) {
+	public World(GameOfPlan game, List<Character> selectedCharactersP1, List<PassiveSkill> selectedPassiveSkillsP1, List<Character> selectedCharactersP2, List<PassiveSkill> selectedPassiveSkillsP2) {
 		this.game = game;
 		board = new Board();
 		mouse = new Mouse();
 		
-		player1 = new Player(selectedCharactersP1, this, Settings.BOARD_BLOCK_UPPER);
-		player2 = new Player(selectedCharactersP2, this, Settings.BOARD_BLOCK_LOWER);
+		player1 = new Player(selectedCharactersP1, selectedPassiveSkillsP1, this, Settings.BOARD_BLOCK_UPPER);
+		player2 = new Player(selectedCharactersP2, selectedPassiveSkillsP2, this, Settings.BOARD_BLOCK_LOWER);
 		players = new Player[Settings.TURN_P2 + 1];
 		players[Settings.TURN_P1] = player1;
 		players[Settings.TURN_P2] = player2;
@@ -54,8 +54,8 @@ public class World {
 	}
 	
 	public void setTower() {
-		player1.createNexus(8 * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - Settings.BLOCK_SIZE, Settings.TURN_P1);
-		player2.createNexus(8 * Settings.BLOCK_SIZE, 0, Settings.TURN_P2);
+		player1.createNexus(8 * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - Settings.BLOCK_SIZE, Settings.TURN_P1, Settings.NEXUSP1_NUMBER);
+		player2.createNexus(8 * Settings.BLOCK_SIZE, 0, Settings.TURN_P2, Settings.NEXUSP2_NUMBER);
 	}
 	
 	public void setItem() {
@@ -64,10 +64,16 @@ public class World {
 			n.setPosition(i * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
 			i++;
 		}
+		for (PassiveSkill n : player1.selectedPassiveSkills) {
+			n.setPosition(i * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
+		}
 		i = 0;
 		for (Character n : player2.selectedCharacters) {
 			n.setPosition((i + Settings.BOARD_PLAYER + Settings.BOARD_X) * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
 			i++;
+		}
+		for (PassiveSkill n : player2.selectedPassiveSkills) {
+			n.setPosition((i + Settings.BOARD_PLAYER + Settings.BOARD_X) * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
 		}
 	}
 	

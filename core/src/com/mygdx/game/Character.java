@@ -11,22 +11,21 @@ public class Character extends GameObject {
 	int atkRange = 0;
 	int walk = 0;
 	int cost = 0;
+	int mana = 0;
 	boolean isUsed = false;
 	String skill;
 	String name;
 	
-	public Character(float x, float y, float width, float height, int number) {
+	public Character(float x, float y, float width, float height) {
 		super(x, y, width, height);
-		this.number = number;
 	}
 	
-	public Character(float x, float y, float width, float height, int number, int team) {
+	public Character(float x, float y, float width, float height, int team) {
 		super(x, y, width, height);
-		this.number = number;
 		this.team = team;
 	}
 
-	public Character(float x, float y, float width, float height, int number, int team ,int hp ,int atk, int atkrange, int walk) {
+	public Character(float x, float y, float width, float height, int team ,int hp ,int atk, int atkrange, int walk) {
 		super(x, y, width, height);
 		this.hp = hp;
 		this.atk = atk;

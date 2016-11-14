@@ -13,8 +13,11 @@ public class PickItemScreen implements Screen{
 	GameOfPlan game;
 	
 	List<Character> characters;
-	public List<Character> characterSelectedP1;
-	public List<Character> characterSelectedP2;
+	List<PassiveSkill> passiveSkills;
+	public List<Character> selectedCharactersP1;
+	public List<PassiveSkill> selectedPassiveSkillsP1;
+	public List<Character> selectedCharactersP2;
+	public List<PassiveSkill> selectedPassiveSkillsP2;
 	
 	Character pick;
 
@@ -28,8 +31,10 @@ public class PickItemScreen implements Screen{
 		this.game = gam;
 		
 		characters = new LinkedList<Character>();
-		characterSelectedP1 = new LinkedList<Character>();
-		characterSelectedP2 = new LinkedList<Character>();
+		selectedCharactersP1 = new LinkedList<Character>();
+		selectedPassiveSkillsP1 = new LinkedList<PassiveSkill>();
+		selectedCharactersP2 = new LinkedList<Character>();
+		selectedPassiveSkillsP2 = new LinkedList<PassiveSkill>();
 		
 		buttonSelectP1 = new Rectangle(Settings.BUTTON_SELECTP1_X ,Settings.BUTTON_SELECT_Y, Settings.BUTTON_SELECT_WIDTH, Settings.BUTTON_SELECT_HEIGHT);
 		buttonSelectP2 = new Rectangle(Settings.BUTTON_SELECTP2_X ,Settings.BUTTON_SELECT_Y, Settings.BUTTON_SELECT_WIDTH, Settings.BUTTON_SELECT_HEIGHT);
@@ -45,18 +50,18 @@ public class PickItemScreen implements Screen{
 	}
 	
 	public void setCharacter() {
-		Swordman swordman = new Swordman(400, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SWORDMAN_NUMBER ,0);
+		Swordman swordman = new Swordman(400, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE,0);
 		characters.add(swordman);
-		Wizard wizard = new Wizard(600, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.WIZARD_NUMBER, 0);
+		Wizard wizard = new Wizard(600, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, 0);
 		characters.add(wizard);
-		Meep meep = new Meep(400, 350, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.MEEP_NUMBER, 0);
+		Meep meep = new Meep(400, 350, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, 0);
 		characters.add(meep);
-		Skull skull = new Skull(600, 350, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, Settings.SKULL_NUMBER, 0);
+		Skull skull = new Skull(600, 350, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, 0);
 		characters.add(skull);
-		Character healPassive = new Character(400, 200, Settings.BLOCK_SIZE , Settings.BLOCK_SIZE, Settings.HPRESTORE_NUMBER);
-		characters.add(healPassive);
-		Character manaPassive = new Character(600, 200, Settings.BLOCK_SIZE , Settings.BLOCK_SIZE, Settings.MANARESTORE_NUMBER);
-		characters.add(manaPassive);
+		HpRestore hpRestore = new HpRestore(400, 200, Settings.BLOCK_SIZE , Settings.BLOCK_SIZE, 0);
+		passiveSkills.add(hpRestore);
+		ManaRestore manaRestore = new ManaRestore(600, 200, Settings.BLOCK_SIZE , Settings.BLOCK_SIZE, 0);
+		passiveSkills.add(manaRestore);
 	}
 	
 	public void updateClick() {
@@ -74,12 +79,12 @@ public class PickItemScreen implements Screen{
 			if (Gdx.input.justTouched()) {
 				if (turn % 2 ==0) {
 					if (buttonSelectP1.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-						characterSelectedP1.add(pick);
+						selectedCharactersP1.add(pick);
 						turn++;
 					}
 				} else {
 					if (buttonSelectP2.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-						characterSelectedP2.add(pick);
+						selectedCharactersP2.add(pick);
 						turn++;
 					}
 				}
@@ -91,7 +96,7 @@ public class PickItemScreen implements Screen{
 		if (turn == 6) {
 			if (Gdx.input.justTouched()) {
 				if (buttonStartGame.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-					game.setScreen(new GameScreen(game, characterSelectedP1, characterSelectedP2));
+					game.setScreen(new GameScreen(game, selectedCharactersP1, selectedPassiveSkillsP1, selectedCharactersP2, selectedPassiveSkillsP2));
 		        	dispose();
 				}
 			}
@@ -165,12 +170,12 @@ public class PickItemScreen implements Screen{
 	}
 	
 	public void renderSlotBlock() {
-		for (Character n : characterSelectedP1) {
+		for (Character n : selectedCharactersP1) {
 			int i = 0;
 			checkItemRender(n, 100,  560 - (i * 100));
 			i++;
 		}
-		for (Character n : characterSelectedP2) {
+		for (Character n : selectedCharactersP2) {
 			int i = 0;
 			checkItemRender(n, 986,  560 - (i * 100));
 			i++;

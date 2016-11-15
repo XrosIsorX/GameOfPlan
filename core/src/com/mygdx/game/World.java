@@ -194,8 +194,6 @@ public class World {
 			if (hasCharacter()) {
 				if (isInRange(pick.atkRange)) {
 					ally.attack(mouse.getX(), mouse.getY());
-					Animation attack = new Animation(mouse.getColX(), mouse.getRowY(), 300, Settings.ANIMATION_ATTACK);
-					animations.add(attack);
 				}
 			} else {
 				if (isInRange(pick.walk)) {

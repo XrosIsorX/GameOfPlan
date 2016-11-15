@@ -24,14 +24,22 @@ public class World {
 	public static Player ally;
 	public static Player enemy;
 	
+	public static List<Animation> animations;
+	
 	public Character pick;
-
+	public PassiveSkill pickPassiveSkill;
+	public int renderFont = 0;
+	
 	public int[] resource;
 	
 	public World(GameOfPlan game, List<Character> selectedCharactersP1, List<PassiveSkill> selectedPassiveSkillsP1, List<Character> selectedCharactersP2, List<PassiveSkill> selectedPassiveSkillsP2) {
 		this.game = game;
 		board = new Board();
 		mouse = new Mouse();
+		
+		animations = new LinkedList<Animation>();
+		
+		renderFont = Settings.FONT_RENDER_NOTHING;
 		
 		player1 = new Player(selectedCharactersP1, selectedPassiveSkillsP1, this, Settings.BOARD_BLOCK_UPPER);
 		player2 = new Player(selectedCharactersP2, selectedPassiveSkillsP2, this, Settings.BOARD_BLOCK_LOWER);
@@ -79,6 +87,13 @@ public class World {
 	
 	public void update() {
 		updateClickMouse();
+		updateAnimation();
+	}
+	
+	public void updateAnimation() {
+		for (Animation n : animations) {
+			n.updateTime();
+		}
 	}
 	
 	public void updateClickMouse() {
@@ -129,18 +144,28 @@ public class World {
 	public void updateStateStill() {
 		if (ally.canGetCharacters(mouse.getX(), mouse.getY())) {
 			pick = ally.getCharacters(mouse.getX(), mouse.getY());
+			renderFont = Settings.FONT_RENDER_CHARACTER;
 			if (!pick.isUsed()) {
 				state = Settings.STATE_ACTION;
 			}
 		} else if (ally.canGetSelectedCharacters(mouse.getX(), mouse.getY())) {
 			pick = ally.getSelectedCharacters(mouse.getX(), mouse.getY());
+			renderFont = Settings.FONT_RENDER_CHARACTER;
 			if(!pick.isUsed() && pick.cost <= ally.resource) {
 				state = Settings.STATE_SPAWN;
 			}
+		} else if (ally.canGetSelectedPassiveSkills(mouse.getX(), mouse.getY())) {
+			pickPassiveSkill = ally.getSelectedPassiveSkills(mouse.getX(), mouse.getY());
+			renderFont = Settings.FONT_RENDER_PASSIVESKILL;
 		} else if (enemy.canGetCharacters(mouse.getX(), mouse.getY())) {
 			pick = enemy.getCharacters(mouse.getX(), mouse.getY());
+			renderFont = Settings.FONT_RENDER_CHARACTER;
 		} else if (enemy.canGetSelectedCharacters(mouse.getX(), mouse.getY())) {
 			pick = enemy.getSelectedCharacters(mouse.getX(), mouse.getY());
+			renderFont = Settings.FONT_RENDER_CHARACTER;
+		} else if (enemy.canGetSelectedPassiveSkills(mouse.getX(), mouse.getY())) {
+			pickPassiveSkill = enemy.getSelectedPassiveSkills(mouse.getX(), mouse.getY());
+			renderFont = Settings.FONT_RENDER_PASSIVESKILL;
 		}
 	}
 	
@@ -169,6 +194,8 @@ public class World {
 			if (hasCharacter()) {
 				if (isInRange(pick.atkRange)) {
 					ally.attack(mouse.getX(), mouse.getY());
+					Animation attack = new Animation(mouse.getColX(), mouse.getRowY(), 300, Settings.ANIMATION_ATTACK);
+					animations.add(attack);
 				}
 			} else {
 				if (isInRange(pick.walk)) {

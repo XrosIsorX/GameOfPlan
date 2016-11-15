@@ -10,7 +10,7 @@ public class Nexus extends Character {
 		atkRange = Settings.NEXUS_ATKRANGE;
 		walk = Settings.NEXUS_WALK;
 		cost = Settings.NEXUS_COST;
-		skill = "-";
+		skillDetail = "-";
 		name = "Nexus";
 		
 	}

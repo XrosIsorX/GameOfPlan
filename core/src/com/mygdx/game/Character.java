@@ -13,7 +13,7 @@ public class Character extends GameObject {
 	int cost = 0;
 	int mana = 0;
 	boolean isUsed = false;
-	String skill;
+	String skillDetail;
 	String name;
 	
 	public Character(float x, float y, float width, float height) {

@@ -40,6 +40,9 @@ public class Player {
 	public void clickButtonEndTurn() {
 		collectGrass();
 		resetAllUsedCharacter();
+		for (PassiveSkill n : selectedPassiveSkills) {
+			n.skill();
+		}
 	}
 	
 	public void resetAllUsedCharacter() {
@@ -156,6 +159,24 @@ public class Player {
 	
 	public Character getSelectedCharacters(float x, float y) {
 		for (Character n : selectedCharacters) {
+			if (n.bounds.contains(x, y)) {
+				return n;
+			}
+		}
+		return null;
+	}
+	
+	public boolean canGetSelectedPassiveSkills(float x, float y) {
+		for (PassiveSkill n : selectedPassiveSkills) {
+			if (n.bounds.contains(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public PassiveSkill getSelectedPassiveSkills(float x, float y) {
+		for (PassiveSkill n : selectedPassiveSkills) {
 			if (n.bounds.contains(x, y)) {
 				return n;
 			}

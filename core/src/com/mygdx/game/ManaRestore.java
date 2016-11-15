@@ -6,6 +6,7 @@ public class ManaRestore extends PassiveSkill{
 		super(x, y, width, height);
 		this.team = team;
 		this.number = Settings.MANARESTORE_NUMBER;
+		this.skillDetail = Settings.MANARESTORE_SKILL;
 		// TODO Auto-generated constructor stub
 	}
 

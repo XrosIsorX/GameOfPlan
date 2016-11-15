@@ -6,6 +6,7 @@ public class HpRestore extends PassiveSkill{
 		super(x, y, width, height);
 		this.team = team;
 		this.number = Settings.HPRESTORE_NUMBER;
+		this.skillDetail = Settings.HPRESTORE_SKILL;
 		// TODO Auto-generated constructor stub
 	}
 	

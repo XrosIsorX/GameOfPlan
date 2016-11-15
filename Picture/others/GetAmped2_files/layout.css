@@ -1,0 +1,649 @@
+@charset "utf-8";
+
+/**************************************
+	URL       : http://getamped2.cyberstep.com/
+	Copyright : CyberStep
+	Name      : layout.css
+	Ver       : 1.0
+	file      : layout
+**************************************/
+
+/* Index ------------------------------------
+
+	Global	-
+	Header	-
+	Container	-
+	Footer	-
+
+------------------------------------------ */
+
+/* ==========================================
+	Global
+========================================== */
+html {
+	background-color: #444444;
+}
+body {
+	background-image: url(../images/bg_layout.jpg);
+	background-repeat: repeat-x;
+	background-attachment: inherit;
+}
+
+#wrap_ga2 {
+	width: 100%;
+	height: 100%;
+	background: url(../images/bg_header.jpg) center top no-repeat;
+	margin-top:-50px;
+}
+
+#header,
+#container,
+#footer {
+	position: relative;
+	width: 950px;
+	margin: 0 auto;
+}
+#header    { height: 350px; z-index: 20; }
+#container { }
+#footer    { top: 10px; height: 50px; clear: both; }
+
+
+/* ==========================================
+	Header
+========================================== */
+
+#header_banner_update a{
+	position: relative;
+	display: block;
+	width: 920px;
+	height: 65px;
+	margin: 10px auto 0;
+}
+#header_banner_update a:hover img {
+	margin-top: 1px;
+}
+
+
+/* ------------------------------------------
+	Site Title
+------------------------------------------ */
+#header #getamped2 {
+	z-index: 10;
+	width: 273px;
+	height: 153px;
+	padding-top: 55px;
+}
+
+/* ------------------------------------------
+	Game Tools
+------------------------------------------ */
+#header #game_tools {
+	position: absolute;
+	top: 50px;
+	right: 0px;
+	width: 205px;
+	height: 245px;
+	margin: 0 auto;
+	padding: 0px 10px;
+	z-index: 10;
+}
+
+/* Download */
+#header #game_tools .btn_download {
+	position: absolute;
+	top: 55px;
+	right: 380px;
+	width: 173px;
+	margin: 0px auto;
+}
+
+/* Charge */
+#header #game_tools .btn_crescent {
+	position: absolute;
+	top: 160px;
+	right: 0px;
+}
+#header #game_tools .btn_freecrescent {
+	position: absolute;
+	top: 160px;
+	right: 780px;
+}
+
+/* Game Start */
+/*#header #game_tools .btn_gamestart {
+	position: absolute;
+	z-index: 10;
+	right: 393px;
+	bottom: -60px;
+	width: 170px;
+}
+*/
+
+/* ------------------------------------------
+	Facebook Twitter Youtube
+------------------------------------------ */
+	#header #fty{
+		position: absolute;
+		bottom: 10px;
+		right: 20px;
+		width: 150px;
+		height: 35px;
+		z-index: 10;
+	}
+
+	#header #fty ul li{
+		float:left;
+		}
+
+
+/* ------------------------------------------
+	Utility
+------------------------------------------ */
+#header #utility {
+	position: absolute;
+	z-index: 20;
+	top: 0px;
+	width: 950px;
+	height: 45px;
+	background: url(../images/layout_sprite.png) 0px 0px no-repeat;
+}
+
+/* Time */
+#header #time {
+	width: 160px;
+	margin: 10px 10px 0px 10px;
+	padding: 4px;
+	background: #000000;
+	color: #fff;
+	font-size: 83%;
+	line-height: 20px;
+	position: relative;
+	top: 90px;
+	left: 740px;
+	border-radius: 100px;
+}
+#header #time .clock {
+	height: 20px;
+	padding-left: 25px;
+	background: url(../images/icon_clock.png) left center no-repeat;
+	text-align: center;
+}
+
+/* Nav Community */
+#utility #nav_community {
+	float: left;
+	display: inline;
+}
+	#utility #nav_community li {
+		border-right: 1px solid #A8C825;
+		border-left: 1px solid #F5FBB1;
+	}
+	#utility #nav_community li:hover {
+		background: url(../images/layout_sprite_on.png) -10px 0px no-repeat;
+	}
+	#utility #nav_community .li_share {
+		height: 45px;
+		padding: 0px;
+	}
+	#utility #nav_community .li_share:hover {
+		background: none;
+	}
+	#utility #nav_community li a {
+		display: block;
+		height: 41px;
+		padding: 2px 1em;
+		color: #151515;
+		font-weight: bold;
+		text-align: center;
+		text-decoration: none;
+		line-height: 41px;
+	}
+	#utility #nav_community li .first { border-left: none; }
+	#utility #nav_community li .end { border-right: none; }
+
+/* Share */
+#utility #share {
+	float: left;
+	display: inline;
+	margin: 5px 10px 0px;
+}
+	#utility #share li {
+		padding: 0px;
+		border: none;
+	}
+	#utility #share li:hover {
+		background: none;
+	}
+	#utility #share li a {
+		margin: 0px auto;
+		padding: 0px 1px;
+		border: none;
+	}
+	#utility #share li a:hover {
+		background: none;
+	}
+
+/* Nav Info */
+#utility #nav_info {
+	float: left;
+	display: inline;
+}
+	#utility #nav_info li a {
+		display: block;
+		height: 45px;
+		color: #151515;
+		font-weight: bold;
+		text-align: center;
+		line-height: 45px;
+	}
+
+/* Language change */
+#utility #language {
+	float: right;
+	display: inline;
+	border-left: 1px solid #F5FBB1;
+	border-right: 1px solid #A8C825;
+	margin-right:2px;
+	width:110px;
+}
+	#utility #language .main {
+		float: right;
+		display: inline;
+		line-height: 44px;
+		width:110px;
+		height:44px;
+		text-align:center;
+		overflow:hidden;
+		/*background: url(../images/btn_language.png);*/
+
+	}
+	#utility #language .hover .main {
+		background: url("../images/layout_sprite_on.png") no-repeat scroll -10px 0 transparent;
+		text-decoration:none;
+	}
+#language #droppy_language {}
+	* html #language #droppy_language  { line-height: 0; } /* IE6 "fix" */
+	#language #droppy_language a { zoom: 1; } /* IE6/7 fix */
+
+	#language #droppy_language li {
+		position: relative;
+		float: left;
+		display: inline;
+		/*width: 180px;*/
+	}
+
+	#language #droppy_language li .first { border-left: none; }
+	#language #droppy_language li .end { border-right: none; }
+
+	/* Sub */
+	#language #droppy_language li ul.sub {
+		display: none;
+		position: absolute;
+		top: 43px;
+		/*right:5px;*/
+		background: url(../images/bg_box.jpg);
+		border: 1px solid #669900;
+	}
+		#language #droppy_language li ul.sub li {
+			float: none;
+		}
+		#language #droppy_language li ul.sub li a {
+			position: relative;
+			display: block;
+			width: 85px;
+			margin: 3px 5px;
+			padding: 0.5em 0.5em;
+			background-color: #BFDA65;
+			color: #151515;
+			text-align: left;
+			text-transform: capitalize;
+		}
+		#language #droppy_language li ul.sub li a:hover {
+			background-color: #E6F1C6;
+			text-decoration: none;
+		}
+		#language #droppy_language li ul.sub .globalnavi_list_bottom {
+			height: 10px;
+		}
+		#language #droppy_language li.category ul.sub li ul.inner {
+			display: none !important;
+		}
+
+/* ------------------------------------------
+	Header Account
+------------------------------------------ */
+#utility #header_login {
+	float: right;
+	display: inline;
+}
+	#header_login .signup_header,
+	#header_login .login_header,
+	#header_login .nickname {
+		float: right;
+		display: inline;
+		margin: 5px 5px 5px 0px;
+		line-height: 35px;
+	}
+		#header_login .nickname a {
+			color: #151515;
+			font-size: 150%; /* 18px */
+			font-weight: bold;
+		}
+
+/* Form Login Header */
+#header_login .form_login_header {
+	display: none;
+	position: absolute;
+	right: 0px;
+	top: 40px;
+	padding: 10px;
+	width: 250px;
+	background: url(../images/bg_box.jpg) no-repeat;
+	border: 1px solid #669900;
+}
+
+#header_login .form_login_header .form_login {
+	margin-bottom: 5px;
+}
+	#header_login .form_login_header .form_login fieldset {
+		width: 160px;
+		float: left;
+		display: inline;
+	}
+	#header_login .form_login_header .form_login fieldset input {
+		width: 160px;
+		margin: 1px auto;
+		padding: 0px 5px;
+		background-color: #cbe67b;
+		background-image: url(../images/layout_sprite.png) !important;
+		background-repeat: no-repeat;
+	}
+	#header_login .form_login_header .form_login fieldset .user_id {
+		background-position: -1080px -15px;
+	}
+	#header_login .form_login_header .form_login fieldset .password {
+		background-position: -1080px -60px;
+	}
+#header_login .form_login_header .form_login .btn_login {
+	float: right;
+	display: inline;
+	width: 40px;
+	height: 35px;
+	font-size: 116%; /* 14px */
+	line-height: 35px;
+}
+
+#header_login .form_login_header .sign_up_btn {
+	width: 210px;
+	padding: 0.5em 1em;
+	background-color: #cb60b3;
+	border: 1px solid #69084e;
+	font-size: 150%; /* 18px */
+}
+#header_login .form_login_header .sign_up_btn:hover {
+	color: #69084e;
+}
+
+/* ------------------------------------------
+	Global Nav
+------------------------------------------ */
+#header #nav_global {
+	position: absolute;
+	bottom: 0;
+	width: 950px;
+	height: 55px;
+	background: url(../images/layout_sprite.png) 0px -45px no-repeat;
+	z-index:-1;
+}
+
+	* html #header #nav_global  { line-height: 0; } /* IE6 "fix" */
+	#header #nav_global a { zoom: 1; } /* IE6/7 fix */
+
+	#header #nav_global li {
+		position: relative;
+		float: left;
+		display: inline;
+		width: 180px;
+	}
+	#header #nav_global li.category:hover {
+		background: url(../images/layout_sprite_on.png) 0px -45px no-repeat;
+	}
+	#header #nav_global #c_community { background-position: 0px -45px; }
+	#header #nav_global #c_download { background-position: -180px -45px; }
+	#header #nav_global #c_guide { background-position: -590px -45px;	}
+	#header #nav_global #c_media { background-position: -769px -45px; }
+
+	#header #nav_global li .main {
+		display: block;
+		width: 178px;
+		height: 51px;
+		margin: 2px auto;
+		color: #151515;
+		border-right: 1px solid #A8C825;
+		border-left: 1px solid #F5FBB1;
+		font-size: 150%; /* 18px */
+		font-weight: bold;
+		text-align: center;
+		text-decoration: none;
+		text-transform: uppercase;
+		line-height: 51px;
+	}
+	#header #nav_global li .first { border-left: none; }
+	#header #nav_global li .end { border-right: none; }
+
+	/* Sub */
+	#header #nav_global li ul.sub {
+		display: none;
+		position: absolute;
+		top: 55px;
+		background: url(../images/bg_box.jpg);
+		border: 1px solid #669900;
+	}
+		#header #nav_global li ul.sub li {
+			float: none;
+		}
+		#header #nav_global li ul.sub li a {
+			position: relative;
+			display: block;
+			width: 160px;
+			margin: 5px;
+			padding: 0.8em 0.5em;
+			background-color: #BFDA65;
+			color: #151515;
+			text-align: left;
+			text-transform: uppercase;
+		}
+		#header #nav_global li ul.sub li a:hover {
+			background-color: #E6F1C6;
+			text-decoration: none;
+		}
+		#header #nav_global li ul.sub .globalnavi_list_bottom {
+			height: 10px;
+		}
+		#header #nav_global li.category ul.sub li ul.inner {
+			display: none !important;
+		}
+
+/* ==========================================
+	Container
+========================================== */
+#container {
+	width: 916px;
+	margin-top: 10px;
+	padding: 15px 15px 15px 15px;
+	background-color: #eef6d8;
+	border: 2px solid #444;
+}
+#container #left {
+	float: left;
+	display: inline;
+	width: 180px;
+}
+#container #contents {
+	float: right;
+	display: inline;
+	width: 720px;
+}
+
+/* ==========================================
+	banner_area
+========================================== */
+#banner_area{
+		position: relative;
+		width: 1300px;
+		left: 50%;
+		margin: 0px 0 0 -650px;
+}
+
+#banner_area a{
+	position: absolute;
+	width: 160px;
+	height: 0px;
+	padding-top: 600px;
+	overflow: hidden;
+	display: block;
+}
+
+div#side_banner_area a.left_banner { left: 0px;}
+div#side_banner_area a.right_banner { right: 0px;}
+
+
+#banner_area a.left_banner{
+	left:0px;
+	background: url("/images/banner/aside/150305_160x600_contest.jpg");
+	}
+#banner_area a.right_banner.rotation01{
+	right: 0px;
+	background: url("/images/banner/aside/151211_uscb2_160x600_01.jpg");
+}
+
+#banner_area a.right_banner.rotation02{
+	right: 0px;
+	background: url("/images/banner/aside/151211_uscb2_160x600_02.jpg");
+}
+
+#banner_area a.right_banner.rotation03{
+	right: 0px;
+	background: url("/images/banner/aside/151211_uscb2_160x600_03.jpg");
+}
+
+#header_banner_update{
+	padding-bottom: 10px;
+	padding-top: 4px;
+}
+
+
+/* ==========================================
+	Outside_banner
+========================================== */
+.outside {
+	position:absolute;
+	right:-175px;
+	width:160px;
+	height:600px;
+	display:block;
+	z-index:100;
+	float:none;
+	clear:both;
+}
+.outside a {
+	width:160px;
+	height:600px;
+	display:block;
+}
+
+/* ==========================================
+	Footer
+========================================== */
+/* ------------------------------------------
+	Corporation Logo
+------------------------------------------ */
+#footer #logo_cyberstep {
+	position: absolute;
+	height: 26px;
+	width: 200px;
+}
+	#footer #logo_cyberstep a { }
+
+/* ------------------------------------------
+	Footer Nav
+------------------------------------------ */
+#footer #nav_footer { float: right; display: inline; }
+	#footer #nav_footer li {
+		float: left;
+		display: inline;
+		line-height: 1em;
+		border-right: 1px solid #fff;
+	}
+	#footer #nav_footer .end { border-right: none; }
+		#footer #nav_footer li a {
+			padding: 0 0.5em;
+			font-size: 83%; /* 10px */
+			text-transform: uppercase;
+			white-space: nowrap;
+		}
+		#footer #nav_footer .end a { padding-right: 0px; }
+
+/* ------------------------------------------
+	Footer Copyright
+------------------------------------------ */
+#footer #copyright {
+	color: #d5d5d5;
+	font-size: 83%; /* 10px */
+	text-align: right;
+}
+
+/* リンク*/
+#footer #nav_footer a:link                     { color: #FF9200; }
+#footer #nav_footer a:visited                  { color: #BF8230; }
+#footer #nav_footer a:hover, a:focus, a:active { color: #FFAD40; }
+
+
+/* --------------------------------------------------------
+	header
+-------------------------------------------------------- */
+
+div#fla {
+		position: absolute;
+		width: 160px;
+		height: 600px;
+		overflow: hidden;
+		display: block;
+		margin-top: 0px;
+		margin-left: 1130px;
+}
+span#flash_banner{
+	width: 160px;
+	height: 600px;
+}
+	#container #banner_area  a#fl_bnr {
+		background: url("/images/banner/140612_usog_160x600_09.jpg");
+		margin: 0;
+		width: 160px;
+		height: 600px;
+		display:block;
+		overflow: hidden;
+		text-indent: -9999px;
+
+	}
+
+	/*-----onigiri banner rotation-----*/
+
+
+.rotation01 {
+    background: url("/images/banner/aside/140807_usog_160x600_01.jpg");
+}
+.rotation02 {
+    background: url("/images/banner/aside/140807_usog_160x600_02.jpg");
+}
+.rotation03 {
+    background: url("/images/banner/aside/140807_usog_160x600_03.jpg");
+}
+.rotation04 {
+    background: url("/images/banner/aside/140807_usog_160x600_04.jpg");
+}
+.rotation05 {
+    background: url("/images/banner/aside/140807_usog_160x600_05.jpg");
+}
+
+

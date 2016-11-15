@@ -3,6 +3,7 @@ package com.mygdx.game;
 public class PassiveSkill extends GameObject{
 	int team = 0;
 	int number = 0;
+	String skillDetail = "-";
 
 	public PassiveSkill(float x, float y, float width, float height) {
 		super(x, y, width, height);

@@ -1,0 +1,101 @@
+
+/* -------------------------------------- homeScript -------------------------------------- */
+
+function homeScript(){
+	/* social tab change */
+	$("#social .tab ul li").click(function(){
+		var listName = $(this).attr("class");
+		if( listName.indexOf("active")==-1){
+			if( listName.indexOf("loading")!=-1){
+				loadYoutubeList(listName);
+				listName = "youtube";
+				renderYtSubscribeButton();
+			}
+			$("#social .tab ul li").removeClass("active");
+			$("#social .box > div").removeClass("active").hide("normal");
+			$(this).addClass("active");
+			$("#social .box > div." + listName).addClass("active").show("normal");
+		}
+	});
+
+/*
+	function loadYoutubeList(listName) {
+		$("#social .tab ul li.youtube").removeClass("loading");
+		var url = "http://gdata.youtube.com/feeds/api/users/GetAmped212/uploads";
+		$.getJSON(url, { alt:'json' }, function(json) {
+			var entry = json.feed.entry;
+			var str = '';
+			for (var i = 0; i < entry.length; i++) {
+				var media = entry[i].media$group;
+				var author = entry[i].author[0].name.$t;
+				var src = media.media$thumbnail[2].url;
+				var href = media.media$player[0].url;
+				var title = media.media$title.$t;
+				var duration = formatDuration(media.yt$duration.seconds);
+
+				str += '<li><a href="' + href + "&hd=1" + '" target="_blank">';
+				str += '<div class="left"><img class="thumb" src="' + src + '"><span class="duration">' + duration + '</span></div>';
+				str += '<div class="right"><span class="title">' + title + '</span></div>';
+				str += '</a></li>';
+			}
+			$('ul#playList .dummy').remove();
+			$('ul#playList').append(str);
+		});
+		function formatDuration(duration) {
+			var hour = Math.floor(duration / 3600);
+			var minute = Math.floor(duration / 60) % 60;
+			var second = duration % 60;
+
+			if (hour) {
+				return hour.toString() + ':' + zero(minute) + ':' + zero(second);
+			} else {
+				return minute.toString() + ':' + zero(second);
+			}
+		}
+		function zero(num) {
+			if (num < 10) {
+				return '0' + num.toString();
+			} else {
+				return num.toString();
+			}
+		}
+	}
+*/
+
+function renderYtSubscribeButton() {
+	var container = document.getElementById('yt-button-container-render');
+	var options = {
+		'channel': 'GetAmped212',
+		'layout': 'full'
+	};
+	gapi.ytsubscribe.render(container, options);
+}
+
+function loadYoutubeList(feeds,category,thumbwidth,thumbheight) {
+	var feed = new google.feeds.Feed('http://www.youtube.com/feeds/videos.xml?user=GetAmped212');
+	feed.setNumEntries(20);
+	feed.load(function(result) {
+		if (!result.error) {
+			str = '';
+			for (var i = 0; i < result.feed.entries.length; i++) {
+				var entry = result.feed.entries[i];
+				var title = entry.title;
+				var link = entry.link;
+				var videoId = link.substring(31,42);
+				str += '<li>';
+				str += '<a title="' + title +'" class="moviethickbox" href="//www.youtube.com/embed/' + videoId + "?rel=0&amp;vq=hd720" + '">';
+				str += '<span class="caption">' + title + '</span>';
+				str += '<img class="thumb" src="https://i2.ytimg.com/vi/' + videoId + '/hqdefault.jpg" alt="' + title + '" width="' + thumbwidth + '" height="' + thumbheight + '">';
+				str += '</a>';
+				str += '</li>';
+			}
+			$('ul#playList .dummy').remove();
+			$('ul#playList').append(str);
+		} else {
+			$('ul#playList .dummy').remove();
+			$('ul#playList').append('load error');
+		}
+	});
+}
+
+}

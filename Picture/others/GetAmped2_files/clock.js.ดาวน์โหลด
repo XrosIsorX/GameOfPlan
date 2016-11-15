@@ -1,0 +1,96 @@
+var show_clock = function(time) {
+	var self = {};
+
+	/**
+	 * 簡易sprintfです。%sしかつかえません。
+	 */
+	var sprintf = function() {
+		var format = arguments[0]; // format
+		var args   = arguments;
+		var i = 0;
+		return format.replace(/%s/g, function(){
+			i++;
+			return args[i];
+		});
+	};
+	self.sprintf = sprintf;
+
+	/**
+	 * 時計を生成します。
+	 * @param target 表示対象要素
+	 * @param timestamp サーバ時刻(秒)
+	 */
+	var clock = function(target, timestamp) {
+		// 時計の更新間隔
+		var interval = 1000 * 60;
+
+		// サーバのUTC基準時刻
+		var t = new Date();
+		t.setTime(timestamp * 1000);
+
+		// USサマータイム期間を調べる
+		var dstStart = function() {
+			var start = new Date(Date.UTC(t.getFullYear(), 2, 1, 10, 0, 0));
+			var sunCount = 0;
+			for (var i = 0; i < 14; i++) {
+				start.setDate(i + 1);
+				if (start.getDay() == 0) {
+					sunCount++;
+				}
+				if (sunCount == 2) {
+					return start;
+				}
+			}
+		}();
+
+		var dstEnd = function() {
+			var end = new Date(Date.UTC(t.getFullYear(), 10, 1, 9, 0, 0));
+			var sunCount = 0;
+			for (var i = 0; i < 14; i++) {
+				end.setDate(i + 1);
+				if (end.getDay() == 0) {
+					return end;
+				}
+			}
+		}();
+
+		var diffs = {
+			'PDT': -7,
+			'PST': -8
+		};
+		if (dstStart < t && t < dstEnd) {
+			var base = 'PDT';
+		} else {
+			base = 'PST';
+		}
+
+		// USサマータイム(PST/PDT)
+		var d = new Date();
+		d.setTime((timestamp * 1000) + (diffs[base] * 3600 * 1000));
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		var f = function(v) {
+			if (parseInt(v) < 10) {
+				return '0' + v;
+			} else {
+				return v;
+			}
+		};
+
+		// 自動更新処理
+		var timer = function() {
+			d.setTime(d.getTime() + interval);
+			$(target).children('.date').text(sprintf('%s %s, %s', months[d.getUTCMonth()], d.getUTCDate(), d.getUTCFullYear()));
+
+			var hour = d.getUTCHours();
+			var ampm = '';
+			$(target).children('.time').text(sprintf('%s:%s %s (%s)', f(hour), f(d.getUTCMinutes()), ampm, base));
+		};
+		setInterval(timer, interval);
+		timer();
+	};
+	self.clock = clock;
+
+	clock('div.clock', time);
+	return self;
+};
+

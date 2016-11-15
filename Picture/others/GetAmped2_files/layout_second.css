@@ -1,0 +1,95 @@
+@charset "utf-8";
+
+/**************************************
+	URL       : http://getamped2.cyberstep.com/
+	Copyright : CyberStep
+	Name      : layout_second.css
+	Ver       : 1.0
+	file      : layout_second
+**************************************/
+
+/* ==========================================
+	Global
+========================================== */
+h3 {
+	width: 700px;
+	height: 80px;
+	padding-left: 20px;
+	background: url(../images/layout_second_sprite.png) 0px -50px no-repeat;
+	font-family: 'Arvo';
+	font-size: 200%; /* 24px */
+	line-height: 70px;
+}
+
+h4 {
+	height: 35px;
+	margin: 2em auto 1em;
+	padding-left: 15px;
+	padding-bottom: 2px;
+	background: url(../images/layout_second_sprite.png) -185px 0px no-repeat;
+	border-bottom: 1px solid #669900;
+	font-family: 'Arvo';
+	font-size: 133%; /* 16px */
+	line-height: 35px;
+}
+
+h5 {
+	height: 20px;
+	margin: 1em auto 0.5em;
+	padding-left: 0px;
+	font-size: 116%; /* 14px */
+	line-height: 20px;
+}
+
+/* ==========================================
+/* Local Nav
+========================================== */
+#container #left #nav_local {
+	width: 185px;
+}
+	#container #left #nav_local #head_category {
+		width: 185px;
+		height: 50px;
+		background: url(../images/layout_second_sprite.png);
+		font-size: 116%; /* 14px */
+		font-weight: bold;
+		text-align: center;
+		text-transform: uppercase;
+		line-height: 50px;
+	}
+	#container #left #nav_local #nav_local_list {
+		padding: 1px;
+		background-color: #e6f1c7;
+		border-top: none;
+	}
+	#container #left #nav_local #nav_local_list a {
+		position: relative;
+		display: block;
+		width: 160px;
+		margin: 5px auto;
+		padding: 0.8em 0.5em;
+		color: #151515;
+		text-decoration: none;
+		text-transform: uppercase;
+	}
+	#container #left #nav_local #nav_local_list a:hover {
+		background-color: #e6f1C6;
+	}
+	#container #left #nav_local #nav_local_list .sub_block .inner a {
+		width: 160px;
+		margin: 0px 5px;
+		padding: 5px;
+		background: none;
+		font-size: 83%; /* 10px */
+	}
+	#container #left #nav_local #nav_local_list .sub_block .inner a:hover,
+	#container #left #nav_local #nav_local_list .sub_block .inner a.selected {
+		background: url(../images/listmark_02_on.png) right center no-repeat;
+		border: none;
+	}
+
+/* Contents
+========================================== */
+#container #contents { margin-bottom: 30px; }
+.group { position: relative; }
+.group .unit { margin: 10px auto; }

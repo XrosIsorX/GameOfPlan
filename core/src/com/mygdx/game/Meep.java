@@ -10,7 +10,7 @@ public class Meep extends Character {
 		this.atkRange = Settings.MEEP_ATKRANGE;
 		this.walk = Settings.MEEP_WALK;
 		this.cost = Settings.MEEP_COST;
-		this.skill = "-";
+		this.skillDetail = "-";
 		this.name = "Meep";
 	}
 
@@ -22,7 +22,7 @@ public class Meep extends Character {
 		this.atkRange = atkrange;
 		this.walk = walk;
 		this.cost = Settings.MEEP_COST;
-		this.skill = "-";
+		this.skillDetail = "-";
 		this.name = "Meep";
 	}
 }

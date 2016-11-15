@@ -32,6 +32,9 @@ public class Assets {
 	static Texture meep;
 	static Texture skull;
 	
+	static Texture attack;
+	static Texture slash;
+	
 	public static void load()
 	{
 		ground = new Texture(Gdx.files.internal("ground.png"));
@@ -60,5 +63,8 @@ public class Assets {
 		swordman = new Texture(Gdx.files.internal("swordman.png"));
 		meep = new Texture(Gdx.files.internal("meep.png"));
 		skull = new Texture(Gdx.files.internal("skull.png"));
+		
+		attack = new Texture(Gdx.files.internal("attack.png"));
+		slash= new Texture(Gdx.files.internal("slash.png"));
 	}
 }

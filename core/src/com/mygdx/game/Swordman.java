@@ -13,7 +13,7 @@ public class Swordman extends Character{
 		this.atkRange = Settings.SWORDMAN_ATKRANGE;
 		this.walk = Settings.SWORDMAN_WALK;
 		this.cost = Settings.SWORDMAN_COST;
-		this.skill = Settings.SWORDMAN_SKILL;
+		this.skillDetail = Settings.SWORDMAN_SKILL;
 		this.name = "Swordman";
 	}
 
@@ -25,7 +25,7 @@ public class Swordman extends Character{
 		this.atkRange = atkrange;
 		this.walk = walk;
 		this.cost = Settings.SWORDMAN_COST;
-		this.skill = Settings.SWORDMAN_SKILL;
+		this.skillDetail = Settings.SWORDMAN_SKILL;
 		this.name = "Swordman";
 	}
 	

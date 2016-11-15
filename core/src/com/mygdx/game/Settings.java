@@ -14,6 +14,10 @@ public abstract class Settings {
 	
 	static final int FONT_COST_X =20;
 	
+	static final int FONT_RENDER_NOTHING = 0;
+	static final int FONT_RENDER_CHARACTER = 1;
+	static final int FONT_RENDER_PASSIVESKILL = 2;
+	
 	static final int GROUND = 0;
 	static final int GRASS = 1;
 	static final int RIVER = 2;
@@ -50,7 +54,6 @@ public abstract class Settings {
 	static final int MANARESTORE_NUMBER = 2000;
 	static final int HPRESTORE_NUMBER = 2001;
 	
-	
 	static final int NEXUS_HP = 20;
 	static final int NEXUS_ATK = 0;
 	static final int NEXUS_ATKRANGE = 0;
@@ -64,6 +67,7 @@ public abstract class Settings {
 	static final int SWORDMAN_WALK = 2;
 	static final int SWORDMAN_COST = 0;
 	static final String SWORDMAN_SKILL = "Deal 3 damage around \nitself 2 blocks.";
+	static final int SWORDMAN_MANA = 5;
 	
 	static final int WIZARD_HP = 5;
 	static final int WIZARD_ATK = 1;
@@ -71,6 +75,7 @@ public abstract class Settings {
 	static final int WIZARD_WALK = 3;
 	static final int WIZARD_COST = 0;
 	static final String WIZARD_SKILL = "Spawn 1 SKULL on the \ntarget block.";
+	static final int WIZARD_MANA = 10;
 	
 	static final int MEEP_HP = 2;
 	static final int MEEP_ATK = 2;
@@ -86,6 +91,10 @@ public abstract class Settings {
 	static final int SKULL_COST = 2;
 	static final String SKULL_SKILL = "-";
 	
+	static final String HPRESTORE_SKILL = "Restore 1 hp for all\n characters' when your\n turn end.";
+	
+	static final String MANARESTORE_SKILL = "Restore 2 mana for all\n characters' when your\n turn end.";
+	
 	static final int STATE_STILL = 0;
 	static final int STATE_SPAWN = 1;
 	static final int STATE_ACTION = 2;
@@ -93,6 +102,9 @@ public abstract class Settings {
 	
 	static final int TURN_P1 = 1;
 	static final int TURN_P2 = 2 ;
+	
+	static final int ANIMATION_ATTACK = 1;
+	static final int ANIMATION_SLASH = 2;
 	
 	//camera
 	//static final float SCREEN_X = 880;

@@ -41,7 +41,7 @@ public class Board {
 	
 	public boolean isInBoard(float x, float y) {
 		if (x >= Settings.BLOCK_SIZE * Settings.BOARD_PLAYER 
-				&& y <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
+				&& x <= Settings.BOARD_WIDTH - (Settings.BOARD_PLAYER * Settings.BLOCK_SIZE)) {
 			return true;
 		}
 		return false;
@@ -55,7 +55,7 @@ public class Board {
 	}
 	
 	public boolean isInBoardP2(float x, float y) {
-		if (y < Settings.BLOCK_SIZE * Settings.BOARD_BLOCK_UPPER) {
+		if (y < Settings.BLOCK_SIZE * Settings.BOARD_BLOCK_LOWER) {
 			return true;
 		}
 		return false;

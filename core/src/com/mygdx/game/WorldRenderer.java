@@ -96,21 +96,26 @@ public class WorldRenderer {
 	public void renderButton() {
 		batch.draw(Assets.buttonEndTurn, Settings.BUTTON_ENDTURNP1_X, Settings.BUTTON_ENDTURN_Y);
 		batch.draw(Assets.buttonEndTurn, Settings.BUTTON_ENDTURNP2_X, Settings.BUTTON_ENDTURN_Y);
-		batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLP1_X, Settings.BUTTON_SKILL_Y);
-		batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLP2_X, Settings.BUTTON_SKILL_Y);
+		if (world.renderFont == Settings.FONT_RENDER_CHARACTER) {
+			if (world.turn == Settings.TURN_P1) {
+				batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLP1_X, Settings.BUTTON_SKILL_Y);
+			} else if (world.turn == Settings.TURN_P2) {
+				batch.draw(Assets.buttonSkill, Settings.BUTTON_SKILLP2_X, Settings.BUTTON_SKILL_Y);
+			}
+		}
 	}
 
-	public void checkFontRender(Character pick) {
+	public void checkCharacterFontRender(Character pick) {
 		int x=0;
 		if (world.turn == Settings.TURN_P1) {
 			x = 20;
 		} else if (world.turn == Settings.TURN_P2) {
 			x = 916;
 		}
-		renderFont(pick.name , pick.cost , pick.hp , pick.atk , pick.atkRange , pick.walk , pick.skill , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
+		renderCharacterFont(pick.name , pick.cost , pick.hp , pick.atk , pick.atkRange , pick.walk , pick.skillDetail , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
 	}
 	
-	public void renderFont(String name , int cost , int hp , int atk , int atkRange , int walk , String skill , float x , float y) {
+	public void renderCharacterFont(String name , int cost , int hp , int atk , int atkRange , int walk , String skill , float x , float y) {
 		font.draw(batch , "Name : " + name, x , y);
 		font.draw(batch , "Cost : " + cost , x , y - (0.5f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Hp : " + hp , x , y - (1f * Settings.BLOCK_SIZE));
@@ -118,6 +123,20 @@ public class WorldRenderer {
 		font.draw(batch , "Atk range : " + atkRange, x , y - (2f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Walk : " + walk , x , y - (2.5f * Settings.BLOCK_SIZE));
 		font.draw(batch , skill , x , y - (3.8f * Settings.BLOCK_SIZE));
+	}
+	
+	public void checkPassiveSkillFontRender(PassiveSkill passiveSkill) {
+		int x=0;
+		if (world.turn == Settings.TURN_P1) {
+			x = 20;
+		} else if (world.turn == Settings.TURN_P2) {
+			x = 916;
+		}
+		renderPassiveSkillFont(passiveSkill.skillDetail, x, Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
+	}
+	
+	public void renderPassiveSkillFont(String skillDetail, float x, float y) {
+		font.draw(batch , skillDetail, x , y);
 	}
 	
 	public void renderResource() {
@@ -143,7 +162,17 @@ public class WorldRenderer {
 	}
 	
 	public void renderAction() {
-		
+		for (Animation n : world.animations) {
+			checkAnimationRender(n.picture, n.position.x, n.position.y);
+		}
+	}
+	
+	public void checkAnimationRender(int picture, float x, float y) {
+		if (picture == Settings.ANIMATION_ATTACK) {
+			batch.draw(Assets.attack, x, y);
+		} else if (picture == Settings.ANIMATION_SLASH) {
+			batch.draw(Assets.slash, x, y);
+		}
 	}
 	
 	public void render()
@@ -157,12 +186,15 @@ public class WorldRenderer {
 		renderSkillSpawn();
 		renderItem();
 		renderAllCharacter();
-		if (world.pick != null) {
-			checkFontRender(world.pick);
+		if (world.renderFont == Settings.FONT_RENDER_CHARACTER) {
+			checkCharacterFontRender(world.pick);
 			renderSpawnMouse();
+		} else if (world.renderFont == Settings.FONT_RENDER_PASSIVESKILL) {
+			checkPassiveSkillFontRender(world.pickPassiveSkill);
 		}
 		renderHp();
 		renderResource();
+		renderAction();
 		batch.end();
 	}
 }

@@ -1,0 +1,389 @@
+@charset "utf-8";
+
+/**************************************
+	URL       : http://getamped2.cyberstep.com/
+	Copyright : CyberStep
+	Name      : common.css
+	Ver       : 1.0
+	file      : ALL
+**************************************/
+
+/* index ---------------------------------
+
+	Global
+	Header
+	Font
+	Anchor
+	Image
+	Table
+	List
+	Form
+	Parallel & Center
+	Clear
+	Dummiy
+	Box
+	
+--------------------------------- index */
+
+/* ==========================================
+	Global
+========================================== */
+body {
+	color: #454545;
+	font-size: 12px; /* 12px */
+}
+html, body {
+	width: 100%;
+	height: 100%;
+	background-color: #444444;
+	*font-size: small;
+	*font: x-small;
+}
+
+/* ==========================================
+	Header
+========================================== */
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+/* ==========================================
+	Font
+========================================== */
+.notice {
+	font-weight: bold !important;
+	color: #CC0000;
+}
+.error,
+.red {
+	font-weight: bold !important;
+	color: #CC0000;
+}
+.small {
+	font-size: 83% !important; /* 10px */
+	line-height: 1.1em !important;
+}
+.big {
+	font-size: 116% !important; /* 14px */
+}
+.bold {
+	font-weight: bold !important;
+}
+
+
+/* ==========================================
+	Anchor
+========================================== */
+a {
+	text-decoration: none;
+	outline: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+a.img_anchor {
+	display: block;
+	outline: none;
+	text-indent: -9999px;
+	cursor: pointer;
+}
+
+.no_underline,
+.no_underline a { text-decoration: none; }
+
+/* ==========================================
+	Image
+========================================== */
+img { vertical-align: middle; }
+
+/* ==========================================
+	Table
+========================================== */
+table {
+	width: 100%;
+	font-size: 100%; /* 12px */
+	border: #a8c732 solid 1px;
+}
+	table th {
+		background-color: #e6f1c7;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	table td {
+		background-color: #fff;
+	}
+	table td,
+	table th {
+		padding: 5px;
+		border: #a8c732 solid 1px;
+	}
+
+.table_simple {
+	width: 100%;
+	padding: 20px;
+	background: #fff;
+	font-size: 100%; /* 12px */
+}
+	.table_simple table {
+		border: none;
+	}
+	.table_simple th, 
+	.table_simple td {
+		background: none;
+	}
+	.table_simple td,
+	.table_simple th {
+		border: none;
+	}
+
+/* ==========================================
+	List
+========================================== */
+ul, li { list-style-type: none; }
+li {
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+}
+
+.ul_basic, .ul_basic li { list-style-type: disc; }
+.ul_basic li {
+	list-style-position: inside;
+	list-style-type: disc;
+}
+
+.ol_basic, .ol_basic li { list-style-type: decimal; }
+.ol_basic li {
+	list-style-position: inside;
+	list-style-type: decimal;
+}
+
+/* ==========================================
+	Form
+========================================== */
+form { display: inline; font-size: 100%; /* 12px */ }
+
+/* Input */
+input,
+select,
+textarea {
+	vertical-align: middle;
+}
+.input_txt {
+	height: 2em;
+	width: 20em;
+	margin: 1px auto;
+	padding: 0px 5px;
+	background-color: #ffff99;
+	background-repeat: no-repeat;
+	border: 1px solid #e6f1c7;
+	line-height: 2em;
+}
+.input_s_txt {
+	height: 2em;
+	width: 10em;
+	margin: 1px auto;
+	padding: 0px 5px;
+	background-color: #ffff99;
+	background-repeat: no-repeat;
+	border: 1px solid #e6f1c7;
+	line-height: 2em;
+}
+.input_sub {
+}
+.input_btn {
+}
+
+/* Select */
+select {
+}
+
+/* Textarea */
+textarea {
+}
+ 
+/* ==========================================
+	Iframe
+========================================== */
+iframe {
+	border: 1px solid #669900;
+	background: #fff;
+}
+
+/* ==========================================
+	Position Style
+========================================== */
+/* ------------------------------------------
+	Center
+------------------------------------------ */
+.center {
+	margin: auto;
+	text-align: center;
+}
+
+/* ------------------------------------------
+	Text Align
+------------------------------------------ */
+.ac { text-align: center; }
+.ar {	text-align: right; }
+.al {	text-align: left;}
+
+/* ------------------------------------------
+	Float
+------------------------------------------ */
+.fr {	float: right; display: inline; }
+.fl {	float: left; display: inline; }
+
+/* ------------------------------------------
+	Margin
+------------------------------------------ */
+.mt00 { margin-top:  0px !important; }
+.mt05 { margin-top:  5px !important; }
+.mt10 { margin-top: 10px !important; }
+.mt15 { margin-top: 15px !important; }
+.mt20 { margin-top: 20px !important; }
+.mt25 { margin-top: 25px !important; }
+.mt30 { margin-top: 30px !important; }
+.mt35 { margin-top: 35px !important; }
+.mt40 { margin-top: 40px !important; }
+
+.mr00 { margin-right:  0px !important; }
+.mr05 { margin-right:  5px !important; }
+.mr10 { margin-right: 10px !important; }
+.mr15 { margin-right: 15px !important; }
+.mr20 { margin-right: 20px !important; }
+.mr25 { margin-right: 25px !important; }
+.mr30 { margin-right: 30px !important; }
+.mr35 { margin-right: 35px !important; }
+.mr40 { margin-right: 40px !important; }
+
+.mb00 { margin-bottom:  0px !important; }
+.mb05 { margin-bottom:  5px !important; }
+.mb10 { margin-bottom: 10px !important; }
+.mb15 { margin-bottom: 15px !important; }
+.mb20 { margin-bottom: 20px !important; }
+.mb25 { margin-bottom: 25px !important; }
+.mb30 { margin-bottom: 30px !important; }
+.mb35 { margin-bottom: 35px !important; }
+.mb40 { margin-bottom: 40px !important; }
+
+.ml00 { margin-left:  0px !important; }
+.ml05 { margin-left:  5px !important; }
+.ml10 { margin-left: 10px !important; }
+.ml15 { margin-left: 15px !important; }
+.ml20 { margin-left: 20px !important; }
+.ml25 { margin-left: 25px !important; }
+.ml30 { margin-left: 30px !important; }
+.ml35 { margin-left: 35px !important; }
+.ml40 { margin-left: 40px !important; }
+
+/* ------------------------------------------
+	Padding
+------------------------------------------ */
+.pt00 { padding-top:  0px !important; }
+.pt05 { padding-top:  5px !important; }
+.pt10 { padding-top: 10px !important; }
+.pt15 { padding-top: 15px !important; }
+.pt20 { padding-top: 20px !important; }
+.pt25 { padding-top: 25px !important; }
+.pt30 { padding-top: 30px !important; }
+.pt35 { padding-top: 35px !important; }
+.pt40 { padding-top: 40px !important; }
+
+.pr00 { padding-right:  0px !important; }
+.pr05 { padding-right:  5px !important; }
+.pr10 { padding-right: 10px !important; }
+.pr15 { padding-right: 15px !important; }
+.pr20 { padding-right: 20px !important; }
+.pr25 { padding-right: 25px !important; }
+.pr30 { padding-right: 30px !important; }
+.pr35 { padding-right: 35px !important; }
+.pr40 { padding-right: 40px !important; }
+
+.pb00 { padding-bottom:  0px !important; }
+.pb05 { padding-bottom:  5px !important; }
+.pb10 { padding-bottom: 10px !important; }
+.pb15 { padding-bottom: 15px !important; }
+.pb20 { padding-bottom: 20px !important; }
+.pb25 { padding-bottom: 25px !important; }
+.pb30 { padding-bottom: 30px !important; }
+.pb35 { padding-bottom: 35px !important; }
+.pb40 { padding-bottom: 40px !important; }
+
+.pl00 { padding-left:  0px !important; }
+.pl05 { padding-left:  5px !important; }
+.pl10 { padding-left: 10px !important; }
+.pl15 { padding-left: 15px !important; }
+.pl20 { padding-left: 20px !important; }
+.pl25 { padding-left: 25px !important; }
+.pl30 { padding-left: 30px !important; }
+.pl35 { padding-left: 35px !important; }
+.pl40 { padding-left: 40px !important; }
+
+/* ==========================================
+	Parallel
+========================================== */
+div.center {
+	margin: auto;
+	text-align: center;
+}
+ol.horizon_center li,
+ul.horizon_center li {
+	display: -moz-inline-box;
+	display: inline-block;
+	margin: 0px;
+	/display: inline;
+	/zoom: 1;
+	/* /margin-left: 3px; */
+	vertical-align: middle;
+}
+	ol.horizon_center li *,
+	ul.horizon_center li * {
+		float: left;
+		display: inline;
+	}
+
+/* ==========================================
+	Clear
+========================================== */
+.clr { clear: both; }
+
+br.clr {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+	font-size: 0px; /* 0px */
+	line-height: 0px;
+}
+
+/* clearfix hack */
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	line-height: 0px;
+	}
+* html .clearfix             { zoom: 1; }
+*:first-child+html .clearfix { zoom: 1; }
+
+/* ==========================================
+	Dummiy
+========================================== */
+.hide { display: none; }
+
+/* ==========================================
+	Box
+========================================== */
+.field {}
+.area {}
+.section {}
+.group { position: relative; }
+	.unit {}
+		.part {}
+			.point {}
+			.tip { float: right; display: inline; }

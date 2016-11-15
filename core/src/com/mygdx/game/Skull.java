@@ -10,7 +10,7 @@ public class Skull extends Character {
 		this.atkRange = Settings.SKULL_ATKRANGE;
 		this.walk = Settings.SKULL_WALK;
 		this.cost = Settings.SKULL_COST;
-		this.skill = "-";
+		this.skillDetail = "-";
 		this.name = "Skull";
 	}
 
@@ -22,7 +22,7 @@ public class Skull extends Character {
 		this.atkRange = atkrange;
 		this.walk = walk;
 		this.cost = Settings.SKULL_COST;
-		this.skill = "-";
+		this.skillDetail = "-";
 		this.name = "Skull";
 	}
 }

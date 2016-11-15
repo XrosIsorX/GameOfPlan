@@ -1,0 +1,339 @@
+@charset "utf-8";
+
+/**************************************
+	URL       : http://getamped2.cyberstep.com/
+	Copyright : CyberStep
+	Name      : css3.css
+	Ver       : 1.0
+	file      : ALL
+**************************************/
+
+/* ==========================================
+	Button
+========================================== */
+a.btn,
+.btn {
+	background: -moz-linear-gradient(top,#b9ce44 0%, #a8c732 8%, #8eb92a 50%, #72aa00 51%, #94c516 96%) ;
+	background: -webkit-gradient(linear, left top, left bottom,color-stop(0, #b9ce44), color-stop(0.08, #a8c732), color-stop(0.5, #8eb92a), color-stop(0.51, #72aa00), color-stop(0.96, #94c516)) ;
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b9ce44', endColorstr='#94c516',GradientType=0 ); /* ie */
+	
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+	text-shadow: -1px -1px 1px #666;
+	/* filter: dropshadow(color=#666666, offx=-1, offy=-1); ie */
+	
+	-webkit-box-shadow: 1px 1px 1px #66850a;
+	-moz-box-shadow: 1px 1px 1px #66850a;
+}
+a.btn:hover,
+.btn:hover {
+	background: -moz-linear-gradient(top, #e6f0a3 0%, #d2e638 50%, #c3d825 51%, #dbf043 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6f0a3), color-stop(50%,#d2e638), color-stop(51%,#c3d825), color-stop(100%,#dbf043)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c3d825', endColorstr='#dbf043',GradientType=0 ); /* ie */
+	
+	text-shadow: 1px 1px 1px #fff;
+	filter: dropshadow(color=#ffffff, offx=1, offy=1);
+}
+
+a.btn_notice,
+.btn_notice {
+	background: -moz-linear-gradient(top, #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cb60b3), color-stop(50%,#c146a1), color-stop(51%,#a80077), color-stop(100%,#db36a4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb60b3', endColorstr='#db36a4',GradientType=0 ); /* ie */
+	
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+	text-shadow: -1px -1px 1px #666;
+	filter: dropshadow(color=#666666, offx=-1, offy=-1);
+	
+	-webkit-box-shadow: 1px 1px 1px #66850a;
+	-moz-box-shadow: 1px 1px 1px #66850a;
+}
+
+.a.btn_notice:hover,
+.btn_notice:hover {
+	background: -moz-linear-gradient(top, #fcecfc 0%, #fba6e1 50%, #fd89d7 51%, #ff7cd8 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcecfc), color-stop(50%,#fba6e1), color-stop(51%,#fd89d7), color-stop(100%,#ff7cd8)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcecfc', endColorstr='#ff7cd8',GradientType=0 ); /* ie */
+	
+	text-shadow: 1px 1px 1px #fff;
+	filter: dropshadow(color=#ffffff, offx=1, offy=1);
+}
+
+
+/* ==========================================
+	Container
+========================================== */
+#container,
+#container #contents {
+	background: -moz-linear-gradient(top, #eef6d8 0%, #d8eaa4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eef6d8), color-stop(100%,#d8eaa4)); /* webkit */
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* ==========================================
+	Landing	
+========================================== */
+#footer #copyright {
+	text-shadow: 0px 0px 10px #151515;
+	filter: dropshadow(color=#151515, offx=0, offy=0);
+}
+
+.ui-widget-overlay {
+	opacity: 0.5;
+	-moz-opacity: 0.5; /* Firefox */
+	filter: alpha(opacity=50); /* IE6/7 */
+	-ms-filter: "alpha(opacity=50)"; /* IE8 */
+}
+.ui-dialog,
+#TB_window {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.ui-dialog .ui-dialog-content {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* ==========================================
+	Layout	
+========================================== */
+/* Form Login Header */
+#header_login .form_login_header,
+#login_body .form .form_login,
+#header #nav_global li ul.sub,
+#utility #language li ul.sub,
+#container #left #nav_local {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#header_login .form_login_header .sign_up_btn,
+#login_body .form .sign_up_btn {
+	background: -moz-linear-gradient(top, #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cb60b3), color-stop(50%,#c146a1), color-stop(51%,#a80077), color-stop(100%,#db36a4)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cb60b3', endColorstr='#db36a4',GradientType=0 ); /* ie */
+}
+#header_login .form_login_header .sign_up_btn:hover,
+#login_body .form .sign_up_btn:hover {
+	background: -moz-linear-gradient(top, #fcecfc 0%, #fba6e1 50%, #fd89d7 51%, #ff7cd8 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fcecfc), color-stop(50%,#fba6e1), color-stop(51%,#fd89d7), color-stop(100%,#ff7cd8)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcecfc', endColorstr='#ff7cd8',GradientType=0 ); /* ie */
+}
+#maintenance .bg {
+	background: -moz-linear-gradient(top, #cde57b 0%, #e6f1c7 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cde57b), color-stop(100%,#e6f1c7)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cde57b', endColorstr='#e6f1c7',GradientType=0 ); /* ie */
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+}
+
+
+/* ------------------------------------------
+	Global Nav
+------------------------------------------ */
+#header #nav_global li ul.sub li a,
+#container #left #nav_local #nav_local_list a {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* Sub */
+#header #nav_global li ul.sub li a {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+#header #nav_global li ul.sub li a:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+		
+/* ------------------------------------------
+	Utility
+------------------------------------------ */
+/* Time */
+#utility #time {
+	-moz-border-radius: 100px;
+	border-radius: 100px;
+}
+
+#utility #language li ul.sub li a {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* Sub */
+#utility #language li ul.sub li a {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+#utility #language li ul.sub li a:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+/* ==========================================
+	Local Nav
+========================================== */
+#container #left #nav_local #nav_local_list {
+	background: -moz-linear-gradient(top, #cde57b 0%, #e6f1c7 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cde57b), color-stop(100%,#e6f1c7)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cde57b', endColorstr='#e6f1c7',GradientType=0 ); /* ie */
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+}
+#container #left #nav_local #nav_local_list a {
+	background-color: rgba(255, 255, 255, 0.2);
+}
+#container #left #nav_local #nav_local_list a:hover {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================
+	Center Banner
+========================================== */
+#branding #center_banner .banner_bottom {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+	
+/* ==========================================
+	Cash Item
+========================================== */
+#contents #home_body #contents_upper #cash_items #list_cashitem {
+	background: -moz-linear-gradient(top, #cde57b 0%, #e6f1c7 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cde57b), color-stop(100%,#e6f1c7)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cde57b', endColorstr='#e6f1c7',GradientType=0 ); /* ie */
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+}
+
+#cash_items #list_cashitem .slide_area {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+#cash_items #list_cashitem .slide_area .items .item .desc {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+/* ==========================================
+	Announce
+========================================== */
+/* tabs */
+.announce .tabs .tab a {
+	background: -moz-linear-gradient(top,#b9ce44 0%, #a8c732 8%, #8eb92a 50%, #72aa00 51%, #94c516 96%) ;
+	background: -webkit-gradient(linear, left top, left bottom,color-stop(0, #b9ce44), color-stop(0.08, #a8c732), color-stop(0.5, #8eb92a), color-stop(0.51, #72aa00), color-stop(0.96, #94c516)) ;
+	text-shadow: -1px -1px 1px #666;
+	filter: dropshadow(color=#666666, offx=-1, offy=-1);
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px;
+}
+
+.announce .tabs .tab a:hover,
+.announce .tabs .tab_selected a {
+	background: -moz-linear-gradient(top, #e6f0a3 0%, #d2e638 50%, #c3d825 51%, #dbf043 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6f0a3), color-stop(50%,#d2e638), color-stop(51%,#c3d825), color-stop(100%,#dbf043)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0a3', endColorstr='#dbf043',GradientType=0 ); /* ie */
+	text-shadow: 1px 1px 1px #fff;
+	filter: dropshadow(color=#ffffff, offx=1, offy=1);
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-topleft: 5px;
+}
+
+/* items */
+.announce .content_announce .items_announce {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================
+	Table
+========================================== */
+table,
+.table_simple {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+table th {
+	background: -moz-linear-gradient(top, #e6f1c7 0%, #cde57b 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6f1c7), color-stop(100%,#cde57b)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1c7', endColorstr='#cde57b',GradientType=0 ); /* ie */
+}
+table td {
+	background: -moz-linear-gradient(top, #fff 0%, #eee 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#eee)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 ); /* ie */
+}
+.table_simple th,
+.table_simple td {
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* ie */
+}
+
+/* ==========================================
+	Image Frame
+========================================== */
+.img_frame {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* ==========================================
+	Form
+========================================== */
+.input_txt {
+	background: #FFFFCC; /* old browsers */
+	background: -moz-linear-gradient(top, #FFFF99 0%, #FFFFCC 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFF99), color-stop(100%,#FFFFCC)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFF99', endColorstr='#FFFFCC',GradientType=0 ); /* ie */
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* ==========================================
+	FormsBlock
+========================================== */
+/* BackGround */
+.formsblock .bg {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* fence */
+.formsblock .fence {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* ==========================================
+	Pager
+========================================== */
+.ext_pager {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+/* ==========================================
+	UI Contents
+========================================== */
+.popup {
+	background: -moz-linear-gradient(top, #e6f1c7 0%, #cde57b 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e6f1c7), color-stop(100%,#cde57b)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f1c7', endColorstr='#cde57b',GradientType=0 ); /* ie */
+}
+
+/* ==========================================
+	UI Contents
+========================================== */
+#register_body #register_progressbar li .txt_progressbar {
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}

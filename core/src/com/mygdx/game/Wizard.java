@@ -10,7 +10,7 @@ public class Wizard extends Character{
 		this.atkRange = Settings.WIZARD_ATKRANGE;
 		this.walk = Settings.WIZARD_WALK;
 		this.cost = Settings.WIZARD_COST;
-		this.skill = "Spawn a SKULL on the target area.";
+		this.skillDetail = Settings.WIZARD_SKILL;
 		this.name = "Wizard";
 		this.skillRange = 1;
 	}
@@ -23,7 +23,7 @@ public class Wizard extends Character{
 		this.atkRange = atkrange;
 		this.walk = walk;
 		this.cost = Settings.WIZARD_COST;
-		this.skill = "Spawn a SKULL on the target area.";
+		this.skillDetail = Settings.WIZARD_SKILL;
 		this.name = "Wizard";
 		this.skillRange = 1;
 	}

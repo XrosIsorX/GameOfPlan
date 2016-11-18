@@ -188,4 +188,18 @@ public class Player {
 		return null;
 	}
 	
+	public boolean hasNexus() {
+		for (Character n : characters) {
+			if(n.number == Settings.NEXUSP1_NUMBER) {
+				return true;
+			}
+		}
+		for (Character n : characters) {
+			if(n.number == Settings.NEXUSP2_NUMBER) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

@@ -35,6 +35,8 @@ public class Assets {
 	static Texture attack;
 	static Texture slash;
 	
+	static Texture restart;
+	
 	public static void load()
 	{
 		ground = new Texture(Gdx.files.internal("ground.png"));
@@ -66,5 +68,7 @@ public class Assets {
 		
 		attack = new Texture(Gdx.files.internal("attack.png"));
 		slash= new Texture(Gdx.files.internal("slash.png"));
+		
+		restart = new Texture(Gdx.files.internal("restart.png"));
 	}
 }

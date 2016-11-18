@@ -7,13 +7,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class MenuScreen implements Screen{
 	final GameOfPlan game;
-	OrthographicCamera camera;
 	
-	public MenuScreen(final GameOfPlan gam)
+	public MenuScreen(GameOfPlan game)
 	{
-		this.game = gam;
-		//camera =  new OrthographicCamera();
-		//camera.setToOrtho(false,Settings.SCREEN_X,Settings.SCREEN_Y);
+		this.game = game;
 	}
 	@Override
 	public void show() {
@@ -24,15 +21,12 @@ public class MenuScreen implements Screen{
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
-        //camera.update();
-        //game.batch.setProjectionMatrix(camera.combined);
+      
         
         game.batch.begin();
-        game.font.draw(game.batch,"Welcome to Game Of Plan !!!", 500, 700);
-        game.font.draw(game.batch,"Tap anywhere to start game!", 500, 500);
+        game.batch.draw(Assets.restart, 300, 200);
         game.batch.end();
         
         if(Gdx.input.justTouched()){

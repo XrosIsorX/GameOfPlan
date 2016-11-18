@@ -91,6 +91,15 @@ public class World {
 	public void update() {
 		updateClickMouse();
 		updateAnimation();
+		updateEndGame();
+	}
+	
+	public void updateEndGame() {
+		if (!player1.hasNexus()) {
+			game.setScreen(new MenuScreen(game));
+		} else if (!player2.hasNexus()) {
+			game.setScreen(new MenuScreen(game));
+		}
 	}
 	
 	public void updateAnimation() {

@@ -5,11 +5,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
-public class MenuScreen implements Screen{
+public class RestartScreen implements Screen{
 	final GameOfPlan game;
 	int win;
 	
-	public MenuScreen(GameOfPlan game, int win)
+	public RestartScreen(GameOfPlan game, int win)
 	{
 		this.win = win;
 		this.game = game;

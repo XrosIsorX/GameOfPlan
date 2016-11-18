@@ -87,9 +87,16 @@ public class WorldRenderer {
 	public void renderAllCharacter() {
 		for (Character n : world.player1.characters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
+			batch.setColor(1, 0, 0, 0.2f);
+			batch.draw(Assets.pickBoard,n.position.x, n.position.y);
+			batch.setColor(1,1,1,1);
+			
 		} 
 		for (Character n : world.player2.characters) {
 			checkItemRender(n.number, n.position.x, n.position.y);
+			batch.setColor(0, 1, 0, 0.2f);
+			batch.draw(Assets.pickBoard,n.position.x, n.position.y);
+			batch.setColor(1,1,1,1);
 		}
 	}
 	

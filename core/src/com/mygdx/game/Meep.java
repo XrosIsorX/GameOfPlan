@@ -6,6 +6,9 @@ public class Meep extends Character {
 		super(x, y, width, height, team);
 		this.number = Settings.MEEP_NUMBER;
 		this.hp = Settings.MEEP_HP;
+		this.maxHp = Settings.MEEP_HP;
+		this.mana = Settings.MEEP_MANA;
+		this.maxMana = Settings.MEEP_MANA;
 		this.atk = Settings.MEEP_ATK;
 		this.atkRange = Settings.MEEP_ATKRANGE;
 		this.walk = Settings.MEEP_WALK;
@@ -14,15 +17,4 @@ public class Meep extends Character {
 		this.name = "Meep";
 	}
 
-	public Meep(float x, float y, float width, float height, int team ,int hp ,int atk, int atkrange, int walk) {
-		super(x, y, width, height, team);
-		this.number = Settings.MEEP_NUMBER;
-		this.hp = hp;
-		this.atk = atk;
-		this.atkRange = atkrange;
-		this.walk = walk;
-		this.cost = Settings.MEEP_COST;
-		this.skillDetail = "-";
-		this.name = "Meep";
-	}
 }

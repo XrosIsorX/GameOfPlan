@@ -20,7 +20,6 @@ public class Animation {
 		if (outTime - time <= 0) {
 			World.animations.remove(this);
 		}
-		System.out.println(outTime + " " + time);
 	}
 
 }

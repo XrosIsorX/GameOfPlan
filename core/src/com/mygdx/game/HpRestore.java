@@ -13,7 +13,7 @@ public class HpRestore extends PassiveSkill{
 	@Override
 	public void skill() {
 		for (Character n : World.ally.characters) {
-			n.hp++;
+			n.changeHp(1);
 		}
 	}
 }

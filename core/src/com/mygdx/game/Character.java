@@ -7,12 +7,15 @@ public class Character extends GameObject {
 	int number = 0;
 	int team = 0;
 	int hp = 0;
+	int maxHp = 0;
+	int mana = 0;
+	int maxMana = 0;
 	int atk = 0;
 	int atkRange = 0;
 	int walk = 0;
 	int cost = 0;
-	int mana = 0;
 	boolean isUsed = false;
+
 	String skillDetail;
 	String name;
 	
@@ -38,16 +41,20 @@ public class Character extends GameObject {
 		
 	}
 	
-	public void reduceHP(int reduce) {
-		hp -= reduce;
+	public void changeHp(int change) {
+		hp += change;
+		if (hp >= maxHp) {
+			hp = maxHp;
+		}
 		if (hp <= 0) {
 			World.players[this.team].characters.remove(this);
-			/*if (team == Settings.TURN_P1) {
-				World.player1.characters.remove(this);
-			} else if (team == Settings.TURN_P2)
-			{
-				World.player2.characters.remove(this);
-			}*/
+		}
+	}
+	
+	public void changeMana(int change) {
+		mana += change;
+		if (mana >= maxMana) {
+			mana = maxMana;
 		}
 	}
 	
@@ -68,5 +75,13 @@ public class Character extends GameObject {
 	
 	public int getCol() {
 		return (int)(position.x / Settings.BLOCK_SIZE);
+	}
+	
+	public float getColX() {
+		return getCol() * Settings.BLOCK_SIZE;
+	}
+	
+	public float getRowY() {
+		return getRow() * Settings.BLOCK_SIZE;
 	}
 }

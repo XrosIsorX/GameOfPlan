@@ -6,31 +6,24 @@ public class Wizard extends Character{
 		super(x, y, width, height, team);
 		this.number = Settings.WIZARD_NUMBER;
 		this.hp= Settings.WIZARD_HP;
+		this.maxHp = Settings.WIZARD_HP;
+		this.mana = Settings.WIZARD_MANA;
+		this.maxMana = Settings.WIZARD_MANA;
 		this.atk = Settings.WIZARD_ATK;
 		this.atkRange = Settings.WIZARD_ATKRANGE;
 		this.walk = Settings.WIZARD_WALK;
 		this.cost = Settings.WIZARD_COST;
 		this.skillDetail = Settings.WIZARD_SKILL;
 		this.name = "Wizard";
-		this.skillRange = 1;
-	}
-
-	public Wizard(float x, float y, float width, float height, int team ,int hp ,int atk, int atkrange, int walk) {
-		super(x, y, width, height, team);
-		this.number = Settings.WIZARD_NUMBER;
-		this.hp = hp;
-		this.atk = atk;
-		this.atkRange = atkrange;
-		this.walk = walk;
-		this.cost = Settings.WIZARD_COST;
-		this.skillDetail = Settings.WIZARD_SKILL;
-		this.name = "Wizard";
-		this.skillRange = 1;
+		this.skillRange = Settings.WIZARD_SKILLRANGE;;
 	}
 	
 	@Override
 	public void skill() {
-		World.state = Settings.STATE_SKILLSPAWN;
-		World.skillSpawn = Settings.SKULL_NUMBER;
+		if (this.mana >= Settings.WIZARD_SKILLCOST) {
+			World.state = Settings.STATE_SKILLSPAWN;
+			World.skillSpawn = Settings.SKULL_NUMBER;
+			changeMana(-1 * Settings.WIZARD_SKILLCOST);
+		}
 	}
 }

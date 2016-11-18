@@ -32,7 +32,7 @@ public class World {
 	
 	public int[] resource;
 	
-	public World(GameOfPlan game, List<Character> selectedCharactersP1, List<PassiveSkill> selectedPassiveSkillsP1, List<Character> selectedCharactersP2, List<PassiveSkill> selectedPassiveSkillsP2) {
+	public World(GameOfPlan game, PickItemScreenPlayer player1, PickItemScreenPlayer player2) {
 		this.game = game;
 		board = new Board();
 		mouse = new Mouse();
@@ -41,17 +41,18 @@ public class World {
 		
 		renderFont = Settings.FONT_RENDER_NOTHING;
 		
-		player1 = new Player(selectedCharactersP1, selectedPassiveSkillsP1, this, Settings.BOARD_BLOCK_UPPER);
-		player2 = new Player(selectedCharactersP2, selectedPassiveSkillsP2, this, Settings.BOARD_BLOCK_LOWER);
+		this.player1 = new Player(player1, this, Settings.BOARD_BLOCK_UPPER);
+		this.player2 = new Player(player2, this, Settings.BOARD_BLOCK_LOWER);
 		players = new Player[Settings.TURN_P2 + 1];
-		players[Settings.TURN_P1] = player1;
-		players[Settings.TURN_P2] = player2;
-		ally = player1;
-		enemy = player2;
+		players[Settings.TURN_P1] = this.player1;
+		players[Settings.TURN_P2] = this.player2;
+		ally = this.player1;
+		enemy = this.player2;
 		
 		setItem();
 		setButton();
 		setTower();
+
 	}
 
 	public void setButton() {
@@ -74,6 +75,7 @@ public class World {
 		}
 		for (PassiveSkill n : player1.selectedPassiveSkills) {
 			n.setPosition(i * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
+			i++;
 		}
 		i = 0;
 		for (Character n : player2.selectedCharacters) {
@@ -82,6 +84,7 @@ public class World {
 		}
 		for (PassiveSkill n : player2.selectedPassiveSkills) {
 			n.setPosition((i + Settings.BOARD_PLAYER + Settings.BOARD_X) * Settings.BLOCK_SIZE, Settings.BOARD_HEIGHT - ( 2 * Settings.BLOCK_SIZE));
+			i++;
 		}
 	}
 	
@@ -91,41 +94,41 @@ public class World {
 	}
 	
 	public void updateAnimation() {
-		for (Animation n : animations) {
+		List<Animation> substitute = new LinkedList<Animation>(animations);
+		for (Animation n : substitute) {
 			n.updateTime();
 		}
 	}
 	
 	public void updateClickMouse() {
 		if (Gdx.input.justTouched()) {
-			updateButtonEndTurn();
-			updateButtonSkill();	
-			updateState();
+			if (ally.buttonEndTurn.contains(mouse.getX(), mouse.getY())) {
+				updateButtonEndTurn();
+			} else if (ally.buttonSkill.contains(mouse.getX(), mouse.getY())) {
+				updateButtonSkill();				
+			} else {
+				updateState();	
+			}
 		}
 	}
 	
 	public void updateButtonEndTurn() {
-		if(ally.buttonEndTurn.contains(mouse.getX(), mouse.getY())) {
-			ally.clickButtonEndTurn();
-			if (turn == Settings.TURN_P1) {
-				ally = player2;
-				enemy = player1;
-				turn = Settings.TURN_P2;
-			} else if (turn == Settings.TURN_P2) {
-				ally = player1;
-				enemy = player2;
-				turn = Settings.TURN_P1;
-			}
-			state = Settings.STATE_STILL;
+		ally.clickButtonEndTurn();
+		if (turn == Settings.TURN_P1) {
+			ally = player2;
+			enemy = player1;
+			turn = Settings.TURN_P2;
+		} else if (turn == Settings.TURN_P2) {
+			ally = player1;
+			enemy = player2;
+			turn = Settings.TURN_P1;
 		}
-
+		state = Settings.STATE_STILL;
 	}
 	
 	public void updateButtonSkill() {
 		if (state == Settings.STATE_ACTION) {
-			if(ally.buttonSkill.contains(mouse.getX(), mouse.getY())) {
-				ally.clickButtonSkill(pick);
-			}
+			ally.clickButtonSkill(pick);
 		}
 	}
 	

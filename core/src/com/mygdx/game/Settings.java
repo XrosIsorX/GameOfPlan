@@ -1,6 +1,10 @@
 package com.mygdx.game;
 
 public abstract class Settings {
+	//PickItemScreen
+	static final float SELECTEDITEMP1_X = 100;
+	static final float SELECTEDITEMP2_X = 986;
+	
 	//board and object on board
 	static final int BOARD_X = 11;
 	static final int BOARD_Y = 11;
@@ -37,8 +41,8 @@ public abstract class Settings {
 	static final float BUTTON_ENDTURN_WIDTH = 150;
 	static final float BUTTON_ENDTURN_HEIGHT = 64;
 	static final float BUTTON_SKILLP1_X = 20;
-	static final float BUTTON_SKILLP2_X = 917;
-	static final float BUTTON_SKILL_Y = 325;
+	static final float BUTTON_SKILLP2_X = 916;
+	static final float BUTTON_SKILL_Y = 300;
 	static final float BUTTON_SKILL_WIDTH = 50;
 	static final float BUTTON_SKILL_HEIGHT = 30;
 	
@@ -62,22 +66,29 @@ public abstract class Settings {
 	static final String NEXUS_SKILL = "-";
 	
 	static final int SWORDMAN_HP = 10;
+	static final int SWORDMAN_MANA = 5;
 	static final int SWORDMAN_ATK = 3;
 	static final int SWORDMAN_ATKRANGE = 1;
 	static final int SWORDMAN_WALK = 2;
 	static final int SWORDMAN_COST = 0;
-	static final String SWORDMAN_SKILL = "Deal 3 damage around \nitself 2 blocks.";
-	static final int SWORDMAN_MANA = 5;
+	static final int SWORDMAN_SKILLCOST = 3;
+	static final int SWORDMAN_SKILLRANGE = 2;
+	static final String SWORDMAN_SKILL = "Deal 2 damage around \nitself 2 blocks.";
+
 	
 	static final int WIZARD_HP = 5;
+	static final int WIZARD_MANA = 10;
 	static final int WIZARD_ATK = 1;
 	static final int WIZARD_ATKRANGE = 2;
 	static final int WIZARD_WALK = 3;
 	static final int WIZARD_COST = 0;
-	static final String WIZARD_SKILL = "Spawn 1 SKULL on the \ntarget block.";
-	static final int WIZARD_MANA = 10;
+	static final int WIZARD_SKILLCOST = 3;
+	static final int WIZARD_SKILLRANGE = 1;
+	static final String WIZARD_SKILL = "Spawn 1 SKULL on the \ntarget block(range 1 block).";
+	
 	
 	static final int MEEP_HP = 2;
+	static final int MEEP_MANA = 0;
 	static final int MEEP_ATK = 2;
 	static final int MEEP_ATKRANGE = 1;
 	static final int MEEP_WALK = 1;
@@ -85,6 +96,7 @@ public abstract class Settings {
 	static final String MEEP_SKILL = "-";
 	
 	static final int SKULL_HP = 3;
+	static final int SKULL_MANA = 0;
 	static final int SKULL_ATK = 1;
 	static final int SKULL_ATKRANGE = 1;
 	static final int SKULL_WALK = 2;

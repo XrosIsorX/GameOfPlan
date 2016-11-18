@@ -112,17 +112,18 @@ public class WorldRenderer {
 		} else if (world.turn == Settings.TURN_P2) {
 			x = 916;
 		}
-		renderCharacterFont(pick.name , pick.cost , pick.hp , pick.atk , pick.atkRange , pick.walk , pick.skillDetail , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
+		renderCharacterFont(pick.name , pick.cost , pick.hp, pick.mana, pick.atk , pick.atkRange , pick.walk , pick.skillDetail , x , Settings.BOARD_HEIGHT - (2.5f * Settings.BLOCK_SIZE));
 	}
 	
-	public void renderCharacterFont(String name , int cost , int hp , int atk , int atkRange , int walk , String skill , float x , float y) {
+	public void renderCharacterFont(String name , int cost , int hp, int mana, int atk , int atkRange , int walk , String skill , float x , float y) {
 		font.draw(batch , "Name : " + name, x , y);
 		font.draw(batch , "Cost : " + cost , x , y - (0.5f * Settings.BLOCK_SIZE));
 		font.draw(batch , "Hp : " + hp , x , y - (1f * Settings.BLOCK_SIZE));
-		font.draw(batch , "Atk : " + atk , x , y - (1.5f * Settings.BLOCK_SIZE));
-		font.draw(batch , "Atk range : " + atkRange, x , y - (2f * Settings.BLOCK_SIZE));
-		font.draw(batch , "Walk : " + walk , x , y - (2.5f * Settings.BLOCK_SIZE));
-		font.draw(batch , skill , x , y - (3.8f * Settings.BLOCK_SIZE));
+		font.draw(batch , "Mana : " + mana , x , y - (1.5f * Settings.BLOCK_SIZE));
+		font.draw(batch , "Atk : " + atk , x , y - (2f * Settings.BLOCK_SIZE));
+		font.draw(batch , "Atk range : " + atkRange, x , y - (2.5f * Settings.BLOCK_SIZE));
+		font.draw(batch , "Walk : " + walk , x , y - (3f * Settings.BLOCK_SIZE));
+		font.draw(batch , skill , x , y - (4.0f * Settings.BLOCK_SIZE));
 	}
 	
 	public void checkPassiveSkillFontRender(PassiveSkill passiveSkill) {

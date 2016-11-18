@@ -14,42 +14,42 @@ public class PickItemScreen implements Screen{
 	
 	List<Character> characters;
 	List<PassiveSkill> passiveSkills;
-	public List<Character> selectedCharactersP1;
-	public List<PassiveSkill> selectedPassiveSkillsP1;
-	public List<Character> selectedCharactersP2;
-	public List<PassiveSkill> selectedPassiveSkillsP2;
 	
-	Character pick;
+	PickItemScreenPlayer player1;
+	PickItemScreenPlayer player2;
+	PickItemScreenPlayer ally;
 
-	Rectangle buttonSelectP1;
-	Rectangle buttonSelectP2;
 	Rectangle buttonStartGame;
 	
+	Mouse mouse;
 	public int turn =0;
+	int pick = 0;
+	float pickX = 0;
+	float pickY = 0;
 	
 	public PickItemScreen(GameOfPlan gam) {
 		this.game = gam;
-		
-		characters = new LinkedList<Character>();
-		selectedCharactersP1 = new LinkedList<Character>();
-		selectedPassiveSkillsP1 = new LinkedList<PassiveSkill>();
-		selectedCharactersP2 = new LinkedList<Character>();
-		selectedPassiveSkillsP2 = new LinkedList<PassiveSkill>();
-		
-		buttonSelectP1 = new Rectangle(Settings.BUTTON_SELECTP1_X ,Settings.BUTTON_SELECT_Y, Settings.BUTTON_SELECT_WIDTH, Settings.BUTTON_SELECT_HEIGHT);
-		buttonSelectP2 = new Rectangle(Settings.BUTTON_SELECTP2_X ,Settings.BUTTON_SELECT_Y, Settings.BUTTON_SELECT_WIDTH, Settings.BUTTON_SELECT_HEIGHT);
-		buttonStartGame = new Rectangle(Settings.BUTTON_STARTGAME_X, Settings.BUTTON_STARTGAME_Y, Settings.BUTTON_STARTGAME_WIDTH, Settings.BUTTON_STARTGAME_HEIGHT);
-
-		setCharacter();
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		
+		player1 = new PickItemScreenPlayer(Settings.TURN_P1);
+		player2 = new PickItemScreenPlayer(Settings.TURN_P2);
+		ally = player1;
+		mouse = new Mouse();
+		setLinkedListItem();
+		setButton();
+		setItem();
 	}
 	
-	public void setCharacter() {
+	public void setLinkedListItem() {
+		characters = new LinkedList<Character>();
+		passiveSkills = new LinkedList<PassiveSkill>();
+	}
+	
+	public void setButton() {
+		player1.createButtonSelect(Settings.BUTTON_SELECTP1_X, Settings.BUTTON_SELECT_Y);
+		player2.createButtonSelect(Settings.BUTTON_SELECTP2_X, Settings.BUTTON_SELECT_Y);
+		buttonStartGame = new Rectangle(Settings.BUTTON_STARTGAME_X, Settings.BUTTON_STARTGAME_Y, Settings.BUTTON_STARTGAME_WIDTH, Settings.BUTTON_STARTGAME_HEIGHT);
+	}
+	
+	public void setItem() {
 		Swordman swordman = new Swordman(400, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE,0);
 		characters.add(swordman);
 		Wizard wizard = new Wizard(600, 500, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, 0);
@@ -65,49 +65,51 @@ public class PickItemScreen implements Screen{
 	}
 	
 	public void updateClick() {
-		if (Gdx.input.justTouched()) {
-			for (Character n : characters) {
-				if (n.bounds.contains(Gdx.input.getX(),Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-					pick = n;
-				}
+		for (Character n : characters) {
+			if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+				pick = n.number;
+				pickX = n.position.x;
+				pickY = n.position.y;
+			}
+		}
+		for (PassiveSkill n : passiveSkills) {
+			if (n.bounds.contains(mouse.getX(), mouse.getY())) {
+				pick = n.number;
+				pickX = n.position.x;
+				pickY = n.position.y;
 			}
 		}
 	}
 	
 	public void updateButtonSelect() {
 		if (turn < Settings.NUMBER_PICKITEM * 2) {
-			if (Gdx.input.justTouched()) {
-				if (turn % 2 ==0) {
-					if (buttonSelectP1.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-						selectedCharactersP1.add(pick);
-						turn++;
-					}
+			if (ally.buttonSelect.contains(mouse.getX(), mouse.getY())) {
+				ally.checkSelectedItemAdd(pick, ally.selectdItemX,  560 - ((turn / 2) * 100));
+				turn++;
+				if (turn % 2 == 0) {
+					ally = player1;
 				} else {
-					if (buttonSelectP2.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-						selectedCharactersP2.add(pick);
-						turn++;
-					}
+					ally = player2;
 				}
 			}
 		}
 	}
 	
 	public void updateButtonStartGame() {
-		if (turn == 6) {
-			if (Gdx.input.justTouched()) {
-				if (buttonStartGame.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
-					game.setScreen(new GameScreen(game, selectedCharactersP1, selectedPassiveSkillsP1, selectedCharactersP2, selectedPassiveSkillsP2));
-		        	dispose();
-				}
+		if (turn == 2 * Settings.NUMBER_PICKITEM) {
+			if (buttonStartGame.contains(Gdx.input.getX(), Settings.BOARD_HEIGHT - Gdx.input.getY())) {
+				game.setScreen(new GameScreen(game, player1, player2));
+	        	dispose();
 			}
 		}
 	}
 	
-	public void update()
-	{
-		updateClick();
-		updateButtonSelect();
-		updateButtonStartGame();
+	public void update() {
+		if (Gdx.input.justTouched()) {
+			updateClick();
+			updateButtonSelect();
+			updateButtonStartGame();
+		}
 	}
 
 	@Override
@@ -128,32 +130,24 @@ public class PickItemScreen implements Screen{
         renderButton();
         renderCharacter();
         renderPick();
+        renderSelectedItem();
         game.batch.end();
 	}
 	
 	public void renderPick() {
-		if (pick != null) {
-			game.batch.setColor(1, 1, 1, 0.5f);
-			game.batch.draw(Assets.pickBoard, pick.position.x, pick.position.y);
-			game.batch.setColor(1, 1, 1, 1);
+		game.batch.setColor(1, 1, 1, 0.5f);
+		if(pick != 0) {
+			game.batch.draw(Assets.pickBoard, pickX, pickY);
 		}
+		game.batch.setColor(1, 1, 1, 1);
 	}
 	
 	public void renderCharacter() {
 		for(Character n : characters) {
-			if (n.number == Settings.SWORDMAN_NUMBER) {
-				game.batch.draw(Assets.swordman, n.position.x, n.position.y);
-			} else if (n.number == Settings.WIZARD_NUMBER) {
-				game.batch.draw(Assets.wizard, n.position.x, n.position.y);
-			} else if (n.number == Settings.MEEP_NUMBER) {
-				game.batch.draw(Assets.meep, n.position.x, n.position.y);
-			} else if (n.number == Settings.SKULL_NUMBER) {
-				game.batch.draw(Assets.skull, n.position.x, n.position.y);
-			} else if (n.number == Settings.MANARESTORE_NUMBER) {
-				game.batch.draw(Assets.manaRestore, n.position.x, n.position.y);
-			} else if (n.number == Settings.HPRESTORE_NUMBER) {
-				game.batch.draw(Assets.hpRestore, n.position.x, n.position.y);
-			}
+			checkItemRender(n.number, n.position.x, n.position.y);
+		}
+		for (PassiveSkill n : passiveSkills) {
+			checkItemRender(n.number, n.position.x, n.position.y);
 		}
 	}
 	
@@ -162,40 +156,55 @@ public class PickItemScreen implements Screen{
 	}
 	
 	public void renderButton() {
-		game.batch.draw(Assets.buttonSelect, Settings.BUTTON_SELECTP1_X, Settings.BUTTON_SELECT_Y);
-		game.batch.draw(Assets.buttonSelect, Settings.BUTTON_SELECTP2_X, Settings.BUTTON_SELECT_Y);
+		game.batch.draw(Assets.buttonSelect, player1.buttonSelect.x, player1.buttonSelect.y);
+		game.batch.draw(Assets.buttonSelect, player2.buttonSelect.x, player2.buttonSelect.y);
 		if (turn == 6) {
 			game.batch.draw(Assets.buttonStartGame, Settings.BUTTON_STARTGAME_X, Settings.BUTTON_STARTGAME_Y);
 		}
 	}
 	
 	public void renderSlotBlock() {
-		for (Character n : selectedCharactersP1) {
-			int i = 0;
-			checkItemRender(n, 100,  560 - (i * 100));
+		for (int i = 0; i < Settings.NUMBER_PICKITEM; i++) {
+			game.batch.draw(Assets.slotBlock, Settings.SELECTEDITEMP1_X,  560 - (i * 100));
+			game.batch.draw(Assets.slotBlock, Settings.SELECTEDITEMP2_X,  560 - (i * 100));
+		}
+	}
+	
+	public void renderSelectedItem() {
+		int i = 0;
+		for (Character n : player1.selectedCharacters) {
+			checkItemRender(n.number, n.position.x, n.position.y);
 			i++;
 		}
-		for (Character n : selectedCharactersP2) {
-			int i = 0;
-			checkItemRender(n, 986,  560 - (i * 100));
+		for (PassiveSkill n : player1.selectedPassiveSkills) {
+			checkItemRender(n.number, n.position.x, n.position.y);
+			i++;
+		}
+		i = 0;
+		for (Character n : player2.selectedCharacters) {
+			checkItemRender(n.number, n.position.x, n.position.y);
+			i++;
+		}
+		for (PassiveSkill n : player2.selectedPassiveSkills) {
+			checkItemRender(n.number, n.position.x, n.position.y);
 			i++;
 		}
 	}
 	
-	public void checkItemRender(Character item, float x, float y) {
-		if (item == null) {
+	public void checkItemRender(int number, float x, float y) {
+		if (number == 0) {
 			game.batch.draw(Assets.slotBlock, x, y);
-		} else if (item.number == Settings.SWORDMAN_NUMBER) {
+		} else if (number == Settings.SWORDMAN_NUMBER) {
 			game.batch.draw(Assets.swordman, x, y);
-		} else if (item.number == Settings.WIZARD_NUMBER) {
+		} else if (number == Settings.WIZARD_NUMBER) {
 			game.batch.draw(Assets.wizard, x, y);
-		} else if (item.number == Settings.MEEP_NUMBER) {
+		} else if (number == Settings.MEEP_NUMBER) {
 			game.batch.draw(Assets.meep, x, y);
-		} else if (item.number == Settings.SKULL_NUMBER) {
+		} else if (number == Settings.SKULL_NUMBER) {
 			game.batch.draw(Assets.skull, x, y);
-		} else if (item.number == Settings.HPRESTORE_NUMBER) {
+		} else if (number == Settings.HPRESTORE_NUMBER) {
 			game.batch.draw(Assets.hpRestore, x, y);
-		} else if (item.number == Settings.MANARESTORE_NUMBER) {
+		} else if (number == Settings.MANARESTORE_NUMBER) {
 			game.batch.draw(Assets.manaRestore, x, y);
 		}
 	}
@@ -215,7 +224,7 @@ public class PickItemScreen implements Screen{
 		game.font.draw(game.batch,"Minions",510, 450);
 		game.font.draw(game.batch,"Skills",515, 300);
 	}
-	
+
 	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
@@ -242,6 +251,12 @@ public class PickItemScreen implements Screen{
 
 	@Override
 	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void show() {
 		// TODO Auto-generated method stub
 		
 	}

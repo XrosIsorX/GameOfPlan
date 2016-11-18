@@ -38,8 +38,8 @@ public class GameOfPlan extends Game {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		Assets.load();
-		//this.setScreen(new PickItemScreen(this));
-		this.setScreen(new GameScreen(this, selectedCharactersP1, selectedPassiveSkillsP1, selectedCharactersP2, selectedPassiveSkillsP2));
+		this.setScreen(new PickItemScreen(this));
+		//this.setScreen(new GameScreen(this, selectedCharactersP1, selectedPassiveSkillsP1, selectedCharactersP2, selectedPassiveSkillsP2));
 	}
 	
 	public void render() {

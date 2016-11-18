@@ -13,7 +13,7 @@ public class ManaRestore extends PassiveSkill{
 	@Override
 	public void skill() {
 		for (Character n : World.ally.characters) {
-			n.mana++;
+			n.changeMana(1);
 		}
 	}
 }

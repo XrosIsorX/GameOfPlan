@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class Player {
 	public Rectangle buttonEndTurn;
 	public Rectangle buttonSkill;
-	//public List<Character> towers;
+	
 	public List<Character> characters;
 	public List<Character> selectedCharacters;
 	public List<PassiveSkill> selectedPassiveSkills;
@@ -19,13 +19,11 @@ public class Player {
 	
 	public int resource = 4;
 	
-	public Player(List<Character> selectedCharacters, List<PassiveSkill> selectedPassiveSkills, World world, int boardArea) {
-		this.selectedCharacters = selectedCharacters;
-		this.selectedPassiveSkills = selectedPassiveSkills;
+	public Player(PickItemScreenPlayer player, World world, int boardArea) {
+		this.selectedCharacters = player.selectedCharacters;
+		this.selectedPassiveSkills = player.selectedPassiveSkills;
 		this.characters = new LinkedList<Character>();
-		//this.towers = new LinkedList<Character>();
 		this.boardArea = boardArea;
-		
 		this.world = world;
 	}
 	
@@ -75,7 +73,7 @@ public class Player {
 	public void attack(float x, float y) {
 		if (world.enemy.canGetCharacters(x, y)) {
 			Character target = world.enemy.getCharacters(x, y);
-			target.reduceHP(world.pick.atk);
+			target.changeHp(-1 * world.pick.atk);
 			world.pick.isUsed = true;
 			Animation attack = new Animation(target.position.x, target.position.y, 200, Settings.ANIMATION_ATTACK);
 			World.animations.add(attack);
@@ -103,21 +101,25 @@ public class Player {
 	
 	public void spawnSwordman(float x, float y) {
 		Swordman swordman = new Swordman(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
+		swordman.isUsed = true;
 		characters.add(swordman);
 	}
 	
 	public void spawnWizard(float x, float y) {
 		Wizard wizard = new Wizard(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
+		wizard.isUsed = true;
 		characters.add(wizard);
 	}
 	
 	public void spawnMeep(float x, float y) {
 		Meep meep = new Meep(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
+		meep.isUsed = true;
 		characters.add(meep);
 	}
 	
 	public void spawnSkull(float x, float y) {
 		Skull skull = new Skull(x, y, Settings.BLOCK_SIZE, Settings.BLOCK_SIZE, world.turn);
+		skull.isUsed = true;
 		characters.add(skull);
 	}
 	

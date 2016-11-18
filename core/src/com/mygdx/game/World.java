@@ -96,9 +96,9 @@ public class World {
 	
 	public void updateEndGame() {
 		if (!player1.hasNexus()) {
-			game.setScreen(new MenuScreen(game));
+			game.setScreen(new MenuScreen(game, turn));
 		} else if (!player2.hasNexus()) {
-			game.setScreen(new MenuScreen(game));
+			game.setScreen(new MenuScreen(game, turn));
 		}
 	}
 	

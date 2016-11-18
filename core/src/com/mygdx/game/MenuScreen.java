@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class MenuScreen implements Screen{
 	final GameOfPlan game;
+	int win;
 	
-	public MenuScreen(GameOfPlan game)
+	public MenuScreen(GameOfPlan game, int win)
 	{
+		this.win = win;
 		this.game = game;
 	}
 	@Override
@@ -26,6 +28,11 @@ public class MenuScreen implements Screen{
       
         
         game.batch.begin();
+        if (win == Settings.TURN_P1) {
+            game.batch.draw(Assets.winP1, 300, 500);
+        } else if (win == Settings.TURN_P2) {
+        	game.batch.draw(Assets.winP2, 300, 500);
+        }
         game.batch.draw(Assets.restart, 300, 200);
         game.batch.end();
         

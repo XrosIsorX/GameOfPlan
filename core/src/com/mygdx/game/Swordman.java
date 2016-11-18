@@ -30,13 +30,13 @@ public class Swordman extends Character{
 					n.changeHp(-2);
 				}
 			}
-//			for (int i = -1 * skillRange; i <= this.getRow() + skillRange; i++) {
-//				for (int j = skillRange + this.getCol(); j >= this.getCol() - skillRange; j--) {
-//					Animation slash = new Animation(this.getColX() + (i * Settings.BLOCK_SIZE), j * Settings.BLOCK_SIZE, 200, Settings.ANIMATION_SLASH);
-//					System.out.println((this.getColX() + i * Settings.BLOCK_SIZE) + " " + (j * Settings.BLOCK_SIZE));
-//					World.animations.add(slash);
-//				}
-//			}
+			for (int i = -1 * skillRange; i <= this.getRow() + skillRange; i++) {
+				for (int j = skillRange + this.getCol(); j >= this.getCol() - skillRange; j--) {
+					Animation slash = new Animation(this.getColX() + (i * Settings.BLOCK_SIZE), j * Settings.BLOCK_SIZE, 200, Settings.ANIMATION_SLASH);
+					System.out.println((this.getColX() + i * Settings.BLOCK_SIZE) + " " + (j * Settings.BLOCK_SIZE));
+					World.animations.add(slash);
+				}
+			}
 			changeMana(-1 * Settings.SWORDMAN_SKILLCOST);
 		}
 		World.state = Settings.STATE_STILL;

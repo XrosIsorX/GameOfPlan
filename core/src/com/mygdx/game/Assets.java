@@ -36,6 +36,8 @@ public class Assets {
 	static Texture slash;
 	
 	static Texture restart;
+	static Texture winP1;
+	static Texture winP2;
 	
 	public static void load()
 	{
@@ -70,5 +72,7 @@ public class Assets {
 		slash= new Texture(Gdx.files.internal("slash.png"));
 		
 		restart = new Texture(Gdx.files.internal("restart.png"));
+		winP1 = new Texture(Gdx.files.internal("winP1.png"));
+		winP2 = new Texture(Gdx.files.internal("winP2.png"));
 	}
 }

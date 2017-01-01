@@ -75,8 +75,7 @@ public class Player {
 			Character target = world.enemy.getCharacters(x, y);
 			target.changeHp(-1 * world.pick.atk);
 			world.pick.isUsed = true;
-			Animation attack = new Animation(target.position.x, target.position.y, 200, Settings.ANIMATION_ATTACK);
-			World.animations.add(attack);
+			world.addAnimation(target.position.x, target.position.y, 200, Settings.ANIMATION_ATTACK);
 		}
 	}
 	

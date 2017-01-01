@@ -243,8 +243,14 @@ public class World {
 				|| player2.canGetCharacters(mouse.getX(), mouse.getY());
 	}
 	
+	public void addAnimation(float x, float y, long outTime, int picture) {
+		Animation attack = new Animation(x, y, outTime, picture);
+		World.animations.add(attack);
+	}
+	
 	public Board getBoard() {
 		return board;
 	}
+	
 	
 }

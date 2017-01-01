@@ -1,4 +1,4 @@
-package com.mygdx.game;
+	package com.mygdx.game;
 
 public class Skull extends Character {
 

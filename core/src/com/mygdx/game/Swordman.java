@@ -26,17 +26,18 @@ public class Swordman extends Character{
 		if (this.mana >= Settings.SWORDMAN_SKILLCOST) {
 			List<Character> substitute = new LinkedList<Character>(World.enemy.characters);
 			for (Character n : substitute) {
-				if (n.getCol() <= this.getCol() + 2 && n.getCol() >= this.getCol() - 2 && n.getRow() <= this.getRow() + 2 && n.getCol() >= this.getRow() - 2) {
+				if (n.getCol() <= this.getCol() + Settings.SWORDMAN_SKILLRANGE && n.getCol() >= this.getCol() - Settings.SWORDMAN_SKILLRANGE && n.getRow() <= this.getRow() + Settings.SWORDMAN_SKILLRANGE && n.getRow() >= this.getRow() - Settings.SWORDMAN_SKILLRANGE) {
 					n.changeHp(-2);
 				}
 			}
-//			for (int i = -1 * skillRange; i <= this.getRow() + skillRange; i++) {
-//				for (int j = skillRange + this.getCol(); j >= this.getCol() - skillRange; j--) {
-//					Animation slash = new Animation(this.getColX() + (i * Settings.BLOCK_SIZE), j * Settings.BLOCK_SIZE, 200, Settings.ANIMATION_SLASH);
-//					System.out.println((this.getColX() + i * Settings.BLOCK_SIZE) + " " + (j * Settings.BLOCK_SIZE));
-//					World.animations.add(slash);
-//				}
-//			}
+			for (int i = this.getRow() - Settings.SWORDMAN_SKILLRANGE; i <= this.getRow() + Settings.SWORDMAN_SKILLRANGE; i++) {
+				for (int j = this.getCol() - Settings.SWORDMAN_SKILLRANGE; j <= this.getCol() + Settings.SWORDMAN_SKILLRANGE; j++) {
+					if (i != this.getRow() || j != this.getCol()) {
+						Animation slash = new Animation(j * Settings.BLOCK_SIZE, i * Settings.BLOCK_SIZE, 200, Settings.ANIMATION_SLASH);
+						World.animations.add(slash);
+					}
+				}
+			}
 			changeMana(-1 * Settings.SWORDMAN_SKILLCOST);
 		}
 		World.state = Settings.STATE_STILL;

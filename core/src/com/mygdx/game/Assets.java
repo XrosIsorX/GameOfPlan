@@ -51,10 +51,10 @@ public class Assets {
 		pickBoard = new Texture(Gdx.files.internal("pickboard.png"));
 		pickCharacter = new Texture(Gdx.files.internal("pickCharacter.png"));
 
-		pickitemscreen = new Texture(Gdx.files.internal("pickitemScreen.png"));
+		pickitemscreen = new Texture(Gdx.files.internal("pickItemScreen.png"));
 		turnP1Screen = new Texture(Gdx.files.internal("turnP1Screen.png"));
 		turnP2Screen = new Texture(Gdx.files.internal("turnP2Screen.png"));
-		slotBlock = new Texture(Gdx.files.internal("slotBlock.png"));
+		slotBlock = new Texture(Gdx.files.internal("slotblock.png"));
 		
 		buttonSelect = new Texture(Gdx.files.internal("buttonSelect.png"));
 		buttonStartGame = new Texture(Gdx.files.internal("buttonStartGame.png"));
